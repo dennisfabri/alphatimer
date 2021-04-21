@@ -1,0 +1,41 @@
+package de.dennisfabri.alphatimer.server;
+
+import de.dennisfabri.alphatimer.serial.SerialConnectionBuilder;
+import de.dennisfabri.alphatimer.serial.SerialPortWriter;
+import de.dennisfabri.alphatimer.serial.configuration.SerialConfiguration;
+import gnu.io.NoSuchPortException;
+import gnu.io.PortInUseException;
+import gnu.io.UnsupportedCommOperationException;
+import lombok.extern.slf4j.Slf4j;
+
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+
+@Slf4j
+public class WriteToSerialPort {
+
+    void run(String filename, String port, String config, SerialConnectionBuilder serialConnectionBuilder)
+            throws UnsupportedCommOperationException, NoSuchPortException, PortInUseException, IOException {
+        if (!hasValue(filename)) {
+            log.error("Filename not specified.");
+            return;
+        }
+        if (!hasValue(port)) {
+            port = serialConnectionBuilder.autoconfigurePort();
+        }
+        SerialConfiguration serialConfiguration = new ConfigurationValues().getSerialConfigurationObject(config);
+
+        log.info("Writing content of file {} to port {} with settings {}.", filename, port, serialConfiguration);
+        try (SerialPortWriter writer = serialConnectionBuilder.configure(port, serialConfiguration).buildWriter()) {
+            for (byte b : Files.readAllBytes(Path.of(filename))) {
+                writer.write(b);
+            }
+        }
+        log.info("Finished");
+    }
+
+    private boolean hasValue(String value) {
+        return value != null && !value.trim().isEmpty();
+    }
+}

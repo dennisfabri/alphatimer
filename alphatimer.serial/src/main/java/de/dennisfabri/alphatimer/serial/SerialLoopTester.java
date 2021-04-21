@@ -1,0 +1,100 @@
+package de.dennisfabri.alphatimer.serial;
+
+import de.dennisfabri.alphatimer.serial.configuration.SerialConfiguration;
+import de.dennisfabri.alphatimer.serial.exceptions.NotEnoughSerialPortsException;
+import gnu.io.NoSuchPortException;
+import gnu.io.PortInUseException;
+import gnu.io.UnsupportedCommOperationException;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+
+import java.io.IOException;
+import java.util.TooManyListenersException;
+
+@RequiredArgsConstructor
+@Slf4j
+public class SerialLoopTester {
+
+    private final SerialConnectionBuilder serialConnectionBuilder;
+
+    public boolean test() throws
+                          NotEnoughSerialPortsException,
+                          TooManyListenersException,
+                          UnsupportedCommOperationException,
+                          NoSuchPortException,
+                          PortInUseException,
+                          IOException,
+                          InterruptedException {
+        String[] ports = serialConnectionBuilder.listAvailablePorts();
+        if (ports.length < 2) {
+            throw new NotEnoughSerialPortsException();
+        }
+
+        String port1 = ports[ports.length - 2];
+        String port2 = ports[ports.length - 1];
+
+        if (!test(port1, port2, SerialConfiguration.ARES21)) {
+            return false;
+        }
+        if (!test(port2, port1, SerialConfiguration.ARES21)) {
+            return false;
+        }
+        if (!test(port1, port2, SerialConfiguration.Quantum)) {
+            return false;
+        }
+        if (!test(port2, port1, SerialConfiguration.Quantum)) {
+            return false;
+        }
+        return true;
+    }
+
+    private boolean test(String readerPort, String writerPort, SerialConfiguration config)
+            throws
+            TooManyListenersException,
+            UnsupportedCommOperationException,
+            NoSuchPortException,
+            PortInUseException, IOException, InterruptedException {
+        log.info("Sending data from {} to {} with configuration {}.", readerPort, writerPort, config);
+
+        TestByteListener tbl = new TestByteListener();
+
+        try (SerialPortReader reader = serialConnectionBuilder.configure(readerPort, config).buildReader(tbl);
+             SerialPortWriter writer = serialConnectionBuilder.configure(writerPort, config).buildWriter()) {
+
+            for (int x = 0; x < 128; x++) {
+                writer.write((byte) x);
+                Thread.sleep(1);
+            }
+
+            Thread.sleep(100);
+        }
+
+        return tbl.assertValid();
+    }
+
+    private class TestByteListener implements ByteListener {
+
+        private byte[] data = new byte[128];
+        private int size = 0;
+
+        @Override
+        public void notify(byte b) {
+            data[size] = b;
+            size++;
+        }
+
+        public boolean assertValid() {
+            if (size != 128) {
+                log.error("Did not all bytes. Received {}", size);
+                return false;
+            }
+            for (int x = 0; x < data.length; x++) {
+                if (data[x] != x) {
+                    log.error("Byte at position {} should be {} but was {}.", x, x, data[x]);
+                    return false;
+                }
+            }
+            return true;
+        }
+    }
+}
