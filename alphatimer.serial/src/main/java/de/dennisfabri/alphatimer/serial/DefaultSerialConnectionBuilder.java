@@ -58,7 +58,7 @@ public class DefaultSerialConnectionBuilder implements SerialConnectionBuilder {
     }
 
     @Override
-    public String autoconfigurePort() {
+    public String autoconfigurePort() throws NoPortsFoundException {
         log.info("  No serial port specified: Using autoconfiguration");
         String[] ports = listAvailablePorts();
         if (ports.length == 0) {

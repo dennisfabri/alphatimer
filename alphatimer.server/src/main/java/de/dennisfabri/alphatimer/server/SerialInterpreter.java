@@ -8,6 +8,7 @@ import de.dennisfabri.alphatimer.legacy.LegacyXStreamUtil;
 import de.dennisfabri.alphatimer.messagesstorage.Messages;
 import de.dennisfabri.alphatimer.serial.SerialConnectionBuilder;
 import de.dennisfabri.alphatimer.serial.SerialPortReader;
+import de.dennisfabri.alphatimer.serial.exceptions.NoPortsFoundException;
 import de.dennisfabri.alphatimer.storage.DateFacade;
 import de.dennisfabri.alphatimer.storage.Storage;
 import gnu.io.NoSuchPortException;
@@ -45,6 +46,8 @@ public class SerialInterpreter {
             readStoredData();
             initializePipeline();
             initializeSerialReader();
+        } catch (NoPortsFoundException nsp) {
+            log.error("No port with specified name present.");
         } catch (NoSuchPortException nsp) {
             log.error("No port with specified name present.");
         } catch (PortInUseException nsp) {
@@ -98,6 +101,7 @@ public class SerialInterpreter {
     private void initializeSerialReader() throws
                                           NoSuchPortException,
                                           PortInUseException,
+                                          NoPortsFoundException,
                                           UnsupportedCommOperationException {
         try {
             String port = config.getSerialPort();

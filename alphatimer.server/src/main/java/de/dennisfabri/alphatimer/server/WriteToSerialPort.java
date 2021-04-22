@@ -3,6 +3,7 @@ package de.dennisfabri.alphatimer.server;
 import de.dennisfabri.alphatimer.serial.SerialConnectionBuilder;
 import de.dennisfabri.alphatimer.serial.SerialPortWriter;
 import de.dennisfabri.alphatimer.serial.configuration.SerialConfiguration;
+import de.dennisfabri.alphatimer.serial.exceptions.NoPortsFoundException;
 import gnu.io.NoSuchPortException;
 import gnu.io.PortInUseException;
 import gnu.io.UnsupportedCommOperationException;
@@ -16,7 +17,8 @@ import java.nio.file.Path;
 public class WriteToSerialPort {
 
     void run(String filename, String port, String config, SerialConnectionBuilder serialConnectionBuilder)
-            throws UnsupportedCommOperationException, NoSuchPortException, PortInUseException, IOException {
+            throws UnsupportedCommOperationException, NoSuchPortException, PortInUseException,
+                   NoPortsFoundException, IOException {
         if (isEmpty(filename)) {
             log.error("Filename not specified.");
             return;

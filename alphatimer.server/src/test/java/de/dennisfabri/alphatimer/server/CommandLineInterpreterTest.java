@@ -5,6 +5,7 @@ import ch.qos.logback.core.read.ListAppender;
 import de.dennisfabri.alphatimer.serial.SerialConnectionBuilder;
 import de.dennisfabri.alphatimer.serial.SerialPortReader;
 import de.dennisfabri.alphatimer.serial.SerialPortWriter;
+import de.dennisfabri.alphatimer.serial.exceptions.NoPortsFoundException;
 import de.dennisfabri.alphatimer.storage.ActualFile;
 import gnu.io.NoSuchPortException;
 import gnu.io.PortInUseException;
@@ -37,6 +38,7 @@ class CommandLineInterpreterTest {
             TooManyListenersException,
             UnsupportedCommOperationException,
             NoSuchPortException,
+            NoPortsFoundException,
             PortInUseException {
         SerialConnectionBuilder serialConnectionBuilder = Mockito.mock(SerialConnectionBuilder.class);
         when(serialConnectionBuilder.listAvailablePorts()).thenReturn(new String[]{"Port1", "Port2"});

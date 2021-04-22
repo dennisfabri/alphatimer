@@ -2,6 +2,7 @@ package de.dennisfabri.alphatimer.server;
 
 import de.dennisfabri.alphatimer.serial.DefaultSerialConnectionBuilder;
 import de.dennisfabri.alphatimer.serial.SerialConnectionBuilder;
+import de.dennisfabri.alphatimer.serial.exceptions.NoPortsFoundException;
 import gnu.io.NoSuchPortException;
 import gnu.io.PortInUseException;
 import gnu.io.UnsupportedCommOperationException;
@@ -22,7 +23,8 @@ class CommandLineInterpreter {
     }
 
     boolean run(String... args)
-            throws UnsupportedCommOperationException, NoSuchPortException, PortInUseException, IOException {
+            throws UnsupportedCommOperationException, NoSuchPortException, PortInUseException,
+                   NoPortsFoundException, IOException {
         if (args.length > 0) {
             String command = getFromArgs(args, 0).trim().toLowerCase(Locale.ROOT);
             if (command.equals("-seriallooptest")) {

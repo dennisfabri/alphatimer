@@ -18,13 +18,13 @@ public class SerialLoopTester {
     private final SerialConnectionBuilder serialConnectionBuilder;
 
     public boolean testSerialConnection(SerialConfiguration config) throws
-                                          NotEnoughSerialPortsException,
-                                          TooManyListenersException,
-                                          UnsupportedCommOperationException,
-                                          NoSuchPortException,
-                                          PortInUseException,
-                                          IOException,
-                                          InterruptedException {
+                                                                    NotEnoughSerialPortsException,
+                                                                    TooManyListenersException,
+                                                                    UnsupportedCommOperationException,
+                                                                    NoSuchPortException,
+                                                                    PortInUseException,
+                                                                    IOException,
+                                                                    InterruptedException {
         String[] ports = serialConnectionBuilder.listAvailablePorts();
         if (ports.length < 2) {
             throw new NotEnoughSerialPortsException();

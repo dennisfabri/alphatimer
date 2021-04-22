@@ -1,6 +1,7 @@
 package de.dennisfabri.alphatimer.serial;
 
 import de.dennisfabri.alphatimer.serial.configuration.SerialConfiguration;
+import de.dennisfabri.alphatimer.serial.exceptions.NoPortsFoundException;
 import gnu.io.NoSuchPortException;
 import gnu.io.PortInUseException;
 import gnu.io.UnsupportedCommOperationException;
@@ -19,5 +20,5 @@ public interface SerialConnectionBuilder {
 
     String[] listAvailablePorts();
 
-    String autoconfigurePort();
+    String autoconfigurePort() throws NoPortsFoundException;
 }
