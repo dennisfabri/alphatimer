@@ -19,7 +19,7 @@ public class Heat implements Serializable {
     @XStreamAsAttribute
     private final int heat;
     @XStreamAsAttribute
-    private String id;
+    private final String id;
 
     public Heat(String id, int event, int heatname) {
         lanes = new HashMap<>();
@@ -31,16 +31,9 @@ public class Heat implements Serializable {
     public void store(int lanenr, long time, LaneStatus status) {
         synchronized (lanes) {
             for (int i = 0; i <= lanenr; i++) {
-                Lane lane = lanes.get(i);
-                if (lane == null) {
-                    lane = new Lane(i);
-                    lanes.put(i, lane);
-                }
+                lanes.computeIfAbsent(i, j -> new Lane(j));
             }
-            Lane lane = lanes.get(lanenr);
-            if (lane != null) {
-                lane.store(time, status);
-            }
+            lanes.computeIfAbsent(lanenr, j -> new Lane(j)).store(time, status);
         }
     }
 

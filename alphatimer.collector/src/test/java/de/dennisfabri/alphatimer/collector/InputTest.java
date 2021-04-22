@@ -1,8 +1,8 @@
 package de.dennisfabri.alphatimer.collector;
 
-import de.dennisfabri.alphatimer.api.DataListener;
-import de.dennisfabri.alphatimer.api.events.dropped.UnknownMessageDroppedEvent;
-import de.dennisfabri.alphatimer.api.events.dropped.UnstructuredInputDroppedEvent;
+import de.dennisfabri.alphatimer.api.protocol.DataListener;
+import de.dennisfabri.alphatimer.api.protocol.events.dropped.UnknownMessageDroppedEvent;
+import de.dennisfabri.alphatimer.api.protocol.events.dropped.UnstructuredInputDroppedEvent;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -12,14 +12,14 @@ import static org.mockito.Mockito.*;
 
 class InputTest {
 
-    AlphaTranslator alphaTranslator;
+    InputCollector alphaTranslator;
     DataListener listener;
 
     @BeforeEach
     void prepare() {
         listener = mock(DataListener.class);
 
-        alphaTranslator = new AlphaTranslator();
+        alphaTranslator = new InputCollector();
         alphaTranslator.register(listener);
     }
 

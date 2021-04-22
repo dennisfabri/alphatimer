@@ -8,7 +8,8 @@ class SerialConfigurationTest {
 
     @Test
     void toStringTest() {
-        assertEquals("SerialConfiguration(baud=9600, databits=Seven, stopbits=One, parity=Even)", SerialConfiguration.ARES21.toString());
+        assertEquals("SerialConfiguration(baud=9600, databits=Seven, stopbits=One, parity=Even)",
+                     SerialConfiguration.ARES21.toString());
     }
 
 }

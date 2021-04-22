@@ -2,13 +2,14 @@ server:
   port: 1999
 
 alphatimer:
-  serialPort:
+  competitionKey: ''
+  serialPort: ''
   storagePath: target/data
   serialConfiguration: Ares21
 
 spring:
   jpa:
-    show-sql: true
+    show-sql: false
     generate-ddl: true
   datasource:
     driver-class-name: org.h2.Driver

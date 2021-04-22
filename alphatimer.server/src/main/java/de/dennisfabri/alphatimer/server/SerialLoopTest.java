@@ -2,6 +2,7 @@ package de.dennisfabri.alphatimer.server;
 
 import de.dennisfabri.alphatimer.serial.SerialConnectionBuilder;
 import de.dennisfabri.alphatimer.serial.SerialLoopTester;
+import de.dennisfabri.alphatimer.serial.configuration.SerialConfiguration;
 import de.dennisfabri.alphatimer.serial.exceptions.NotEnoughSerialPortsException;
 import gnu.io.NoSuchPortException;
 import gnu.io.PortInUseException;
@@ -16,7 +17,7 @@ public class SerialLoopTest {
 
     void run(SerialConnectionBuilder serialConnectionBuilder) {
         try {
-            new SerialLoopTester(serialConnectionBuilder).test();
+            new SerialLoopTester(serialConnectionBuilder).testSerialConnection(SerialConfiguration.ARES21);
         } catch (NotEnoughSerialPortsException e) {
             log.error("Less than two serial ports found.");
         } catch (TooManyListenersException | UnsupportedCommOperationException | NoSuchPortException | PortInUseException e) {

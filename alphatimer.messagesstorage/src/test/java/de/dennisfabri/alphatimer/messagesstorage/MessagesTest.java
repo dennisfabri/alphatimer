@@ -1,8 +1,8 @@
 package de.dennisfabri.alphatimer.messagesstorage;
 
-import de.dennisfabri.alphatimer.api.events.messages.DataHandlingMessage;
-import de.dennisfabri.alphatimer.api.events.messages.enums.*;
-import de.dennisfabri.alphatimer.api.events.messages.values.UsedLanes;
+import de.dennisfabri.alphatimer.api.protocol.events.messages.DataHandlingMessage;
+import de.dennisfabri.alphatimer.api.protocol.events.messages.enums.*;
+import de.dennisfabri.alphatimer.api.protocol.events.messages.values.UsedLanes;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -17,7 +17,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @ExtendWith(SpringExtension.class)
 @DataJpaTest
-public class MessagesTest {
+class MessagesTest {
 
     @Autowired
     AresMessageRepository repository;
@@ -27,6 +27,8 @@ public class MessagesTest {
     private DataHandlingMessage messageHeat1Lane2;
     private DataHandlingMessage messageHeat2Lane1;
     private DataHandlingMessage messageHeat2Lane2;
+
+    private final String competitionKey = "TestCompetition";
 
     private final String messageHeat1Lane1String = "DataHandlingMessage(messageType=ReadyToStart, kindOfTime=Empty, timeType=Empty, usedLanes=UsedLanes(lanes=[true, false, true, false, true, false, true, false, true, false]), lapCount=0, event=1, heat=1, rank=0, rankInfo=Normal, lane=1, currentLap=0, timeInMillis=0, timeInfo=Normal, timeMarker=Empty)";
     private final String messageHeat1Lane2String = "DataHandlingMessage(messageType=ReadyToStart, kindOfTime=Empty, timeType=Empty, usedLanes=UsedLanes(lanes=[true, false, true, false, true, false, true, false, true, false]), lapCount=0, event=1, heat=1, rank=0, rankInfo=Normal, lane=2, currentLap=0, timeInMillis=0, timeInfo=Normal, timeMarker=Empty)";
@@ -119,57 +121,87 @@ public class MessagesTest {
 
     @Test
     void put1Message() {
-        messages.put(messageHeat1Lane1);
+        messages.put(messageHeat1Lane1, competitionKey);
 
         assertEquals(1, messages.size());
 
-        assertEquals(1, messages.get(messageHeat1Lane1.getEvent(), messageHeat1Lane1.getHeat()).size());
-        assertEquals(messageHeat1Lane1String, messages.get(messageHeat1Lane1.getEvent(), messageHeat1Lane1.getHeat()).get(0).toString());
+        assertEquals(1, messages.get(competitionKey, messageHeat1Lane1.getEvent(), messageHeat1Lane1.getHeat()).size());
+        assertEquals(messageHeat1Lane1String,
+                     messages.get(competitionKey,
+                                  messageHeat1Lane1.getEvent(),
+                                  messageHeat1Lane1.getHeat()).get(0).toString());
     }
 
     @Test
     void put2Messages() {
-        messages.put(messageHeat1Lane1);
-        messages.put(messageHeat1Lane2);
+        messages.put(messageHeat1Lane1, competitionKey);
+        messages.put(messageHeat1Lane2, competitionKey);
 
         assertEquals(2, messages.size());
 
-        assertEquals(2, messages.get(messageHeat1Lane1.getEvent(), messageHeat1Lane1.getHeat()).size());
-        assertEquals(messageHeat1Lane1String, messages.get(messageHeat1Lane1.getEvent(), messageHeat1Lane1.getHeat()).get(0).toString());
-        assertEquals(messageHeat1Lane2String, messages.get(messageHeat1Lane1.getEvent(), messageHeat1Lane1.getHeat()).get(1).toString());
+        assertEquals(2, messages.get(competitionKey, messageHeat1Lane1.getEvent(), messageHeat1Lane1.getHeat()).size());
+        assertEquals(messageHeat1Lane1String,
+                     messages.get(competitionKey,
+                                  messageHeat1Lane1.getEvent(),
+                                  messageHeat1Lane1.getHeat()).get(0).toString());
+        assertEquals(messageHeat1Lane2String,
+                     messages.get(competitionKey,
+                                  messageHeat1Lane1.getEvent(),
+                                  messageHeat1Lane1.getHeat()).get(1).toString());
     }
 
     @Test
     void put3Messages() {
-        messages.put(messageHeat1Lane1);
-        messages.put(messageHeat1Lane2);
-        messages.put(messageHeat2Lane1);
+        messages.put(messageHeat1Lane1, competitionKey);
+        messages.put(messageHeat1Lane2, competitionKey);
+        messages.put(messageHeat2Lane1, competitionKey);
 
         assertEquals(3, messages.size());
 
-        assertEquals(2, messages.get(messageHeat1Lane1.getEvent(), messageHeat1Lane1.getHeat()).size());
-        assertEquals(messageHeat1Lane1String, messages.get(messageHeat1Lane1.getEvent(), messageHeat1Lane1.getHeat()).get(0).toString());
-        assertEquals(messageHeat1Lane2String, messages.get(messageHeat1Lane1.getEvent(), messageHeat1Lane1.getHeat()).get(1).toString());
+        assertEquals(2, messages.get(competitionKey, messageHeat1Lane1.getEvent(), messageHeat1Lane1.getHeat()).size());
+        assertEquals(messageHeat1Lane1String,
+                     messages.get(competitionKey,
+                                  messageHeat1Lane1.getEvent(),
+                                  messageHeat1Lane1.getHeat()).get(0).toString());
+        assertEquals(messageHeat1Lane2String,
+                     messages.get(competitionKey,
+                                  messageHeat1Lane1.getEvent(),
+                                  messageHeat1Lane1.getHeat()).get(1).toString());
 
-        assertEquals(1, messages.get(messageHeat2Lane1.getEvent(), messageHeat2Lane1.getHeat()).size());
-        assertEquals(messageHeat2Lane1String, messages.get(messageHeat2Lane1.getEvent(), messageHeat2Lane1.getHeat()).get(0).toString());
+        assertEquals(1, messages.get(competitionKey, messageHeat2Lane1.getEvent(), messageHeat2Lane1.getHeat()).size());
+        assertEquals(messageHeat2Lane1String,
+                     messages.get(competitionKey,
+                                  messageHeat2Lane1.getEvent(),
+                                  messageHeat2Lane1.getHeat()).get(0).toString());
     }
 
     @Test
     void put4Messages() {
-        messages.put(messageHeat1Lane1);
-        messages.put(messageHeat1Lane2);
-        messages.put(messageHeat2Lane1);
-        messages.put(messageHeat2Lane2);
+        messages.put(messageHeat1Lane1, competitionKey);
+        messages.put(messageHeat1Lane2, competitionKey);
+        messages.put(messageHeat2Lane1, competitionKey);
+        messages.put(messageHeat2Lane2, competitionKey);
 
         assertEquals(4, messages.size());
 
-        assertEquals(2, messages.get(messageHeat1Lane1.getEvent(), messageHeat1Lane1.getHeat()).size());
-        assertEquals(messageHeat1Lane1String, messages.get(messageHeat1Lane1.getEvent(), messageHeat1Lane1.getHeat()).get(0).toString());
-        assertEquals(messageHeat1Lane2String, messages.get(messageHeat1Lane1.getEvent(), messageHeat1Lane1.getHeat()).get(1).toString());
+        assertEquals(2, messages.get(competitionKey, messageHeat1Lane1.getEvent(), messageHeat1Lane1.getHeat()).size());
+        assertEquals(messageHeat1Lane1String,
+                     messages.get(competitionKey,
+                                  messageHeat1Lane1.getEvent(),
+                                  messageHeat1Lane1.getHeat()).get(0).toString());
+        assertEquals(messageHeat1Lane2String,
+                     messages.get(competitionKey,
+                                  messageHeat1Lane1.getEvent(),
+                                  messageHeat1Lane1.getHeat()).get(1).toString());
 
-        assertEquals(2, messages.get(messageHeat2Lane1.getEvent(), messageHeat2Lane1.getHeat()).size());
-        assertEquals(messageHeat2Lane1String, messages.get(messageHeat2Lane1.getEvent(), messageHeat2Lane1.getHeat()).get(0).toString());
-        assertEquals(messageHeat2Lane2String, messages.get(messageHeat2Lane1.getEvent(), messageHeat2Lane1.getHeat()).get(1).toString());
+        assertEquals(2, messages.get(competitionKey, messageHeat2Lane1.getEvent(), messageHeat2Lane1.getHeat()).size());
+        assertEquals(messageHeat2Lane1String,
+                     messages.get(competitionKey,
+                                  messageHeat2Lane1.getEvent(),
+                                  messageHeat2Lane1.getHeat()).get(0).toString());
+        assertEquals(messageHeat2Lane2String,
+                     messages.get(competitionKey,
+                                  messageHeat2Lane1.getEvent(),
+                                  messageHeat2Lane1.getHeat()).get(1).toString());
     }
 }

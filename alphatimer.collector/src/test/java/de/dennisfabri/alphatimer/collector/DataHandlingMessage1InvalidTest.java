@@ -1,11 +1,13 @@
 package de.dennisfabri.alphatimer.collector;
 
-import de.dennisfabri.alphatimer.api.DataListener;
-import de.dennisfabri.alphatimer.api.events.dropped.DataHandlingMessage1DroppedEvent;
-import de.dennisfabri.alphatimer.api.events.dropped.UnknownMessageDroppedEvent;
+import de.dennisfabri.alphatimer.api.protocol.DataListener;
+import de.dennisfabri.alphatimer.api.protocol.events.dropped.DataHandlingMessage1DroppedEvent;
+import de.dennisfabri.alphatimer.api.protocol.events.dropped.UnknownMessageDroppedEvent;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 import org.mockito.Mockito;
 
 import java.util.Arrays;
@@ -15,12 +17,12 @@ import static org.mockito.Mockito.*;
 
 class DataHandlingMessage1InvalidTest {
 
-    private AlphaTranslator alphaTranslator;
+    private InputCollector alphaTranslator;
     private DataListener listener;
 
     @BeforeEach
     void prepare() {
-        alphaTranslator = new AlphaTranslator();
+        alphaTranslator = new InputCollector();
         listener = mock(DataListener.class);
         alphaTranslator.register(listener);
     }
@@ -63,10 +65,11 @@ class DataHandlingMessage1InvalidTest {
         verifyNoMoreInteractions(listener);
     }
 
-    @Test
-    void sendMessage1WithInvalidByteA1() {
+    @ParameterizedTest
+    @ValueSource(bytes = {3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 17, 18})
+    void sendMessage1WithInvalidByte0x40(int byteIndex) {
         byte[] message1modified = Arrays.copyOf(message1, message1.length);
-        message1modified[3] = 0x00;
+        message1modified[byteIndex] = 0x40;
 
         for (byte b : message1modified) {
             alphaTranslator.put(b);
@@ -78,10 +81,11 @@ class DataHandlingMessage1InvalidTest {
         verifyNoMoreInteractions(listener);
     }
 
-    @Test
-    void sendMessage1WithInvalidByteA2() {
+    @ParameterizedTest
+    @ValueSource(bytes = {3, 4, 5})
+    void sendMessage1WithInvalidByte0x38(int byteIndex) {
         byte[] message1modified = Arrays.copyOf(message1, message1.length);
-        message1modified[3] = 0x39;
+        message1modified[byteIndex] = 0x38;
 
         for (byte b : message1modified) {
             alphaTranslator.put(b);
@@ -93,10 +97,11 @@ class DataHandlingMessage1InvalidTest {
         verifyNoMoreInteractions(listener);
     }
 
-    @Test
-    void sendMessage1WithInvalidByteB() {
+    @ParameterizedTest
+    @ValueSource(bytes = {3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 17, 18})
+    void sendMessage1WithInvalidByte0x00(int byteIndex) {
         byte[] message1modified = Arrays.copyOf(message1, message1.length);
-        message1modified[4] = 0x00;
+        message1modified[byteIndex] = 0x00;
 
         for (byte b : message1modified) {
             alphaTranslator.put(b);
@@ -107,185 +112,4 @@ class DataHandlingMessage1InvalidTest {
 
         verifyNoMoreInteractions(listener);
     }
-
-    @Test
-    void sendMessage1WithInvalidByteC() {
-        byte[] message1modified = Arrays.copyOf(message1, message1.length);
-        message1modified[5] = 0x00;
-
-        for (byte b : message1modified) {
-            alphaTranslator.put(b);
-        }
-
-        verify(listener, times(1)).notify(Mockito.any());
-        verify(listener, times(1)).notify(Mockito.any(DataHandlingMessage1DroppedEvent.class));
-
-        verifyNoMoreInteractions(listener);
-    }
-
-    @Test
-    void sendMessage1WithInvalidByteD1() {
-        byte[] message1modified = Arrays.copyOf(message1, message1.length);
-        message1modified[6] = 0x00;
-
-        for (byte b : message1modified) {
-            alphaTranslator.put(b);
-        }
-
-        verify(listener, times(1)).notify(Mockito.any());
-        verify(listener, times(1)).notify(Mockito.any(DataHandlingMessage1DroppedEvent.class));
-
-        verifyNoMoreInteractions(listener);
-    }
-
-    @Test
-    void sendMessage1WithInvalidByteD2() {
-        byte[] message1modified = Arrays.copyOf(message1, message1.length);
-        message1modified[7] = 0x00;
-
-        for (byte b : message1modified) {
-            alphaTranslator.put(b);
-        }
-
-        verify(listener, times(1)).notify(Mockito.any());
-        verify(listener, times(1)).notify(Mockito.any(DataHandlingMessage1DroppedEvent.class));
-
-        verifyNoMoreInteractions(listener);
-    }
-
-    @Test
-    void sendMessage1WithInvalidByteE1() {
-        byte[] message1modified = Arrays.copyOf(message1, message1.length);
-        message1modified[8] = 0x40;
-
-        for (byte b : message1modified) {
-            alphaTranslator.put(b);
-        }
-
-        verify(listener, times(1)).notify(Mockito.any());
-        verify(listener, times(1)).notify(Mockito.any(DataHandlingMessage1DroppedEvent.class));
-
-        verifyNoMoreInteractions(listener);
-    }
-
-    @Test
-    void sendMessage1WithInvalidByteE2() {
-        byte[] message1modified = Arrays.copyOf(message1, message1.length);
-        message1modified[9] = 0x40;
-
-        for (byte b : message1modified) {
-            alphaTranslator.put(b);
-        }
-
-        verify(listener, times(1)).notify(Mockito.any());
-        verify(listener, times(1)).notify(Mockito.any(DataHandlingMessage1DroppedEvent.class));
-
-        verifyNoMoreInteractions(listener);
-    }
-
-    @Test
-    void sendMessage1WithInvalidByteF1() {
-        byte[] message1modified = Arrays.copyOf(message1, message1.length);
-        message1modified[10] = 0x40;
-
-        for (byte b : message1modified) {
-            alphaTranslator.put(b);
-        }
-
-        verify(listener, times(1)).notify(Mockito.any());
-        verify(listener, times(1)).notify(Mockito.any(DataHandlingMessage1DroppedEvent.class));
-
-        verifyNoMoreInteractions(listener);
-    }
-
-    @Test
-    void sendMessage1WithInvalidByteF2() {
-        byte[] message1modified = Arrays.copyOf(message1, message1.length);
-        message1modified[11] = 0x40;
-
-        for (byte b : message1modified) {
-            alphaTranslator.put(b);
-        }
-
-        verify(listener, times(1)).notify(Mockito.any());
-        verify(listener, times(1)).notify(Mockito.any(DataHandlingMessage1DroppedEvent.class));
-
-        verifyNoMoreInteractions(listener);
-    }
-
-    @Test
-    void sendMessage1WithInvalidByteF3() {
-        byte[] message1modified = Arrays.copyOf(message1, message1.length);
-        message1modified[12] = 0x40;
-
-        for (byte b : message1modified) {
-            alphaTranslator.put(b);
-        }
-
-        verify(listener, times(1)).notify(Mockito.any());
-        verify(listener, times(1)).notify(Mockito.any(DataHandlingMessage1DroppedEvent.class));
-
-        verifyNoMoreInteractions(listener);
-    }
-
-    @Test
-    void sendMessage1WithInvalidByteG1() {
-        byte[] message1modified = Arrays.copyOf(message1, message1.length);
-        message1modified[13] = 0x40;
-
-        for (byte b : message1modified) {
-            alphaTranslator.put(b);
-        }
-
-        verify(listener, times(1)).notify(Mockito.any());
-        verify(listener, times(1)).notify(Mockito.any(DataHandlingMessage1DroppedEvent.class));
-
-        verifyNoMoreInteractions(listener);
-    }
-
-    @Test
-    void sendMessage1WithInvalidByteG2() {
-        byte[] message1modified = Arrays.copyOf(message1, message1.length);
-        message1modified[14] = 0x40;
-
-        for (byte b : message1modified) {
-            alphaTranslator.put(b);
-        }
-
-        verify(listener, times(1)).notify(Mockito.any());
-        verify(listener, times(1)).notify(Mockito.any(DataHandlingMessage1DroppedEvent.class));
-
-        verifyNoMoreInteractions(listener);
-    }
-
-    @Test
-    void sendMessage1WithInvalidByteH1() {
-        byte[] message1modified = Arrays.copyOf(message1, message1.length);
-        message1modified[17] = 0x40;
-
-        for (byte b : message1modified) {
-            alphaTranslator.put(b);
-        }
-
-        verify(listener, times(1)).notify(Mockito.any());
-        verify(listener, times(1)).notify(Mockito.any(DataHandlingMessage1DroppedEvent.class));
-
-        verifyNoMoreInteractions(listener);
-    }
-
-    @Test
-    void sendMessage1WithInvalidByteH2() {
-        byte[] message1modified = Arrays.copyOf(message1, message1.length);
-        message1modified[18] = 0x40;
-
-        for (byte b : message1modified) {
-            alphaTranslator.put(b);
-        }
-
-        verify(listener, times(1)).notify(Mockito.any());
-        verify(listener, times(1)).notify(Mockito.any(DataHandlingMessage1DroppedEvent.class));
-
-        verifyNoMoreInteractions(listener);
-    }
-
 }

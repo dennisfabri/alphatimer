@@ -26,7 +26,9 @@ class ActualFileTest {
         filename = tempFile.getCanonicalPath();
         actualFile = new ActualFile();
 
-        tempFile.delete();
+        if (!tempFile.delete()) {
+            throw new IOException("Could not delete temporary file.");
+        }
     }
 
     @AfterEach

@@ -1,15 +1,14 @@
 package de.dennisfabri.alphatimer.server;
 
-import de.dennisfabri.alphatimer.api.events.messages.DataHandlingMessage;
-import de.dennisfabri.alphatimer.collector.AlphaTranslator;
+import de.dennisfabri.alphatimer.api.protocol.events.messages.DataHandlingMessage;
 import de.dennisfabri.alphatimer.collector.DataHandlingMessageAggregator;
-import de.dennisfabri.alphatimer.legacy.TimeStorage;
-import de.dennisfabri.alphatimer.legacy.XStreamUtil;
+import de.dennisfabri.alphatimer.collector.InputCollector;
+import de.dennisfabri.alphatimer.legacy.LegacyTimeStorage;
+import de.dennisfabri.alphatimer.legacy.LegacyXStreamUtil;
 import de.dennisfabri.alphatimer.messagesstorage.Messages;
 import de.dennisfabri.alphatimer.serial.SerialConnectionBuilder;
 import de.dennisfabri.alphatimer.serial.SerialPortReader;
-import de.dennisfabri.alphatimer.storage.ActualDate;
-import de.dennisfabri.alphatimer.storage.ActualFile;
+import de.dennisfabri.alphatimer.storage.DateFacade;
 import de.dennisfabri.alphatimer.storage.Storage;
 import gnu.io.NoSuchPortException;
 import gnu.io.PortInUseException;
@@ -19,8 +18,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PreDestroy;
-import java.io.File;
 import java.io.IOException;
+import java.time.format.DateTimeFormatter;
 import java.util.TooManyListenersException;
 
 @Component
@@ -31,13 +30,14 @@ public class SerialInterpreter {
     private final Messages messages;
     private final SerialConnectionBuilder serialConnectionBuilder;
     private final ConfigurationValues config;
+    private final Storage storage;
+    private final LegacyTimeStorage legacy;
+    private final InputCollector alphaTranslator;
+    private final DateFacade dates;
 
-    private final TimeStorage legacy = new TimeStorage();
-    private final AlphaTranslator alphaTranslator = new AlphaTranslator();
+    private String competitionKey;
 
     private SerialPortReader reader;
-    private Storage storage;
-
 
     public void start()
             throws
@@ -45,23 +45,26 @@ public class SerialInterpreter {
             UnsupportedCommOperationException,
             NoSuchPortException,
             PortInUseException, IOException {
-        initializeStorage(config);
+        initializeCompetitionKey();
         readStoredData();
         initializePipeline();
         initializeSerialReader();
     }
 
-    private void initializeStorage(ConfigurationValues config) throws IOException {
-        log.info("Using data path   : {}", new File(config.getStoragePath()).getCanonicalPath());
-        storage = new Storage(config.getStoragePath(), new ActualFile(), new ActualDate());
+    private void initializeCompetitionKey() {
+        this.competitionKey = config.getCompetitionKey();
+        if (competitionKey == null || competitionKey.trim().isBlank()) {
+            competitionKey = dates.today().format(DateTimeFormatter.ISO_LOCAL_DATE);
+        }
+        log.info("Using competition key: {}", competitionKey);
     }
 
     private void readStoredData() throws IOException {
         preload(legacy, storage);
     }
 
-    private static void preload(TimeStorage legacy, Storage storage) throws IOException {
-        try (final AlphaTranslator preloadAlphaTranslator = new AlphaTranslator()) {
+    private static void preload(LegacyTimeStorage legacy, Storage storage) throws IOException {
+        try (final InputCollector preloadAlphaTranslator = new InputCollector()) {
             DataHandlingMessageAggregator preloadAggregator = new DataHandlingMessageAggregator();
             preloadAggregator.register(e -> legacy.notify(e));
             preloadAlphaTranslator.register(e -> preloadAggregator.notify(e));
@@ -78,7 +81,7 @@ public class SerialInterpreter {
             legacy.notify(event);
             if (event instanceof DataHandlingMessage) {
                 log.info("messages.put({})", event);
-                messages.put((DataHandlingMessage) event);
+                messages.put((DataHandlingMessage) event, competitionKey);
             }
         });
         alphaTranslator.register(event -> {
@@ -113,7 +116,7 @@ public class SerialInterpreter {
     }
 
     public String getLegacyData() {
-        return XStreamUtil.getXStream().toXML(legacy.getHeats());
+        return LegacyXStreamUtil.getXStream().toXML(legacy.getHeats());
     }
 
     @PreDestroy

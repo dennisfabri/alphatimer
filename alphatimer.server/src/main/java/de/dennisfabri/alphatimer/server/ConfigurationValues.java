@@ -18,6 +18,8 @@ public class ConfigurationValues {
     private String storagePath;
     @Value("${alphatimer.serialConfiguration}")
     private String serialConfiguration;
+    @Value("${alphatimer.competitionKey}")
+    private String competitionKey;
 
     SerialConfiguration getSerialConfigurationObject() {
         return getSerialConfigurationObject(getSerialConfiguration());
@@ -25,12 +27,12 @@ public class ConfigurationValues {
 
     SerialConfiguration getSerialConfigurationObject(String serialConfiguration) {
         switch (serialConfiguration.toLowerCase(Locale.ROOT)) {
-            default:
-                return SerialConfiguration.ARES21;
             case "quantum":
                 return SerialConfiguration.Quantum;
             case "test":
                 return SerialConfiguration.TEST;
+            default:
+                return SerialConfiguration.ARES21;
         }
     }
 }

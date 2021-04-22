@@ -1,14 +1,14 @@
 package de.dennisfabri.alphatimer.collector.parser;
 
-import de.dennisfabri.alphatimer.api.events.DataInputEvent;
-import de.dennisfabri.alphatimer.api.events.dropped.DataHandlingMessage1DroppedEvent;
-import de.dennisfabri.alphatimer.api.events.messages.DataHandlingMessage1;
-import de.dennisfabri.alphatimer.api.events.messages.Message;
-import de.dennisfabri.alphatimer.api.events.messages.enums.KindOfTime;
-import de.dennisfabri.alphatimer.api.events.messages.enums.MessageType;
-import de.dennisfabri.alphatimer.api.events.messages.enums.RankInfo;
-import de.dennisfabri.alphatimer.api.events.messages.enums.TimeType;
-import de.dennisfabri.alphatimer.api.events.messages.values.UsedLanes;
+import de.dennisfabri.alphatimer.api.protocol.events.DataInputEvent;
+import de.dennisfabri.alphatimer.api.protocol.events.dropped.DataHandlingMessage1DroppedEvent;
+import de.dennisfabri.alphatimer.api.protocol.events.messages.DataHandlingMessage1;
+import de.dennisfabri.alphatimer.api.protocol.events.messages.Message;
+import de.dennisfabri.alphatimer.api.protocol.events.messages.enums.KindOfTime;
+import de.dennisfabri.alphatimer.api.protocol.events.messages.enums.MessageType;
+import de.dennisfabri.alphatimer.api.protocol.events.messages.enums.RankInfo;
+import de.dennisfabri.alphatimer.api.protocol.events.messages.enums.TimeType;
+import de.dennisfabri.alphatimer.api.protocol.events.messages.values.UsedLanes;
 import de.dennisfabri.alphatimer.collector.Characters;
 import de.dennisfabri.alphatimer.collector.exceptions.InvalidDataException;
 import de.dennisfabri.alphatimer.collector.utils.BitUtils;

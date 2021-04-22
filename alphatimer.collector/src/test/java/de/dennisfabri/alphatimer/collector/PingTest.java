@@ -1,8 +1,8 @@
 package de.dennisfabri.alphatimer.collector;
 
-import de.dennisfabri.alphatimer.api.DataListener;
-import de.dennisfabri.alphatimer.api.events.dropped.UnknownMessageDroppedEvent;
-import de.dennisfabri.alphatimer.api.events.messages.Ping;
+import de.dennisfabri.alphatimer.api.protocol.DataListener;
+import de.dennisfabri.alphatimer.api.protocol.events.dropped.UnknownMessageDroppedEvent;
+import de.dennisfabri.alphatimer.api.protocol.events.messages.Ping;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -17,12 +17,12 @@ import static org.mockito.Mockito.*;
  */
 class PingTest {
 
-    private AlphaTranslator alphaTranslator;
+    private InputCollector alphaTranslator;
     private DataListener listener;
 
     @BeforeEach
     void prepare() {
-        alphaTranslator = new AlphaTranslator();
+        alphaTranslator = new InputCollector();
         listener = mock(DataListener.class);
         alphaTranslator.register(listener);
     }

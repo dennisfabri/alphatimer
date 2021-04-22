@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class HeatTest {
+class HeatTest {
 
     private static final String heatAsString = "Heat(lanes={0=0: 2:03,006 (BackupOfThePreviousRace), 1=1: 2:03,010 (RaceTimes), 2=2: 3:54,100 (ResultsOfThePreviousRace), 3=3: 5:41,000 (ResultsOfTheRace), 4=4: 7:36,000 (BackupOfThePreviousRace), 5=5: 9:07,800 (RunningTime), 6=6: 9:10,800 (RunningTime)}, event=2, heat=3, id=1)";
 

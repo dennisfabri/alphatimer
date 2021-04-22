@@ -17,11 +17,11 @@ public class WriteToSerialPort {
 
     void run(String filename, String port, String config, SerialConnectionBuilder serialConnectionBuilder)
             throws UnsupportedCommOperationException, NoSuchPortException, PortInUseException, IOException {
-        if (!hasValue(filename)) {
+        if (isEmpty(filename)) {
             log.error("Filename not specified.");
             return;
         }
-        if (!hasValue(port)) {
+        if (isEmpty(port)) {
             port = serialConnectionBuilder.autoconfigurePort();
         }
         SerialConfiguration serialConfiguration = new ConfigurationValues().getSerialConfigurationObject(config);
@@ -35,7 +35,7 @@ public class WriteToSerialPort {
         log.info("Finished");
     }
 
-    private boolean hasValue(String value) {
-        return value != null && !value.trim().isEmpty();
+    private boolean isEmpty(String value) {
+        return value == null || value.trim().isEmpty();
     }
 }

@@ -1,6 +1,6 @@
 package de.dennisfabri.alphatimer.messagesstorage;
 
-import de.dennisfabri.alphatimer.api.events.messages.enums.*;
+import de.dennisfabri.alphatimer.api.protocol.events.messages.enums.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -44,4 +44,6 @@ public class AresMessage extends AbstractBaseEntity {
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private TimeMarker timeMarker;
+    @Column(nullable = false)
+    private String competitionKey;
 }

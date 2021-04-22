@@ -17,26 +17,26 @@ public class ByteArrayUtils {
         return toString(data).charAt(0);
     }
 
-    private static final byte Space = 0x20;
-    private static final byte Dot = 0x2E;
-    private static final byte Colon = 0x3A;
-    private static final byte Plus = 0x2B;
-    private static final byte Minus = 0x2D;
+    private static final byte SPACE = 0x20;
+    private static final byte DOT = 0x2E;
+    private static final byte COLON = 0x3A;
+    private static final byte PLUS = 0x2B;
+    private static final byte MINUS = 0x2D;
 
-    private static final byte[] digits = new byte[]{0x30, 0x31, 0x32, 0x33, 0x34, 0x35, 0x36, 0x37, 0x38, 0x39, Space};
-    private static final byte[] digitsAndDots = new byte[]{0x30, 0x31, 0x32, 0x33, 0x34, 0x35, 0x36, 0x37, 0x38, 0x39, Space, Dot, Colon, Plus, Minus};
+    private static final byte[] DIGITS = new byte[]{0x30, 0x31, 0x32, 0x33, 0x34, 0x35, 0x36, 0x37, 0x38, 0x39, SPACE};
+    private static final byte[] DIGITS_AND_DOTS = new byte[]{0x30, 0x31, 0x32, 0x33, 0x34, 0x35, 0x36, 0x37, 0x38, 0x39, SPACE, DOT, COLON, PLUS, MINUS};
 
     private static final boolean[] allowedDigitsBitmap;
     private static final boolean[] allowedDigitsAndDotsBitmap;
 
     static {
         allowedDigitsBitmap = new boolean[256];
-        for (byte d : digits) {
+        for (byte d : DIGITS) {
             allowedDigitsBitmap[d] = true;
         }
 
         allowedDigitsAndDotsBitmap = new boolean[256];
-        for (byte d : digitsAndDots) {
+        for (byte d : DIGITS_AND_DOTS) {
             allowedDigitsAndDotsBitmap[d] = true;
         }
     }
@@ -67,7 +67,7 @@ public class ByteArrayUtils {
                 return 0;
             }
             if (!hasOnlyDigits(digit)) {
-                throw new NumberFormatException("Character not allowed");
+                return throwCharacterNotAllowed();
             }
             return Byte.parseByte(toString(digit).trim());
         } catch (NumberFormatException nfe) {
@@ -77,6 +77,10 @@ public class ByteArrayUtils {
         }
     }
 
+    private byte throwCharacterNotAllowed() {
+        throw new NumberFormatException("Character not allowed");
+    }
+
     public byte toByteValue(byte digit1, byte digit2) throws InvalidDataException {
         try {
             if (digit1 == 0x20 && digit2 == 0x20) {
@@ -84,7 +88,7 @@ public class ByteArrayUtils {
                 return 0;
             }
             if (!hasOnlyDigits(digit1, digit2)) {
-                throw new NumberFormatException("Character not allowed");
+                throwCharacterNotAllowed();
             }
             return Byte.parseByte(toString(digit1, digit2).trim());
         } catch (
@@ -105,7 +109,7 @@ public class ByteArrayUtils {
                 return 0;
             }
             if (!hasOnlyDigits(digit1, digit2, digit3)) {
-                throw new NumberFormatException("Character not allowed");
+                throwCharacterNotAllowed();
             }
             return Short.parseShort(toString(digit1, digit2, digit3).trim());
         } catch (
@@ -154,7 +158,7 @@ public class ByteArrayUtils {
                 text = text.replaceFirst("\\.", ":");
             }
             if (!hasOnlyDigitsAndDots(extract(data, offset, length))) {
-                throw new NumberFormatException("Unallowed characters");
+                throwCharacterNotAllowed();
             }
 
             int hours = 0;

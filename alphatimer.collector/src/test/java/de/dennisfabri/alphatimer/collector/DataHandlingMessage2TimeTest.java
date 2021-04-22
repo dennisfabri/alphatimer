@@ -1,9 +1,9 @@
 package de.dennisfabri.alphatimer.collector;
 
-import de.dennisfabri.alphatimer.api.DataListener;
-import de.dennisfabri.alphatimer.api.events.messages.DataHandlingMessage2;
-import de.dennisfabri.alphatimer.api.events.messages.enums.TimeInfo;
-import de.dennisfabri.alphatimer.api.events.messages.enums.TimeMarker;
+import de.dennisfabri.alphatimer.api.protocol.DataListener;
+import de.dennisfabri.alphatimer.api.protocol.events.messages.DataHandlingMessage2;
+import de.dennisfabri.alphatimer.api.protocol.events.messages.enums.TimeInfo;
+import de.dennisfabri.alphatimer.api.protocol.events.messages.enums.TimeMarker;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -18,12 +18,12 @@ import static org.mockito.Mockito.*;
  */
 class DataHandlingMessage2TimeTest {
 
-    private AlphaTranslator alphaTranslator;
+    private InputCollector alphaTranslator;
     private DataListener listener;
 
     @BeforeEach
     void prepare() {
-        alphaTranslator = new AlphaTranslator();
+        alphaTranslator = new InputCollector();
         listener = mock(DataListener.class);
         alphaTranslator.register(listener);
     }
@@ -53,8 +53,13 @@ class DataHandlingMessage2TimeTest {
 
     @Test
     void sendMessage2WithMinus() {
-        byte[] message2modified = Arrays.copyOf(DataHandlingMessageTestData.message2, DataHandlingMessageTestData.message2.length + 1);
-        System.arraycopy(DataHandlingMessageTestData.message2, 8, message2modified, 9, DataHandlingMessageTestData.message2.length - 8);
+        byte[] message2modified = Arrays.copyOf(DataHandlingMessageTestData.message2,
+                                                DataHandlingMessageTestData.message2.length + 1);
+        System.arraycopy(DataHandlingMessageTestData.message2,
+                         8,
+                         message2modified,
+                         9,
+                         DataHandlingMessageTestData.message2.length - 8);
         message2modified[8] = 0x2D;
 
         for (byte b : message2modified) {
@@ -74,7 +79,8 @@ class DataHandlingMessage2TimeTest {
 
     @Test
     void sendMessage2WithBackup() {
-        byte[] message2modified = Arrays.copyOf(DataHandlingMessageTestData.message2, DataHandlingMessageTestData.message2.length);
+        byte[] message2modified = Arrays.copyOf(DataHandlingMessageTestData.message2,
+                                                DataHandlingMessageTestData.message2.length);
         message2modified[19] = 0x42;
 
         for (byte b : message2modified) {
@@ -94,7 +100,8 @@ class DataHandlingMessage2TimeTest {
 
     @Test
     void sendMessage2Edited() {
-        byte[] message2modified = Arrays.copyOf(DataHandlingMessageTestData.message2, DataHandlingMessageTestData.message2.length);
+        byte[] message2modified = Arrays.copyOf(DataHandlingMessageTestData.message2,
+                                                DataHandlingMessageTestData.message2.length);
         message2modified[19] = 0x45;
 
         for (byte b : message2modified) {
@@ -114,7 +121,8 @@ class DataHandlingMessage2TimeTest {
 
     @Test
     void sendMessage2Asterisk() {
-        byte[] message2modified = Arrays.copyOf(DataHandlingMessageTestData.message2, DataHandlingMessageTestData.message2.length);
+        byte[] message2modified = Arrays.copyOf(DataHandlingMessageTestData.message2,
+                                                DataHandlingMessageTestData.message2.length);
         message2modified[19] = 0x2A;
 
         for (byte b : message2modified) {
@@ -134,7 +142,8 @@ class DataHandlingMessage2TimeTest {
 
     @Test
     void sendMessage2Manual() {
-        byte[] message2modified = Arrays.copyOf(DataHandlingMessageTestData.message2, DataHandlingMessageTestData.message2.length);
+        byte[] message2modified = Arrays.copyOf(DataHandlingMessageTestData.message2,
+                                                DataHandlingMessageTestData.message2.length);
         message2modified[19] = 0x4D;
 
         for (byte b : message2modified) {
@@ -154,7 +163,8 @@ class DataHandlingMessage2TimeTest {
 
     @Test
     void sendMessage2WithTimePlaceholder() {
-        byte[] message2modified = Arrays.copyOf(DataHandlingMessageTestData.message2, DataHandlingMessageTestData.message2.length);
+        byte[] message2modified = Arrays.copyOf(DataHandlingMessageTestData.message2,
+                                                DataHandlingMessageTestData.message2.length);
         message2modified[8] = 0x20;
         message2modified[9] = 0x20;
         message2modified[10] = 0x20;
@@ -184,7 +194,8 @@ class DataHandlingMessage2TimeTest {
 
     @Test
     void sendMessage2WithTimeDNS() {
-        byte[] message2modified = Arrays.copyOf(DataHandlingMessageTestData.message2, DataHandlingMessageTestData.message2.length);
+        byte[] message2modified = Arrays.copyOf(DataHandlingMessageTestData.message2,
+                                                DataHandlingMessageTestData.message2.length);
         message2modified[8] = 0x20;
         message2modified[9] = 0x20;
         message2modified[10] = 0x20;
@@ -214,7 +225,8 @@ class DataHandlingMessage2TimeTest {
 
     @Test
     void sendMessage2WithTimeDNF() {
-        byte[] message2modified = Arrays.copyOf(DataHandlingMessageTestData.message2, DataHandlingMessageTestData.message2.length);
+        byte[] message2modified = Arrays.copyOf(DataHandlingMessageTestData.message2,
+                                                DataHandlingMessageTestData.message2.length);
         message2modified[8] = 0x20;
         message2modified[9] = 0x20;
         message2modified[10] = 0x20;

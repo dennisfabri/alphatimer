@@ -2,7 +2,11 @@ package de.dennisfabri.alphatimer.server;
 
 import de.dennisfabri.alphatimer.serial.DefaultSerialConnectionBuilder;
 import de.dennisfabri.alphatimer.serial.SerialConnectionBuilder;
+import gnu.io.NoSuchPortException;
+import gnu.io.PortInUseException;
+import gnu.io.UnsupportedCommOperationException;
 
+import java.io.IOException;
 import java.util.Locale;
 
 class CommandLineInterpreter {
@@ -17,7 +21,8 @@ class CommandLineInterpreter {
         this.serialConnectionBuilder = serialConnectionBuilder;
     }
 
-    boolean run(String... args) throws Exception {
+    boolean run(String... args)
+            throws UnsupportedCommOperationException, NoSuchPortException, PortInUseException, IOException {
         if (args.length > 0) {
             String command = getFromArgs(args, 0).trim().toLowerCase(Locale.ROOT);
             if (command.equals("-seriallooptest")) {
@@ -25,7 +30,10 @@ class CommandLineInterpreter {
                 return true;
             }
             if (command.equals("-writetoserialport")) {
-                new WriteToSerialPort().run(getFromArgs(args, 1), getFromArgs(args, 2), getFromArgs(args, 3), serialConnectionBuilder);
+                new WriteToSerialPort().run(getFromArgs(args, 1),
+                                            getFromArgs(args, 2),
+                                            getFromArgs(args, 3),
+                                            serialConnectionBuilder);
                 return true;
             }
         }

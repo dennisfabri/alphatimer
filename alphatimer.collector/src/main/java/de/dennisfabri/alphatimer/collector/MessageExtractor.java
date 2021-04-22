@@ -1,7 +1,7 @@
 package de.dennisfabri.alphatimer.collector;
 
-import de.dennisfabri.alphatimer.api.events.DataInputEvent;
-import de.dennisfabri.alphatimer.api.events.dropped.UnstructuredInputDroppedEvent;
+import de.dennisfabri.alphatimer.api.protocol.events.DataInputEvent;
+import de.dennisfabri.alphatimer.api.protocol.events.dropped.UnstructuredInputDroppedEvent;
 import de.dennisfabri.alphatimer.collector.parser.Parser;
 import lombok.RequiredArgsConstructor;
 import lombok.Synchronized;

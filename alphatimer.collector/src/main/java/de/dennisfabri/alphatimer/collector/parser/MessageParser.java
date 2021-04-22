@@ -1,7 +1,7 @@
 package de.dennisfabri.alphatimer.collector.parser;
 
-import de.dennisfabri.alphatimer.api.events.DataInputEvent;
-import de.dennisfabri.alphatimer.api.events.messages.Message;
+import de.dennisfabri.alphatimer.api.protocol.events.DataInputEvent;
+import de.dennisfabri.alphatimer.api.protocol.events.messages.Message;
 import de.dennisfabri.alphatimer.collector.exceptions.InvalidDataException;
 
 interface MessageParser {

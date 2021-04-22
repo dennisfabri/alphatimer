@@ -1,5 +1,8 @@
 package de.dennisfabri.alphatimer.collector;
 
+import lombok.experimental.UtilityClass;
+
+@UtilityClass
 public class Characters {
 
     public static final byte SOH_StartOfHeader = 0x01;

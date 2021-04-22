@@ -9,7 +9,8 @@
     <packaging>pom</packaging>
 
     <modules>
-        <module>alphatimer.api</module>
+        <module>alphatimer.api.protocol</module>
+        <module>alphatimer.api.refinedmessages</module>
         <module>alphatimer.collector</module>
         <module>alphatimer.legacy</module>
         <module>alphatimer.datatests</module>
@@ -38,7 +39,12 @@
         <dependencies>
             <dependency>
                 <groupId>de.dennisfabri</groupId>
-                <artifactId>alphatimer.api</artifactId>
+                <artifactId>alphatimer.api.protocol</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>de.dennisfabri</groupId>
+                <artifactId>alphatimer.api.refinedmessages</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
@@ -200,6 +206,11 @@
                 <configuration>
                     <threads>12</threads>
                     <timestampedReports>false</timestampedReports>
+                    <failWhenNoMutations>false</failWhenNoMutations>
+                    <excludedClasses>
+                        <excludedClass>de.dennisfabri.alphatimer.datatests.*</excludedClass>
+                        <excludedClass>de.dennisfabri.alphatimer.serial.*</excludedClass>
+                    </excludedClasses>
                 </configuration>
 
                 <dependencies>

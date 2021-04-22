@@ -7,7 +7,7 @@ import lombok.extern.slf4j.Slf4j;
 import java.io.IOException;
 
 @Slf4j
-class SerialWriter implements  SerialPortWriter {
+class SerialWriter implements SerialPortWriter {
     private final SerialPort serialPort;
 
     public SerialWriter(String port, SerialConfiguration config)

@@ -1,12 +1,19 @@
 package de.dennisfabri.alphatimer.serial;
 
 import de.dennisfabri.alphatimer.serial.configuration.SerialConfiguration;
+import de.dennisfabri.alphatimer.serial.exceptions.NoPortsFoundException;
+import gnu.io.CommPortIdentifier;
 import gnu.io.NoSuchPortException;
 import gnu.io.PortInUseException;
 import gnu.io.UnsupportedCommOperationException;
+import lombok.extern.slf4j.Slf4j;
 
+import java.util.ArrayList;
+import java.util.Enumeration;
+import java.util.List;
 import java.util.TooManyListenersException;
 
+@Slf4j
 public class DefaultSerialConnectionBuilder implements SerialConnectionBuilder {
 
     private String port;
@@ -34,13 +41,31 @@ public class DefaultSerialConnectionBuilder implements SerialConnectionBuilder {
         return new SerialWriter(port, config);
     }
 
+
     @Override
     public String[] listAvailablePorts() {
-        return SerialPortUtils.listAvailablePorts();
+        List<String> ports = new ArrayList<>();
+
+        Enumeration<?> portList = CommPortIdentifier.getPortIdentifiers();
+        while (portList.hasMoreElements()) {
+            CommPortIdentifier portId = (CommPortIdentifier) portList.nextElement();
+            if (portId.getPortType() == CommPortIdentifier.PORT_SERIAL) {
+                ports.add(portId.getName());
+            }
+        }
+
+        return ports.stream().sorted().toArray(String[]::new);
     }
 
     @Override
     public String autoconfigurePort() {
-        return SerialPortUtils.autoconfigurePort();
+        log.info("  No serial port specified: Using autoconfiguration");
+        String[] ports = listAvailablePorts();
+        if (ports.length == 0) {
+            log.error("  No serial ports found.");
+            throw new NoPortsFoundException();
+        }
+        log.info("  Available serial Ports: {}", String.join(", ", ports));
+        return ports[ports.length - 1];
     }
 }

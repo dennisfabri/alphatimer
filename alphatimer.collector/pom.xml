@@ -14,7 +14,7 @@
     <dependencies>
         <dependency>
             <groupId>de.dennisfabri</groupId>
-            <artifactId>alphatimer.api</artifactId>
+            <artifactId>alphatimer.api.protocol</artifactId>
         </dependency>
         <dependency>
             <groupId>org.projectlombok</groupId>

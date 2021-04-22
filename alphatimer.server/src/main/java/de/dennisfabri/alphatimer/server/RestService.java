@@ -11,7 +11,7 @@ public class RestService {
     private final SerialInterpreter interpreter;
 
     @GetMapping("/heats.xml")
-    String getLegacyHeats() {
+    public String getLegacyHeats() {
         return interpreter.getLegacyData();
     }
 }

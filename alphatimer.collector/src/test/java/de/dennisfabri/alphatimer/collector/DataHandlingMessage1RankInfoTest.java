@@ -1,19 +1,17 @@
 package de.dennisfabri.alphatimer.collector;
 
-import de.dennisfabri.alphatimer.api.DataListener;
-import de.dennisfabri.alphatimer.api.events.messages.DataHandlingMessage1;
-import de.dennisfabri.alphatimer.api.events.messages.enums.KindOfTime;
-import de.dennisfabri.alphatimer.api.events.messages.enums.MessageType;
-import de.dennisfabri.alphatimer.api.events.messages.enums.RankInfo;
-import de.dennisfabri.alphatimer.api.events.messages.enums.TimeType;
-import de.dennisfabri.alphatimer.api.events.messages.values.UsedLanes;
+import de.dennisfabri.alphatimer.api.protocol.DataListener;
+import de.dennisfabri.alphatimer.api.protocol.events.messages.DataHandlingMessage1;
+import de.dennisfabri.alphatimer.api.protocol.events.messages.enums.KindOfTime;
+import de.dennisfabri.alphatimer.api.protocol.events.messages.enums.MessageType;
+import de.dennisfabri.alphatimer.api.protocol.events.messages.enums.RankInfo;
+import de.dennisfabri.alphatimer.api.protocol.events.messages.enums.TimeType;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
 import java.util.Arrays;
-import java.util.BitSet;
 
 import static de.dennisfabri.alphatimer.collector.DataHandlingMessageTestData.createUsedLanes;
 import static org.mockito.Mockito.*;
@@ -23,12 +21,12 @@ import static org.mockito.Mockito.*;
  */
 class DataHandlingMessage1RankInfoTest {
 
-    private AlphaTranslator alphaTranslator;
+    private InputCollector alphaTranslator;
     private DataListener listener;
 
     @BeforeEach
     void prepare() {
-        alphaTranslator = new AlphaTranslator();
+        alphaTranslator = new InputCollector();
         listener = mock(DataListener.class);
         alphaTranslator.register(listener);
     }
@@ -44,7 +42,8 @@ class DataHandlingMessage1RankInfoTest {
         DataListener listener = mock(DataListener.class);
         alphaTranslator.register(listener);
 
-        byte[] message1modified = Arrays.copyOf(DataHandlingMessageTestData.message1, DataHandlingMessageTestData.message1.length);
+        byte[] message1modified = Arrays.copyOf(DataHandlingMessageTestData.message1,
+                                                DataHandlingMessageTestData.message1.length);
         // message1modified[5] = 0x43;
 
         for (byte b : message1modified) {
@@ -72,7 +71,8 @@ class DataHandlingMessage1RankInfoTest {
         alphaTranslator.register(listener);
 
         // bytes at index 17 and 18 are set to "D "
-        byte[] message1modified = Arrays.copyOf(DataHandlingMessageTestData.message1, DataHandlingMessageTestData.message1.length);
+        byte[] message1modified = Arrays.copyOf(DataHandlingMessageTestData.message1,
+                                                DataHandlingMessageTestData.message1.length);
         message1modified[17] = 0x44;
         message1modified[18] = 0x20;
 

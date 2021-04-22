@@ -1,7 +1,7 @@
 package de.dennisfabri.alphatimer.collector;
 
-import de.dennisfabri.alphatimer.api.DataListener;
-import de.dennisfabri.alphatimer.api.events.DataInputEvent;
+import de.dennisfabri.alphatimer.api.protocol.DataListener;
+import de.dennisfabri.alphatimer.api.protocol.events.DataInputEvent;
 import lombok.Synchronized;
 
 import java.util.ArrayList;

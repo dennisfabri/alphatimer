@@ -1,5 +1,6 @@
 package de.dennisfabri.alphatimer.serial;
 
+import de.dennisfabri.alphatimer.serial.configuration.SerialConfiguration;
 import de.dennisfabri.alphatimer.serial.exceptions.NotEnoughSerialPortsException;
 import org.junit.jupiter.api.Test;
 
@@ -13,7 +14,8 @@ class SerialLoopTesterTest {
             return;
         }
         try {
-            assertTrue(new SerialLoopTester(new DefaultSerialConnectionBuilder()).test());
+            assertTrue(new SerialLoopTester(new DefaultSerialConnectionBuilder())
+                               .testSerialConnection(SerialConfiguration.TEST));
         } catch (NotEnoughSerialPortsException ex) {
             // This exception shows that the environment is not build up:
             // This test is for local testing only

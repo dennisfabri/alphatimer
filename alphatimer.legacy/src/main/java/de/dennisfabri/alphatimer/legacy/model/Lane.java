@@ -23,14 +23,12 @@ public class Lane implements Serializable {
     }
 
     public void store(long time, LaneStatus status) {
-        synchronized (this) {
-            long[] newtimes = Arrays.copyOf(times, times.length + 1);
-            LaneStatus[] newstati = Arrays.copyOf(stati, stati.length + 1);
-            newtimes[times.length] = time;
-            newstati[stati.length] = status;
-            times = newtimes;
-            stati = newstati;
-        }
+        long[] newTimes = Arrays.copyOf(times, times.length + 1);
+        LaneStatus[] newStatus = Arrays.copyOf(stati, stati.length + 1);
+        newTimes[times.length] = time;
+        newStatus[stati.length] = status;
+        times = newTimes;
+        stati = newStatus;
     }
 
     @Override

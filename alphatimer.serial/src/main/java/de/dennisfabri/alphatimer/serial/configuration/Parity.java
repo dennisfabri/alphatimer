@@ -2,7 +2,6 @@ package de.dennisfabri.alphatimer.serial.configuration;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.ToString;
 
 @AllArgsConstructor
 @Getter

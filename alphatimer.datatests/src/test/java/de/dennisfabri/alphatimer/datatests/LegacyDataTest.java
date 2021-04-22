@@ -1,8 +1,8 @@
 package de.dennisfabri.alphatimer.datatests;
 
-import de.dennisfabri.alphatimer.collector.AlphaTranslator;
 import de.dennisfabri.alphatimer.collector.DataHandlingMessageAggregator;
-import de.dennisfabri.alphatimer.legacy.TimeStorage;
+import de.dennisfabri.alphatimer.collector.InputCollector;
+import de.dennisfabri.alphatimer.legacy.LegacyTimeStorage;
 import de.dennisfabri.alphatimer.legacy.model.Heat;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
@@ -17,8 +17,8 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 class LegacyDataTest {
 
-    private AlphaTranslator alphaTranslator;
-    private TimeStorage timeStorage;
+    private InputCollector alphaTranslator;
+    private LegacyTimeStorage timeStorage;
 
     private static final Testdata testdata = new Testdata();
 
@@ -29,12 +29,12 @@ class LegacyDataTest {
 
     @BeforeEach
     void prepare() {
-        timeStorage = new TimeStorage();
+        timeStorage = new LegacyTimeStorage();
 
         DataHandlingMessageAggregator aggregator = new DataHandlingMessageAggregator();
         aggregator.register(timeStorage);
 
-        alphaTranslator = new AlphaTranslator();
+        alphaTranslator = new InputCollector();
         alphaTranslator.register(aggregator);
     }
 

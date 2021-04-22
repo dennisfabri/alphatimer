@@ -17,14 +17,14 @@ public class SerialLoopTester {
 
     private final SerialConnectionBuilder serialConnectionBuilder;
 
-    public boolean test() throws
-                          NotEnoughSerialPortsException,
-                          TooManyListenersException,
-                          UnsupportedCommOperationException,
-                          NoSuchPortException,
-                          PortInUseException,
-                          IOException,
-                          InterruptedException {
+    public boolean testSerialConnection(SerialConfiguration config) throws
+                                          NotEnoughSerialPortsException,
+                                          TooManyListenersException,
+                                          UnsupportedCommOperationException,
+                                          NoSuchPortException,
+                                          PortInUseException,
+                                          IOException,
+                                          InterruptedException {
         String[] ports = serialConnectionBuilder.listAvailablePorts();
         if (ports.length < 2) {
             throw new NotEnoughSerialPortsException();
@@ -33,22 +33,16 @@ public class SerialLoopTester {
         String port1 = ports[ports.length - 2];
         String port2 = ports[ports.length - 1];
 
-        if (!test(port1, port2, SerialConfiguration.ARES21)) {
+        if (!testSerialConnection(port1, port2, config)) {
             return false;
         }
-        if (!test(port2, port1, SerialConfiguration.ARES21)) {
-            return false;
-        }
-        if (!test(port1, port2, SerialConfiguration.Quantum)) {
-            return false;
-        }
-        if (!test(port2, port1, SerialConfiguration.Quantum)) {
+        if (!testSerialConnection(port2, port1, config)) {
             return false;
         }
         return true;
     }
 
-    private boolean test(String readerPort, String writerPort, SerialConfiguration config)
+    private boolean testSerialConnection(String readerPort, String writerPort, SerialConfiguration config)
             throws
             TooManyListenersException,
             UnsupportedCommOperationException,
@@ -72,9 +66,9 @@ public class SerialLoopTester {
         return tbl.assertValid();
     }
 
-    private class TestByteListener implements ByteListener {
+    private static class TestByteListener implements ByteListener {
 
-        private byte[] data = new byte[128];
+        private final byte[] data = new byte[128];
         private int size = 0;
 
         @Override

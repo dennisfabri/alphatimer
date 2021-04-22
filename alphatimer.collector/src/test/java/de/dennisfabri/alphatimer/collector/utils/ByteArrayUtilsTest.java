@@ -191,100 +191,89 @@ class ByteArrayUtilsTest {
 
     @Test()
     void extractTimeInMillisInvalidTest1() {
-        assertThrows(NumberFormatException.class, () -> {
-            byteArrayUtils.extractTimeInMillis(new byte[]{0x44, 0x31, 0x3A, 0x32, 0x30, 0x3A, 0x35, 0x33, 0x2E, 0x39, 0x33, 0x20},
-                                               0,
-                                               11);
-        });
+        assertThrows(NumberFormatException.class,
+                     () -> byteArrayUtils.extractTimeInMillis(new byte[]{0x44, 0x31, 0x3A, 0x32, 0x30, 0x3A, 0x35, 0x33, 0x2E, 0x39, 0x33, 0x20},
+                                                              0,
+                                                              11));
     }
 
     @Test()
     void extractTimeInMillisInvalidTest2() {
-        assertThrows(NumberFormatException.class, () -> {
-            byteArrayUtils.extractTimeInMillis(new byte[]{0x33, 0x44, 0x3A, 0x32, 0x30, 0x3A, 0x35, 0x33, 0x2E, 0x39, 0x33, 0x20},
-                                               0,
-                                               11);
-        });
+        assertThrows(NumberFormatException.class,
+                     () -> byteArrayUtils.extractTimeInMillis(new byte[]{0x33, 0x44, 0x3A, 0x32, 0x30, 0x3A, 0x35, 0x33, 0x2E, 0x39, 0x33, 0x20},
+                                                              0,
+                                                              11));
     }
 
     @Test()
     void extractTimeInMillisInvalidTest3() {
-        assertThrows(NumberFormatException.class, () -> {
-            byteArrayUtils.extractTimeInMillis(new byte[]{0x33, 0x31, 0x44, 0x32, 0x30, 0x3A, 0x35, 0x33, 0x2E, 0x39, 0x33, 0x20},
-                                               0,
-                                               11);
-        });
+        assertThrows(NumberFormatException.class,
+                     () -> byteArrayUtils.extractTimeInMillis(new byte[]{0x33, 0x31, 0x44, 0x32, 0x30, 0x3A, 0x35, 0x33, 0x2E, 0x39, 0x33, 0x20},
+                                                              0,
+                                                              11));
     }
 
     @Test()
     void extractTimeInMillisInvalidTest4() {
-        assertThrows(NumberFormatException.class, () -> {
-            byteArrayUtils.extractTimeInMillis(new byte[]{0x33, 0x31, 0x3A, 0x44, 0x30, 0x3A, 0x35, 0x33, 0x2E, 0x39, 0x33, 0x20},
-                                               0,
-                                               11);
-        });
+        assertThrows(NumberFormatException.class,
+                     () -> byteArrayUtils.extractTimeInMillis(new byte[]{0x33, 0x31, 0x3A, 0x44, 0x30, 0x3A, 0x35, 0x33, 0x2E, 0x39, 0x33, 0x20},
+                                                              0,
+                                                              11));
     }
 
     @Test()
     void extractTimeInMillisInvalidTest5() {
-        assertThrows(NumberFormatException.class, () -> {
-            byteArrayUtils.extractTimeInMillis(new byte[]{0x33, 0x31, 0x3A, 0x32, 0x44, 0x3A, 0x35, 0x33, 0x2E, 0x39, 0x33, 0x20},
-                                               0,
-                                               11);
-        });
+        assertThrows(NumberFormatException.class,
+                     () -> byteArrayUtils.extractTimeInMillis(new byte[]{0x33, 0x31, 0x3A, 0x32, 0x44, 0x3A, 0x35, 0x33, 0x2E, 0x39, 0x33, 0x20},
+                                                              0,
+                                                              11));
     }
 
     @Test()
     void extractTimeInMillisInvalidTest6() {
-        assertThrows(NumberFormatException.class, () -> {
-            byteArrayUtils.extractTimeInMillis(new byte[]{0x33, 0x31, 0x3A, 0x32, 0x30, 0x44, 0x35, 0x33, 0x2E, 0x39, 0x33, 0x20},
-                                               0,
-                                               11);
-        });
+        assertThrows(NumberFormatException.class,
+                     () -> byteArrayUtils.extractTimeInMillis(new byte[]{0x33, 0x31, 0x3A, 0x32, 0x30, 0x44, 0x35, 0x33, 0x2E, 0x39, 0x33, 0x20},
+                                                              0,
+                                                              11));
     }
 
     @Test()
     void extractTimeInMillisInvalidTest7() {
-        assertThrows(NumberFormatException.class, () -> {
-            byteArrayUtils.extractTimeInMillis(new byte[]{0x33, 0x31, 0x3A, 0x32, 0x30, 0x3A, 0x44, 0x33, 0x2E, 0x39, 0x33, 0x20},
-                                               0,
-                                               11);
-        });
+        assertThrows(NumberFormatException.class,
+                     () -> byteArrayUtils.extractTimeInMillis(new byte[]{0x33, 0x31, 0x3A, 0x32, 0x30, 0x3A, 0x44, 0x33, 0x2E, 0x39, 0x33, 0x20},
+                                                              0,
+                                                              11));
     }
 
     @Test()
     void extractTimeInMillisInvalidTest8() {
-        assertThrows(NumberFormatException.class, () -> {
-            byteArrayUtils.extractTimeInMillis(new byte[]{0x33, 0x31, 0x3A, 0x32, 0x30, 0x3A, 0x35, 0x44, 0x2E, 0x39, 0x33, 0x20},
-                                               0,
-                                               11);
-        });
+        assertThrows(NumberFormatException.class,
+                     () -> byteArrayUtils.extractTimeInMillis(new byte[]{0x33, 0x31, 0x3A, 0x32, 0x30, 0x3A, 0x35, 0x44, 0x2E, 0x39, 0x33, 0x20},
+                                                              0,
+                                                              11));
     }
 
     @Test()
     void extractTimeInMillisInvalidTest9() {
-        assertThrows(NumberFormatException.class, () -> {
-            byteArrayUtils.extractTimeInMillis(new byte[]{0x33, 0x31, 0x3A, 0x32, 0x30, 0x3A, 0x35, 0x33, 0x44, 0x39, 0x33, 0x20},
-                                               0,
-                                               11);
-        });
+        assertThrows(NumberFormatException.class,
+                     () -> byteArrayUtils.extractTimeInMillis(new byte[]{0x33, 0x31, 0x3A, 0x32, 0x30, 0x3A, 0x35, 0x33, 0x44, 0x39, 0x33, 0x20},
+                                                              0,
+                                                              11));
     }
 
     @Test()
     void extractTimeInMillisInvalidTest10() {
-        assertThrows(NumberFormatException.class, () -> {
-            byteArrayUtils.extractTimeInMillis(new byte[]{0x33, 0x31, 0x3A, 0x32, 0x30, 0x3A, 0x35, 0x33, 0x2E, 0x44, 0x33, 0x20},
-                                               0,
-                                               11);
-        });
+        assertThrows(NumberFormatException.class,
+                     () -> byteArrayUtils.extractTimeInMillis(new byte[]{0x33, 0x31, 0x3A, 0x32, 0x30, 0x3A, 0x35, 0x33, 0x2E, 0x44, 0x33, 0x20},
+                                                              0,
+                                                              11));
     }
 
     @Test()
     void extractTimeInMillisInvalidTest11() {
-        assertThrows(NumberFormatException.class, () -> {
-            byteArrayUtils.extractTimeInMillis(new byte[]{0x33, 0x31, 0x3A, 0x32, 0x30, 0x3A, 0x35, 0x33, 0x2E, 0x39, 0x44, 0x20},
-                                               0,
-                                               11);
-        });
+        assertThrows(NumberFormatException.class,
+                     () -> byteArrayUtils.extractTimeInMillis(new byte[]{0x33, 0x31, 0x3A, 0x32, 0x30, 0x3A, 0x35, 0x33, 0x2E, 0x39, 0x44, 0x20},
+                                                              0,
+                                                              11));
     }
 }

@@ -1,6 +1,6 @@
 package de.dennisfabri.alphatimer.server;
 
-import de.dennisfabri.alphatimer.api.events.messages.values.UsedLanes;
+import de.dennisfabri.alphatimer.api.protocol.events.messages.values.UsedLanes;
 import de.dennisfabri.alphatimer.collector.Characters;
 
 import java.util.BitSet;

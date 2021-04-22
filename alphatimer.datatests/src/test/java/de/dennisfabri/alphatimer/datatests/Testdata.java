@@ -1,6 +1,6 @@
 package de.dennisfabri.alphatimer.datatests;
 
-import de.dennisfabri.alphatimer.legacy.XStreamUtil;
+import de.dennisfabri.alphatimer.legacy.LegacyXStreamUtil;
 import de.dennisfabri.alphatimer.legacy.model.Heat;
 
 import java.io.File;
@@ -32,8 +32,8 @@ class Testdata {
         }
     }
 
-    Heat[] readLegacyData(String filename) throws IOException {
-        return (Heat[]) XStreamUtil.getXStream().fromXML(new File(Testdata.TESTDATA_DIRECTORY + filename + ".ez"));
+    Heat[] readLegacyData(String filename) {
+        return (Heat[]) LegacyXStreamUtil.getXStream().fromXML(new File(Testdata.TESTDATA_DIRECTORY + filename + ".ez"));
     }
 
     byte[] readSerialInput(String filename) throws IOException {
@@ -43,13 +43,13 @@ class Testdata {
     void writeToDebug(Heat[] actual, String filename) throws IOException {
         if (verbose) {
             try (FileOutputStream os = new FileOutputStream(Testdata.TESTDATA_DIRECTORY + filename + ".xml")) {
-                XStreamUtil.getXStream().toXML(actual, os);
+                LegacyXStreamUtil.getXStream().toXML(actual, os);
             }
         }
     }
 
-    /**
-     * @Source https://www.baeldung.com/java-compress-and-uncompress
+    /*
+     * Source: https://www.baeldung.com/java-compress-and-uncompress
      */
     private void unzipTestData(InputStream fileZip, String destination) throws IOException {
         File destDir = new File(destination);

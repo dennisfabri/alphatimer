@@ -4,7 +4,7 @@ import java.util.Arrays;
 
 class ByteStorage {
 
-    private byte[] data = new byte[1024];
+    private final byte[] data = new byte[1024];
 
     private int size = 0;
 

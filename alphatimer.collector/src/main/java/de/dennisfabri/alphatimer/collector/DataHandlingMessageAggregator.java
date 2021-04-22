@@ -1,11 +1,11 @@
 package de.dennisfabri.alphatimer.collector;
 
-import de.dennisfabri.alphatimer.api.DataListener;
-import de.dennisfabri.alphatimer.api.events.DataInputEvent;
-import de.dennisfabri.alphatimer.api.events.messages.DataHandlingMessage;
-import de.dennisfabri.alphatimer.api.events.messages.DataHandlingMessage1;
-import de.dennisfabri.alphatimer.api.events.messages.DataHandlingMessage2;
-import de.dennisfabri.alphatimer.api.events.messages.Ping;
+import de.dennisfabri.alphatimer.api.protocol.DataListener;
+import de.dennisfabri.alphatimer.api.protocol.events.DataInputEvent;
+import de.dennisfabri.alphatimer.api.protocol.events.messages.DataHandlingMessage;
+import de.dennisfabri.alphatimer.api.protocol.events.messages.DataHandlingMessage1;
+import de.dennisfabri.alphatimer.api.protocol.events.messages.DataHandlingMessage2;
+import de.dennisfabri.alphatimer.api.protocol.events.messages.Ping;
 import lombok.Synchronized;
 
 import java.util.ArrayList;
@@ -15,7 +15,7 @@ public class DataHandlingMessageAggregator implements DataListener {
 
     private DataHandlingMessage1 message1 = null;
 
-    private List<DataListener> listeners = new ArrayList<>();
+    private final List<DataListener> listeners = new ArrayList<>();
 
     @Synchronized("listeners")
     public void register(DataListener listener) {
@@ -33,24 +33,22 @@ public class DataHandlingMessageAggregator implements DataListener {
             message1 = (DataHandlingMessage1) event;
             return;
         }
-        if (event instanceof DataHandlingMessage2) {
-            if (message1 != null) {
-                DataHandlingMessage2 message2 = (DataHandlingMessage2) event;
-                notify(new DataHandlingMessage(message1.getMessageType(),
-                                               message1.getKindOfTime(),
-                                               message1.getTimeType(),
-                                               message1.getUsedLanes(),
-                                               message1.getLapCount(),
-                                               message1.getEvent(),
-                                               message1.getHeat(),
-                                               message1.getRank(),
-                                               message1.getRankInfo(),
-                                               message2.getLane(),
-                                               message2.getCurrentLap(),
-                                               message2.getTimeInMillis(),
-                                               message2.getTimeInfo(),
-                                               message2.getTimeMarker()));
-            }
+        if (event instanceof DataHandlingMessage2 && message1 != null) {
+            DataHandlingMessage2 message2 = (DataHandlingMessage2) event;
+            notify(new DataHandlingMessage(message1.getMessageType(),
+                                           message1.getKindOfTime(),
+                                           message1.getTimeType(),
+                                           message1.getUsedLanes(),
+                                           message1.getLapCount(),
+                                           message1.getEvent(),
+                                           message1.getHeat(),
+                                           message1.getRank(),
+                                           message1.getRankInfo(),
+                                           message2.getLane(),
+                                           message2.getCurrentLap(),
+                                           message2.getTimeInMillis(),
+                                           message2.getTimeInfo(),
+                                           message2.getTimeMarker()));
         }
         if (event instanceof Ping) {
             // Do not reset message1 on ping

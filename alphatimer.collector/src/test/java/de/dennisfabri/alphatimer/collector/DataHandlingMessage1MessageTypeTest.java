@@ -1,19 +1,17 @@
 package de.dennisfabri.alphatimer.collector;
 
-import de.dennisfabri.alphatimer.api.DataListener;
-import de.dennisfabri.alphatimer.api.events.messages.DataHandlingMessage1;
-import de.dennisfabri.alphatimer.api.events.messages.enums.KindOfTime;
-import de.dennisfabri.alphatimer.api.events.messages.enums.MessageType;
-import de.dennisfabri.alphatimer.api.events.messages.enums.RankInfo;
-import de.dennisfabri.alphatimer.api.events.messages.enums.TimeType;
-import de.dennisfabri.alphatimer.api.events.messages.values.UsedLanes;
+import de.dennisfabri.alphatimer.api.protocol.DataListener;
+import de.dennisfabri.alphatimer.api.protocol.events.messages.DataHandlingMessage1;
+import de.dennisfabri.alphatimer.api.protocol.events.messages.enums.KindOfTime;
+import de.dennisfabri.alphatimer.api.protocol.events.messages.enums.MessageType;
+import de.dennisfabri.alphatimer.api.protocol.events.messages.enums.RankInfo;
+import de.dennisfabri.alphatimer.api.protocol.events.messages.enums.TimeType;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
 import java.util.Arrays;
-import java.util.BitSet;
 
 import static de.dennisfabri.alphatimer.collector.DataHandlingMessageTestData.createUsedLanes;
 import static org.mockito.Mockito.*;
@@ -23,12 +21,12 @@ import static org.mockito.Mockito.*;
  */
 class DataHandlingMessage1MessageTypeTest {
 
-    private AlphaTranslator alphaTranslator;
+    private InputCollector alphaTranslator;
     private DataListener listener;
 
     @BeforeEach
     void prepare() {
-        alphaTranslator = new AlphaTranslator();
+        alphaTranslator = new InputCollector();
         listener = mock(DataListener.class);
         alphaTranslator.register(listener);
     }
@@ -44,7 +42,8 @@ class DataHandlingMessage1MessageTypeTest {
         DataListener listener = mock(DataListener.class);
         alphaTranslator.register(listener);
 
-        byte[] message1modified = Arrays.copyOf(DataHandlingMessageTestData.message1, DataHandlingMessageTestData.message1.length);
+        byte[] message1modified = Arrays.copyOf(DataHandlingMessageTestData.message1,
+                                                DataHandlingMessageTestData.message1.length);
         message1modified[3] = 0x30;
 
         for (byte b : message1modified) {
@@ -71,7 +70,8 @@ class DataHandlingMessage1MessageTypeTest {
         DataListener listener = mock(DataListener.class);
         alphaTranslator.register(listener);
 
-        byte[] message1modified = Arrays.copyOf(DataHandlingMessageTestData.message1, DataHandlingMessageTestData.message1.length);
+        byte[] message1modified = Arrays.copyOf(DataHandlingMessageTestData.message1,
+                                                DataHandlingMessageTestData.message1.length);
         message1modified[3] = 0x31;
 
         for (byte b : message1modified) {
@@ -98,7 +98,8 @@ class DataHandlingMessage1MessageTypeTest {
         DataListener listener = mock(DataListener.class);
         alphaTranslator.register(listener);
 
-        byte[] message1modified = Arrays.copyOf(DataHandlingMessageTestData.message1, DataHandlingMessageTestData.message1.length);
+        byte[] message1modified = Arrays.copyOf(DataHandlingMessageTestData.message1,
+                                                DataHandlingMessageTestData.message1.length);
         message1modified[3] = 0x32;
 
         for (byte b : message1modified) {
@@ -125,7 +126,8 @@ class DataHandlingMessage1MessageTypeTest {
         DataListener listener = mock(DataListener.class);
         alphaTranslator.register(listener);
 
-        byte[] message1modified = Arrays.copyOf(DataHandlingMessageTestData.message1, DataHandlingMessageTestData.message1.length);
+        byte[] message1modified = Arrays.copyOf(DataHandlingMessageTestData.message1,
+                                                DataHandlingMessageTestData.message1.length);
         message1modified[3] = 0x33;
 
         for (byte b : message1modified) {
@@ -152,7 +154,8 @@ class DataHandlingMessage1MessageTypeTest {
         DataListener listener = mock(DataListener.class);
         alphaTranslator.register(listener);
 
-        byte[] message1modified = Arrays.copyOf(DataHandlingMessageTestData.message1, DataHandlingMessageTestData.message1.length);
+        byte[] message1modified = Arrays.copyOf(DataHandlingMessageTestData.message1,
+                                                DataHandlingMessageTestData.message1.length);
         message1modified[3] = 0x34;
 
         for (byte b : message1modified) {
@@ -179,7 +182,8 @@ class DataHandlingMessage1MessageTypeTest {
         DataListener listener = mock(DataListener.class);
         alphaTranslator.register(listener);
 
-        byte[] message1modified = Arrays.copyOf(DataHandlingMessageTestData.message1, DataHandlingMessageTestData.message1.length);
+        byte[] message1modified = Arrays.copyOf(DataHandlingMessageTestData.message1,
+                                                DataHandlingMessageTestData.message1.length);
         message1modified[3] = 0x35;
 
         for (byte b : message1modified) {
@@ -206,7 +210,8 @@ class DataHandlingMessage1MessageTypeTest {
         DataListener listener = mock(DataListener.class);
         alphaTranslator.register(listener);
 
-        byte[] message1modified = Arrays.copyOf(DataHandlingMessageTestData.message1, DataHandlingMessageTestData.message1.length);
+        byte[] message1modified = Arrays.copyOf(DataHandlingMessageTestData.message1,
+                                                DataHandlingMessageTestData.message1.length);
         message1modified[3] = 0x36;
 
         for (byte b : message1modified) {
@@ -233,7 +238,8 @@ class DataHandlingMessage1MessageTypeTest {
         DataListener listener = mock(DataListener.class);
         alphaTranslator.register(listener);
 
-        byte[] message1modified = Arrays.copyOf(DataHandlingMessageTestData.message1, DataHandlingMessageTestData.message1.length);
+        byte[] message1modified = Arrays.copyOf(DataHandlingMessageTestData.message1,
+                                                DataHandlingMessageTestData.message1.length);
         message1modified[3] = 0x37;
 
         for (byte b : message1modified) {

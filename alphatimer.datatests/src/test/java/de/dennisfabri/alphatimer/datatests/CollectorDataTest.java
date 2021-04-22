@@ -1,12 +1,12 @@
 package de.dennisfabri.alphatimer.datatests;
 
-import de.dennisfabri.alphatimer.api.DataListener;
-import de.dennisfabri.alphatimer.api.events.dropped.*;
-import de.dennisfabri.alphatimer.api.events.messages.DataHandlingMessage1;
-import de.dennisfabri.alphatimer.api.events.messages.DataHandlingMessage2;
-import de.dennisfabri.alphatimer.api.events.messages.Message;
-import de.dennisfabri.alphatimer.api.events.messages.Ping;
-import de.dennisfabri.alphatimer.collector.AlphaTranslator;
+import de.dennisfabri.alphatimer.api.protocol.DataListener;
+import de.dennisfabri.alphatimer.api.protocol.events.dropped.*;
+import de.dennisfabri.alphatimer.api.protocol.events.messages.DataHandlingMessage1;
+import de.dennisfabri.alphatimer.api.protocol.events.messages.DataHandlingMessage2;
+import de.dennisfabri.alphatimer.api.protocol.events.messages.Message;
+import de.dennisfabri.alphatimer.api.protocol.events.messages.Ping;
+import de.dennisfabri.alphatimer.collector.InputCollector;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
@@ -21,7 +21,7 @@ class CollectorDataTest {
 
     private static final boolean verbose = false;
 
-    private AlphaTranslator alphaTranslator;
+    private InputCollector alphaTranslator;
     private DataListener listener;
 
     private static final Testdata testdata = new Testdata();
@@ -35,7 +35,7 @@ class CollectorDataTest {
     void prepare() {
         listener = mock(DataListener.class);
 
-        alphaTranslator = new AlphaTranslator();
+        alphaTranslator = new InputCollector();
         alphaTranslator.register(listener);
         if (verbose) {
             alphaTranslator.register(event -> {

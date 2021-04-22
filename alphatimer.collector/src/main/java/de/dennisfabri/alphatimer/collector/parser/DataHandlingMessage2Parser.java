@@ -1,14 +1,14 @@
 package de.dennisfabri.alphatimer.collector.parser;
 
-import de.dennisfabri.alphatimer.api.events.DataInputEvent;
-import de.dennisfabri.alphatimer.api.events.dropped.DataHandlingMessage2DroppedEvent;
-import de.dennisfabri.alphatimer.api.events.messages.DataHandlingMessage2;
-import de.dennisfabri.alphatimer.api.events.messages.Message;
-import de.dennisfabri.alphatimer.api.events.messages.enums.TimeInfo;
-import de.dennisfabri.alphatimer.api.events.messages.enums.TimeMarker;
+import de.dennisfabri.alphatimer.api.protocol.events.DataInputEvent;
+import de.dennisfabri.alphatimer.api.protocol.events.dropped.DataHandlingMessage2DroppedEvent;
+import de.dennisfabri.alphatimer.api.protocol.events.messages.DataHandlingMessage2;
+import de.dennisfabri.alphatimer.api.protocol.events.messages.Message;
+import de.dennisfabri.alphatimer.api.protocol.events.messages.enums.TimeInfo;
+import de.dennisfabri.alphatimer.api.protocol.events.messages.enums.TimeMarker;
 import de.dennisfabri.alphatimer.collector.Characters;
-import de.dennisfabri.alphatimer.collector.utils.ByteArrayUtils;
 import de.dennisfabri.alphatimer.collector.exceptions.InvalidDataException;
+import de.dennisfabri.alphatimer.collector.utils.ByteArrayUtils;
 
 import java.util.Arrays;
 import java.util.NoSuchElementException;

@@ -27,10 +27,9 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
-public class CommandLineInterpreterTest {
+class CommandLineInterpreterTest {
 
     private CommandLineInterpreter cli;
-    private SerialConnectionBuilder serialConnectionBuilder;
 
     @BeforeEach
     void prepare()
@@ -39,7 +38,7 @@ public class CommandLineInterpreterTest {
             UnsupportedCommOperationException,
             NoSuchPortException,
             PortInUseException {
-        serialConnectionBuilder = Mockito.mock(SerialConnectionBuilder.class);
+        SerialConnectionBuilder serialConnectionBuilder = Mockito.mock(SerialConnectionBuilder.class);
         when(serialConnectionBuilder.listAvailablePorts()).thenReturn(new String[]{"Port1", "Port2"});
         when(serialConnectionBuilder.autoconfigurePort()).thenReturn("AutoconfiguredPort");
         when(serialConnectionBuilder.configure(any(), any())).thenReturn(serialConnectionBuilder);
@@ -81,19 +80,49 @@ public class CommandLineInterpreterTest {
     }
 
     @Test
+    void writeToSerialPortAutoconfigure() throws Exception {
+        ListAppender<ILoggingEvent> appender = prepareLogger(WriteToSerialPort.class);
+
+        new ActualFile().write("target/test-data/demo.dat", (byte) 0);
+        boolean result = cli.run("-writetoserialport", "target/test-data/demo.dat", "", "ARES21");
+
+        assertTrue(result);
+
+        List<String> messages = appender.list.stream().map(e -> e.getMessage()).collect(Collectors.toList());
+        assertTrue(2 <= messages.size());
+        assertTrue(messages.contains("Writing content of file {} to port {} with settings {}."));
+        assertEquals("Finished", messages.get(messages.size() - 1));
+    }
+
+    @Test
+    void writeToSerialPortWithoutFilename() throws Exception {
+        ListAppender<ILoggingEvent> appender = prepareLogger(WriteToSerialPort.class);
+
+        new ActualFile().write("target/test-data/demo.dat", (byte) 0);
+        boolean result = cli.run("-writetoserialport", "", "TestPort", "ARES21");
+
+        assertTrue(result);
+
+        List<String> messages = appender.list.stream().map(e -> e.getMessage()).collect(Collectors.toList());
+        assertTrue(1 <= messages.size());
+        assertEquals("Filename not specified.", messages.get(messages.size() - 1));
+    }
+
+    @Test
     void emptyTest() throws Exception {
         boolean result = cli.run("");
         assertFalse(result);
     }
 
     private ListAppender<ILoggingEvent> prepareLogger(Class<?> loggedClass) {
-        Logger fooLogger = LoggerFactory.getLogger(loggedClass);
-        if (!(fooLogger instanceof ch.qos.logback.classic.Logger)) {
-
-            return null;
+        Logger logger = LoggerFactory.getLogger(loggedClass);
+        if (!(logger instanceof ch.qos.logback.classic.Logger)) {
+            throw new RuntimeException(String.format("Logger should be an instance of %s but is %s",
+                                                     ch.qos.logback.classic.Logger.class,
+                                                     logger.getClass()));
         }
 
-        ch.qos.logback.classic.Logger classicLogger = (ch.qos.logback.classic.Logger) fooLogger;
+        ch.qos.logback.classic.Logger classicLogger = (ch.qos.logback.classic.Logger) logger;
         // create and start a ListAppender
         ListAppender<ILoggingEvent> listAppender = new ListAppender<>();
         listAppender.start();

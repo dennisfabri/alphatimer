@@ -1,5 +1,7 @@
 package de.dennisfabri.alphatimer.storage;
 
+import lombok.NonNull;
+
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -9,7 +11,7 @@ import java.nio.file.StandardOpenOption;
 
 public class ActualFile implements FileFacade {
     @Override
-    public void write(String filename, byte b) throws IOException {
+    public void write(@NonNull String filename, byte b) throws IOException {
         Files.createDirectories(Path.of(filename).getParent());
         Files.write(Path.of(filename),
                     new byte[]{b},
@@ -19,7 +21,7 @@ public class ActualFile implements FileFacade {
     }
 
     @Override
-    public byte[] read(String filename) throws IOException {
+    public byte[] read(@NonNull String filename) throws IOException {
         try {
             return Files.readAllBytes(Path.of(filename));
         } catch (NoSuchFileException ex) {

@@ -1,7 +1,7 @@
 package de.dennisfabri.alphatimer.messagesstorage;
 
-import de.dennisfabri.alphatimer.api.events.messages.DataHandlingMessage;
-import de.dennisfabri.alphatimer.api.events.messages.values.UsedLanes;
+import de.dennisfabri.alphatimer.api.protocol.events.messages.DataHandlingMessage;
+import de.dennisfabri.alphatimer.api.protocol.events.messages.values.UsedLanes;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -15,18 +15,18 @@ public class Messages {
 
     private final AresMessageRepository repository;
 
-    public void put(DataHandlingMessage message) {
-        repository.save(mapDataHandlingMessageToAresMessage(message));
+    public void put(DataHandlingMessage message, String competitionKey) {
+        repository.save(mapDataHandlingMessageToAresMessage(message, competitionKey));
     }
 
-    public List<DataHandlingMessage> get(short event, byte heat) {
-        return repository.findAllByEventAndHeat(event, heat)
+    public List<DataHandlingMessage> get(String competitionKey, short event, byte heat) {
+        return repository.findAllByCompetitionKeyAndEventAndHeat(competitionKey, event, heat)
                 .stream()
                 .map(am -> mapAresMessageToDataHandlingMessage(am))
                 .collect(Collectors.toList());
     }
 
-    private AresMessage mapDataHandlingMessageToAresMessage(DataHandlingMessage am) {
+    private AresMessage mapDataHandlingMessageToAresMessage(DataHandlingMessage am, String competitionKey) {
         return new AresMessage(am.getMessageType(),
                                am.getKindOfTime(),
                                am.getTimeType(),
@@ -40,7 +40,8 @@ public class Messages {
                                am.getCurrentLap(),
                                am.getTimeInMillis(),
                                am.getTimeInfo(),
-                               am.getTimeMarker());
+                               am.getTimeMarker(),
+                               competitionKey);
     }
 
     private DataHandlingMessage mapAresMessageToDataHandlingMessage(AresMessage am) {

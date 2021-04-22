@@ -1,20 +1,18 @@
 package de.dennisfabri.alphatimer.collector;
 
-import de.dennisfabri.alphatimer.api.DataListener;
-import de.dennisfabri.alphatimer.api.events.dropped.UnstructuredInputDroppedEvent;
-import de.dennisfabri.alphatimer.api.events.messages.DataHandlingMessage1;
-import de.dennisfabri.alphatimer.api.events.messages.enums.KindOfTime;
-import de.dennisfabri.alphatimer.api.events.messages.enums.MessageType;
-import de.dennisfabri.alphatimer.api.events.messages.enums.RankInfo;
-import de.dennisfabri.alphatimer.api.events.messages.enums.TimeType;
-import de.dennisfabri.alphatimer.api.events.messages.values.UsedLanes;
+import de.dennisfabri.alphatimer.api.protocol.DataListener;
+import de.dennisfabri.alphatimer.api.protocol.events.dropped.UnstructuredInputDroppedEvent;
+import de.dennisfabri.alphatimer.api.protocol.events.messages.DataHandlingMessage1;
+import de.dennisfabri.alphatimer.api.protocol.events.messages.enums.KindOfTime;
+import de.dennisfabri.alphatimer.api.protocol.events.messages.enums.MessageType;
+import de.dennisfabri.alphatimer.api.protocol.events.messages.enums.RankInfo;
+import de.dennisfabri.alphatimer.api.protocol.events.messages.enums.TimeType;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
 import java.util.Arrays;
-import java.util.BitSet;
 
 import static de.dennisfabri.alphatimer.collector.DataHandlingMessageTestData.*;
 import static org.mockito.Mockito.*;
@@ -24,12 +22,12 @@ import static org.mockito.Mockito.*;
  */
 class DataHandlingMessage1Test {
 
-    private AlphaTranslator alphaTranslator;
+    private InputCollector alphaTranslator;
     private DataListener listener;
 
     @BeforeEach
     void prepare() {
-        alphaTranslator = new AlphaTranslator();
+        alphaTranslator = new InputCollector();
         listener = mock(DataListener.class);
         alphaTranslator.register(listener);
     }

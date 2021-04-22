@@ -12,14 +12,10 @@ class SerialReader implements SerialPortReader {
 
     private final SerialPort port;
 
-    private final ByteListener listener;
-
     public SerialReader(String port, SerialConfiguration config, ByteListener listener)
             throws NoSuchPortException, PortInUseException, TooManyListenersException,
                    UnsupportedCommOperationException {
         log.info("Starting reader at port {} with {}", port, config);
-
-        this.listener = listener;
 
         CommPortIdentifier portId = CommPortIdentifier.getPortIdentifier(port);
         this.port = portId.open("PortReader", 100);

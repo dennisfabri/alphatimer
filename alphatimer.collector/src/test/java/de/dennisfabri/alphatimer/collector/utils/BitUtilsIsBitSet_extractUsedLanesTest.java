@@ -3,6 +3,8 @@ package de.dennisfabri.alphatimer.collector.utils;
 import de.dennisfabri.alphatimer.collector.exceptions.InvalidDataException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 
 import java.util.BitSet;
 
@@ -16,6 +18,8 @@ class BitUtilsIsBitSet_extractUsedLanesTest {
     void initialize() {
         bitUtils = new BitUtils();
     }
+
+    private final static byte[] SELECTED_LANE_DATA = new byte[]{0b00110000, 0b00101000, 0b00100100, 0b00100010, 0b00100001};
 
     @Test
     void extractUsedLanesNone() throws InvalidDataException {
@@ -40,112 +44,26 @@ class BitUtilsIsBitSet_extractUsedLanesTest {
         assertEquals(expected, actual);
     }
 
-    @Test
-    void extractUsedLanes1() throws InvalidDataException {
+    @ParameterizedTest
+    @ValueSource(bytes = {0, 1, 2, 3, 4})
+    void extractUsedLanesFromFirstByte(byte laneIndex) throws InvalidDataException {
         BitSet expected = new BitSet();
         expected.set(9, false);
-        expected.set(0, true);
+        expected.set(laneIndex, true);
 
-        BitSet actual = bitUtils.extractUsedLanes((byte) 0b00110000, (byte) 0b00100000);
+        BitSet actual = bitUtils.extractUsedLanes(SELECTED_LANE_DATA[laneIndex], (byte) 0b00100000);
 
         assertEquals(expected, actual);
     }
 
-    @Test
-    void extractUsedLanes2() throws InvalidDataException {
+    @ParameterizedTest
+    @ValueSource(bytes = {0, 1, 2, 3, 4})
+    void extractUsedLanesFromSecondByte(byte laneIndex) throws InvalidDataException {
         BitSet expected = new BitSet();
         expected.set(9, false);
-        expected.set(1, true);
+        expected.set(5 + laneIndex, true);
 
-        BitSet actual = bitUtils.extractUsedLanes((byte) 0b00101000, (byte) 0b00100000);
-
-        assertEquals(expected, actual);
-    }
-
-    @Test
-    void extractUsedLanes3() throws InvalidDataException {
-        BitSet expected = new BitSet();
-        expected.set(9, false);
-        expected.set(2, true);
-
-        BitSet actual = bitUtils.extractUsedLanes((byte) 0b00100100, (byte) 0b00100000);
-
-        assertEquals(expected, actual);
-    }
-
-    @Test
-    void extractUsedLanes4() throws InvalidDataException {
-        BitSet expected = new BitSet();
-        expected.set(9, false);
-        expected.set(3, true);
-
-        BitSet actual = bitUtils.extractUsedLanes((byte) 0b00100010, (byte) 0b00100000);
-
-        assertEquals(expected, actual);
-    }
-
-    @Test
-    void extractUsedLanes5() throws InvalidDataException {
-        BitSet expected = new BitSet();
-        expected.set(9, false);
-        expected.set(4, true);
-
-        BitSet actual = bitUtils.extractUsedLanes((byte) 0b00100001, (byte) 0b00100000);
-
-        assertEquals(expected, actual);
-    }
-
-    @Test
-    void extractUsedLanes6() throws InvalidDataException {
-        BitSet expected = new BitSet();
-        expected.set(9, false);
-        expected.set(5, true);
-
-        BitSet actual = bitUtils.extractUsedLanes((byte) 0b00100000, (byte) 0b00110000);
-
-        assertEquals(expected, actual);
-    }
-
-    @Test
-    void extractUsedLanes7() throws InvalidDataException {
-        BitSet expected = new BitSet();
-        expected.set(9, false);
-        expected.set(6, true);
-
-        BitSet actual = bitUtils.extractUsedLanes((byte) 0b00100000, (byte) 0b00101000);
-
-        assertEquals(expected, actual);
-    }
-
-    @Test
-    void extractUsedLanes8() throws InvalidDataException {
-        BitSet expected = new BitSet();
-        expected.set(9, false);
-        expected.set(7, true);
-
-        BitSet actual = bitUtils.extractUsedLanes((byte) 0b00100000, (byte) 0b00100100);
-
-        assertEquals(expected, actual);
-    }
-
-    @Test
-    void extractUsedLanes9() throws InvalidDataException {
-        BitSet expected = new BitSet();
-        expected.set(9, false);
-        expected.set(8, true);
-
-        BitSet actual = bitUtils.extractUsedLanes((byte) 0b00100000, (byte) 0b00100010);
-
-        assertEquals(expected, actual);
-    }
-
-    @Test
-    void extractUsedLanes10() throws InvalidDataException {
-        BitSet expected = new BitSet();
-        expected.set(9, false);
-        expected.set(9, true);
-
-        BitSet actual = bitUtils.extractUsedLanes((byte) 0b00100000, (byte) 0b00100001);
+        BitSet actual = bitUtils.extractUsedLanes((byte) 0b00100000, SELECTED_LANE_DATA[laneIndex]);
 
         assertEquals(expected, actual);
     }
