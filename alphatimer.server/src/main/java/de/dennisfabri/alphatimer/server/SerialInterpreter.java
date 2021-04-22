@@ -39,16 +39,19 @@ public class SerialInterpreter {
 
     private SerialPortReader reader;
 
-    public void start()
-            throws
-            TooManyListenersException,
-            UnsupportedCommOperationException,
-            NoSuchPortException,
-            PortInUseException, IOException {
-        initializeCompetitionKey();
-        readStoredData();
-        initializePipeline();
-        initializeSerialReader();
+    public void start() {
+        try {
+            initializeCompetitionKey();
+            readStoredData();
+            initializePipeline();
+            initializeSerialReader();
+        } catch (NoSuchPortException nsp) {
+            log.error("No port with specified name present.");
+        } catch (PortInUseException nsp) {
+            log.error("Specified port is already in use.");
+        } catch (UnsupportedCommOperationException uco) {
+            log.error("Unknown communication error occurred.", uco);
+        }
     }
 
     private void initializeCompetitionKey() {
@@ -59,11 +62,11 @@ public class SerialInterpreter {
         log.info("Using competition key: {}", competitionKey);
     }
 
-    private void readStoredData() throws IOException {
+    private void readStoredData() {
         preload(legacy, storage);
     }
 
-    private static void preload(LegacyTimeStorage legacy, Storage storage) throws IOException {
+    private static void preload(LegacyTimeStorage legacy, Storage storage) {
         try (final InputCollector preloadAlphaTranslator = new InputCollector()) {
             DataHandlingMessageAggregator preloadAggregator = new DataHandlingMessageAggregator();
             preloadAggregator.register(e -> legacy.notify(e));
@@ -71,6 +74,8 @@ public class SerialInterpreter {
             for (byte b : storage.read()) {
                 preloadAlphaTranslator.put(b);
             }
+        } catch (IOException io) {
+            log.warn("Preload not executed/finished", io);
         }
     }
 
@@ -93,22 +98,25 @@ public class SerialInterpreter {
     private void initializeSerialReader() throws
                                           NoSuchPortException,
                                           PortInUseException,
-                                          TooManyListenersException,
                                           UnsupportedCommOperationException {
-        String port = config.getSerialPort();
-        if (hasNoValue(port)) {
-            port = serialConnectionBuilder.autoconfigurePort();
-        }
-
-        log.info("Connecting to port: {}", port);
-        reader = serialConnectionBuilder.configure(port, config.getSerialConfigurationObject()).buildReader(e -> {
-            try {
-                storage.write(e);
-            } catch (IOException ex) {
-                log.warn("Could not save data.", ex);
+        try {
+            String port = config.getSerialPort();
+            if (hasNoValue(port)) {
+                port = serialConnectionBuilder.autoconfigurePort();
             }
-            alphaTranslator.put(e);
-        });
+
+            log.info("Connecting to port: {}", port);
+            reader = serialConnectionBuilder.configure(port, config.getSerialConfigurationObject()).buildReader(e -> {
+                try {
+                    storage.write(e);
+                } catch (IOException ex) {
+                    log.warn("Could not save data.", ex);
+                }
+                alphaTranslator.put(e);
+            });
+        } catch (TooManyListenersException tml) {
+            log.warn("Exactly one listener is registered during startup (This exception should not occur).", tml);
+        }
     }
 
     private boolean hasNoValue(String port) {
