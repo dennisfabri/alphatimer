@@ -26,15 +26,63 @@ class DataHandlingMessageAggregatorTest {
 
     @BeforeEach
     void prepare() {
-        aggregator = new DataHandlingMessageAggregator();
         listener = Mockito.mock(DataHandlingMessageListener.class);
-        aggregator.register(listener);
+        aggregator = new DataHandlingMessageAggregator(listener);
     }
 
     @AfterEach
     void cleanUp() {
         aggregator = null;
         listener = null;
+    }
+
+    @Test
+    void register() {
+        listener = Mockito.mock(DataHandlingMessageListener.class);
+
+        aggregator = new DataHandlingMessageAggregator();
+        aggregator.register(listener);
+
+        aggregator.accept(new DataHandlingMessage1(
+                "1",
+                MessageType.OnLineTime,
+                KindOfTime.Start,
+                TimeType.Empty,
+                createUsedLanes(),
+                (byte) 2,
+                (short) 1,
+                (byte) 1,
+                (byte) 0,
+                RankInfo.Normal));
+        aggregator.accept(new DataHandlingMessage2(
+                "2",
+                (byte) 1,
+                (byte) 0,
+                112853930,
+                TimeInfo.Normal,
+                TimeMarker.Empty));
+
+        verify(listener, times(1)).accept(Mockito.any());
+        verify(listener, times(1)).accept(new DataHandlingMessage(
+                "1",
+                "2",
+                MessageType.OnLineTime,
+                KindOfTime.Start,
+                TimeType.Empty,
+                createUsedLanes(),
+                (byte) 2,
+                (short) 1,
+                (byte) 1,
+                (byte) 0,
+                RankInfo.Normal,
+                (byte) 1,
+                (byte) 0,
+                112853930,
+                TimeInfo.Normal,
+                TimeMarker.Empty));
+
+        verifyNoMoreInteractions(listener);
+
     }
 
     @Test

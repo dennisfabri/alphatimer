@@ -1,6 +1,5 @@
 package de.dennisfabri.alphatimer.server;
 
-import de.dennisfabri.alphatimer.api.protocol.events.messages.DataHandlingMessage;
 import de.dennisfabri.alphatimer.collector.DataHandlingMessageAggregator;
 import de.dennisfabri.alphatimer.collector.InputCollector;
 import de.dennisfabri.alphatimer.legacy.LegacyTimeStorage;
@@ -71,8 +70,7 @@ public class SerialInterpreter {
 
     private static void preload(LegacyTimeStorage legacy, Storage storage) {
         try (final InputCollector preloadAlphaTranslator = new InputCollector()) {
-            DataHandlingMessageAggregator preloadAggregator = new DataHandlingMessageAggregator();
-            preloadAggregator.register(e -> legacy.accept(e));
+            DataHandlingMessageAggregator preloadAggregator = new DataHandlingMessageAggregator(legacy);
             preloadAlphaTranslator.register(e -> preloadAggregator.accept(e));
             for (byte b : storage.read()) {
                 preloadAlphaTranslator.accept(b);
@@ -84,14 +82,8 @@ public class SerialInterpreter {
 
     private void initializePipeline() {
         DataHandlingMessageAggregator aggregator = new DataHandlingMessageAggregator();
-        aggregator.register(event -> {
-            log.info("Received message: '{}'", event);
-            legacy.accept(event);
-            if (event instanceof DataHandlingMessage) {
-                log.info("messages.put({})", event);
-                messages.put((DataHandlingMessage) event, competitionKey);
-            }
-        });
+        aggregator.register(legacy);
+        aggregator.register(e -> messages.put(e, competitionKey));
         alphaTranslator.register(event -> {
             log.info("Received message: '{}'", event);
             aggregator.accept(event);

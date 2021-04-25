@@ -38,14 +38,7 @@ class SerialFilesToDatabase {
         try (final InputCollector alphaTranslator = new InputCollector()) {
             Messages messages = new Messages(repository);
 
-            DataHandlingMessageAggregator aggregator = new DataHandlingMessageAggregator();
-            aggregator.register(event -> {
-                log.info("Received message: '{}'", event);
-                if (event instanceof DataHandlingMessage) {
-                    log.info("messages.put({})", event);
-                    messages.put((DataHandlingMessage) event, file);
-                }
-            });
+            DataHandlingMessageAggregator aggregator = new DataHandlingMessageAggregator(event -> messages.put(event, file));
             alphaTranslator.register(event -> {
                 log.info("Received message: '{}'", event);
                 aggregator.accept(event);

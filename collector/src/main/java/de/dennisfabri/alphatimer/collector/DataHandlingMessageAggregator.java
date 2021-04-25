@@ -21,7 +21,6 @@ public class DataHandlingMessageAggregator implements DataInputEventListener {
     private final List<DataHandlingMessageListener> listeners = new ArrayList<>();
 
     public DataHandlingMessageAggregator(DataHandlingMessageListener listener) {
-        this();
         register(listener);
     }
 

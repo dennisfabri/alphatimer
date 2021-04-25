@@ -21,8 +21,7 @@ class LegacyTimeStorageTest {
     void prepare() {
         timeStorage = new LegacyTimeStorage();
 
-        DataHandlingMessageAggregator aggregator = new DataHandlingMessageAggregator();
-        aggregator.register(timeStorage);
+        DataHandlingMessageAggregator aggregator = new DataHandlingMessageAggregator(timeStorage);
     }
 
     @AfterEach

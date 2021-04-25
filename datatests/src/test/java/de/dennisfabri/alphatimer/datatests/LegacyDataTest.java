@@ -29,8 +29,7 @@ class LegacyDataTest {
     void prepare() {
         timeStorage = new LegacyTimeStorage();
 
-        DataHandlingMessageAggregator aggregator = new DataHandlingMessageAggregator();
-        aggregator.register(timeStorage);
+        DataHandlingMessageAggregator aggregator = new DataHandlingMessageAggregator(timeStorage);
 
         alphaTranslator = new InputCollector();
         alphaTranslator.register(aggregator);
