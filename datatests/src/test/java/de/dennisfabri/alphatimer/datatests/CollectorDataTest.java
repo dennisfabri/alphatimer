@@ -24,11 +24,9 @@ class CollectorDataTest {
     private InputCollector alphaTranslator;
     private DataInputEventListener listener;
 
-    private static final Testdata testdata = new Testdata();
-
     @BeforeAll
     static void prepareData() throws IOException {
-        testdata.prepare();
+        new TestData().prepare();
     }
 
     @BeforeEach
@@ -54,7 +52,7 @@ class CollectorDataTest {
 
     @Test
     void DM2008Freitag() throws IOException {
-        byte[] data = testdata.readSerialInput("DM2008Freitag");
+        byte[] data = new TestData().readSerialInput("DM2008Freitag");
 
         for (byte d : data) {
             alphaTranslator.accept(d);
@@ -80,7 +78,7 @@ class CollectorDataTest {
 
     @Test
     void DM2008Samstag() throws IOException {
-        byte[] data = testdata.readSerialInput("DM2008Samstag");
+        byte[] data = new TestData().readSerialInput("DM2008Samstag");
 
         for (byte d : data) {
             alphaTranslator.accept(d);
@@ -106,7 +104,7 @@ class CollectorDataTest {
 
     @Test
     void DM2009() throws IOException {
-        byte[] data = testdata.readSerialInput("DM2009");
+        byte[] data = new TestData().readSerialInput("DM2009");
 
         for (byte d : data) {
             alphaTranslator.accept(d);
@@ -132,7 +130,7 @@ class CollectorDataTest {
 
     @Test
     void DM2010() throws IOException {
-        byte[] data = testdata.readSerialInput("DM2010");
+        byte[] data = new TestData().readSerialInput("DM2010");
 
         for (byte d : data) {
             alphaTranslator.accept(d);
@@ -158,7 +156,7 @@ class CollectorDataTest {
 
     @Test
     void JRP2019Freitag() throws IOException {
-        byte[] data = testdata.readSerialInput("JRP2019Freitag");
+        byte[] data = new TestData().readSerialInput("JRP2019Freitag");
 
         for (byte d : data) {
             alphaTranslator.accept(d);
@@ -184,7 +182,7 @@ class CollectorDataTest {
 
     @Test
     void JRP2019Samstag() throws IOException {
-        byte[] data = testdata.readSerialInput("JRP2019Samstag");
+        byte[] data = new TestData().readSerialInput("JRP2019Samstag");
 
         for (byte d : data) {
             alphaTranslator.accept(d);
@@ -210,7 +208,7 @@ class CollectorDataTest {
 
     @Test
     void JRP2019Sonntag() throws IOException {
-        byte[] data = testdata.readSerialInput("JRP2019Sonntag");
+        byte[] data = new TestData().readSerialInput("JRP2019Sonntag");
 
         for (byte d : data) {
             alphaTranslator.accept(d);
@@ -236,7 +234,7 @@ class CollectorDataTest {
 
     @Test
     void DMM2019Freitag() throws IOException {
-        byte[] data = testdata.readSerialInput("DMM2019Freitag");
+        byte[] data = new TestData().readSerialInput("DMM2019Freitag");
 
         for (byte d : data) {
             alphaTranslator.accept(d);
@@ -262,7 +260,7 @@ class CollectorDataTest {
 
     @Test
     void DMM2019Samstag() throws IOException {
-        byte[] data = testdata.readSerialInput("DMM2019Samstag");
+        byte[] data = new TestData().readSerialInput("DMM2019Samstag");
 
         for (byte d : data) {
             alphaTranslator.accept(d);
@@ -288,7 +286,7 @@ class CollectorDataTest {
 
     @Test
     void DMM2019Sonntag() throws IOException {
-        byte[] data = testdata.readSerialInput("DMM2019Sonntag");
+        byte[] data = new TestData().readSerialInput("DMM2019Sonntag");
 
         for (byte d : data) {
             alphaTranslator.accept(d);
@@ -314,7 +312,7 @@ class CollectorDataTest {
 
     @Test
     void DP2019Freitag() throws IOException {
-        byte[] data = testdata.readSerialInput("DP2019Freitag");
+        byte[] data = new TestData().readSerialInput("DP2019Freitag");
 
         for (byte d : data) {
             alphaTranslator.accept(d);
@@ -340,7 +338,7 @@ class CollectorDataTest {
 
     @Test
     void DP2019Samstag() throws IOException {
-        byte[] data = testdata.readSerialInput("DP2019Samstag");
+        byte[] data = new TestData().readSerialInput("DP2019Samstag");
 
         for (byte d : data) {
             alphaTranslator.accept(d);

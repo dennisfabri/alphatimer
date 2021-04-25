@@ -14,17 +14,14 @@
         <dependency>
             <groupId>de.dennisfabri.alphatimer</groupId>
             <artifactId>collector</artifactId>
-            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>de.dennisfabri.alphatimer</groupId>
             <artifactId>refinedmessages</artifactId>
-            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>de.dennisfabri.alphatimer</groupId>
             <artifactId>legacy</artifactId>
-            <scope>test</scope>
         </dependency>
     </dependencies>
 </project>

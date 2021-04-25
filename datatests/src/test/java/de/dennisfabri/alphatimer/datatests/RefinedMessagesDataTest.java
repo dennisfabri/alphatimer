@@ -112,11 +112,9 @@ class RefinedMessagesDataTest {
     private Consumer<RefinedMessage> listener;
     private DataHandlingMessageRefiner refiner;
 
-    private static final Testdata testdata = new Testdata();
-
     @BeforeAll
     static void prepareData() throws IOException {
-        testdata.prepare();
+        new TestData().prepare();
     }
 
     @BeforeEach
@@ -153,7 +151,7 @@ class RefinedMessagesDataTest {
             "DP2019Freitag", "DP2019Samstag",
             "DMM2019Freitag", "DMM2019Samstag", "DMM2019Sonntag"})
     void test(String name) throws IOException {
-        byte[] data = testdata.readSerialInput(name);
+        byte[] data = new TestData().readSerialInput(name);
 
         for (byte d : data) {
             alphaTranslator.accept(d);

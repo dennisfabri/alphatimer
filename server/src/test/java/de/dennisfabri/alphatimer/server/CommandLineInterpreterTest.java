@@ -111,6 +111,36 @@ class CommandLineInterpreterTest {
     }
 
     @Test
+    void writeToSerialPortWithoutSerialConfig() throws Exception {
+        ListAppender<ILoggingEvent> appender = prepareLogger(WriteToSerialPort.class);
+
+        new ActualFile().write("target/test-data/demo.dat", (byte) 0);
+        boolean result = cli.run("-writetoserialport", "target/test-data/demo.dat", "TestPort", "");
+
+        assertTrue(result);
+
+        List<String> messages = appender.list.stream().map(e -> e.getMessage()).collect(Collectors.toList());
+        assertTrue(2 <= messages.size());
+        assertTrue(messages.contains("Writing content of file {} to port {} with settings {}."));
+        assertEquals("Finished", messages.get(messages.size() - 1));
+    }
+
+    @Test
+    void writeToSerialPortWithTooFewArguments() throws Exception {
+        ListAppender<ILoggingEvent> appender = prepareLogger(WriteToSerialPort.class);
+
+        new ActualFile().write("target/test-data/demo.dat", (byte) 0);
+        boolean result = cli.run("-writetoserialport", "target/test-data/demo.dat", "TestPort");
+
+        assertTrue(result);
+
+        List<String> messages = appender.list.stream().map(e -> e.getMessage()).collect(Collectors.toList());
+        assertTrue(2 <= messages.size());
+        assertTrue(messages.contains("Writing content of file {} to port {} with settings {}."));
+        assertEquals("Finished", messages.get(messages.size() - 1));
+    }
+
+    @Test
     void emptyTest() throws Exception {
         boolean result = cli.run("");
         assertFalse(result);

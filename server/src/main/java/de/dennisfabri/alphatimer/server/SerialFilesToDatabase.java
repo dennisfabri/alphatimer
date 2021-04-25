@@ -10,6 +10,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
 import java.io.File;
+import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Arrays;
@@ -26,7 +27,8 @@ class SerialFilesToDatabase {
             "DP2019Freitag", "DP2019Samstag",
             "DMM2019Freitag", "DMM2019Samstag", "DMM2019Sonntag"};
 
-    void transfer(String path) {
+    void transfer(String path) throws IOException {
+        String[] filenames = Files.list(Path.of(path)).map(p -> p.getFileName().toString()).toArray(String[]::new);
         Arrays.stream(files).forEach(file -> transferFile(path, file));
     }
 

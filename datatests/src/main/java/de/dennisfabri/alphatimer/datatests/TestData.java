@@ -12,37 +12,40 @@ import java.nio.file.Path;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
-class Testdata {
+public class TestData {
 
-    private final static boolean verbose = false;
+    private static final boolean verbose = false;
 
-    private static final String TESTDATA_DIRECTORY = "target/test-data/";
+    private static final String TEST_DATA_DIRECTORY = "target/test-data/";
 
-    void prepare() throws IOException {
-        String zipfile = "testdata.zip";
+    private static final String TEST_DATA_ZIP = "testdata.zip";
 
-        if (Files.exists(Path.of(TESTDATA_DIRECTORY))) {
+    public void prepare() throws IOException {
+        prepare("");
+    }
+
+    public void prepare(String filenameFilter) throws IOException {
+        if (Files.exists(Path.of(TEST_DATA_DIRECTORY))) {
             return;
         }
 
-        ClassLoader classLoader = getClass().getClassLoader();
-
-        try (InputStream is = classLoader.getResourceAsStream(zipfile)) {
-            new Testdata().unzipTestData(is, TESTDATA_DIRECTORY);
+        var classLoader = getClass().getClassLoader();
+        try (InputStream is = classLoader.getResourceAsStream(TEST_DATA_ZIP)) {
+            new TestData().unzipTestData(is, TEST_DATA_DIRECTORY, filenameFilter);
         }
     }
 
     Heat[] readLegacyData(String filename) {
-        return (Heat[]) LegacyXStreamUtil.getXStream().fromXML(new File(Testdata.TESTDATA_DIRECTORY + filename + ".ez"));
+        return (Heat[]) LegacyXStreamUtil.getXStream().fromXML(new File(TestData.TEST_DATA_DIRECTORY + filename + ".ez"));
     }
 
     byte[] readSerialInput(String filename) throws IOException {
-        return Files.readAllBytes(Path.of(Testdata.TESTDATA_DIRECTORY + filename + ".serial"));
+        return Files.readAllBytes(Path.of(TestData.TEST_DATA_DIRECTORY + filename + ".serial"));
     }
 
     void writeToDebug(Heat[] actual, String filename) throws IOException {
         if (verbose) {
-            try (FileOutputStream os = new FileOutputStream(Testdata.TESTDATA_DIRECTORY + filename + ".xml")) {
+            try (var os = new FileOutputStream(TestData.TEST_DATA_DIRECTORY + filename + ".xml")) {
                 LegacyXStreamUtil.getXStream().toXML(actual, os);
             }
         }
@@ -51,7 +54,7 @@ class Testdata {
     /*
      * Source: https://www.baeldung.com/java-compress-and-uncompress
      */
-    private void unzipTestData(InputStream fileZip, String destination) throws IOException {
+    private void unzipTestData(InputStream fileZip, String destination, String filenameFilter) throws IOException {
         File destDir = new File(destination);
         byte[] buffer = new byte[1024];
         ZipInputStream zis = new ZipInputStream(fileZip);
@@ -62,7 +65,7 @@ class Testdata {
                 if (!newFile.isDirectory() && !newFile.mkdirs()) {
                     throw new IOException("Failed to create directory " + newFile);
                 }
-            } else {
+            } else if (filterByName(newFile, filenameFilter)) {
                 // fix for Windows-created archives
                 File parent = newFile.getParentFile();
                 if (!parent.isDirectory() && !parent.mkdirs()) {
@@ -83,8 +86,15 @@ class Testdata {
         zis.close();
     }
 
+    private boolean filterByName(File file, String filenameFilter) {
+        if (filenameFilter == null || filenameFilter.trim().length() == 0) {
+            return true;
+        }
+        return file.getName().equals(filenameFilter);
+    }
+
     public static File newFile(File destinationDir, ZipEntry zipEntry) throws IOException {
-        File destFile = new File(destinationDir, zipEntry.getName());
+        var destFile = new File(destinationDir, zipEntry.getName());
 
         String destDirPath = destinationDir.getCanonicalPath();
         String destFilePath = destFile.getCanonicalPath();

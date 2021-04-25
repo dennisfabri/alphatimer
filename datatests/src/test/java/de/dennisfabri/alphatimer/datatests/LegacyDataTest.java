@@ -20,11 +20,9 @@ class LegacyDataTest {
     private InputCollector alphaTranslator;
     private LegacyTimeStorage timeStorage;
 
-    private static final Testdata testdata = new Testdata();
-
     @BeforeAll
     static void prepareData() throws IOException {
-        testdata.prepare();
+        new TestData().prepare();
     }
 
     @BeforeEach
@@ -60,7 +58,7 @@ class LegacyDataTest {
             "DP2019Freitag", "DP2019Samstag",
             "DMM2019Freitag", "DMM2019Samstag", "DMM2019Sonntag"})
     void translate(String filename) throws IOException {
-        byte[] data = testdata.readSerialInput(filename);
+        byte[] data = new TestData().readSerialInput(filename);
 
         for (byte d : data) {
             alphaTranslator.accept(d);
@@ -69,8 +67,8 @@ class LegacyDataTest {
 
         Heat[] actual = timeStorage.getHeats();
 
-        testdata.writeToDebug(actual, filename);
+        new TestData().writeToDebug(actual, filename);
 
-        assertValid(testdata.readLegacyData(filename), actual);
+        assertValid(new TestData().readLegacyData(filename), actual);
     }
 }
