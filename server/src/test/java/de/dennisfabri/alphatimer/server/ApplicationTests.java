@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.ConfigurableApplicationContext;
+import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ContextConfiguration;
 
 import java.io.IOException;
@@ -16,6 +17,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 @SpringBootTest
 @ContextConfiguration()
+@DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
 class ApplicationTests {
 
     @Autowired
@@ -39,6 +41,15 @@ class ApplicationTests {
         context.getBean(SerialFilesToDatabase.class).transfer("target/test-data/");
 
         int actual = messages.get("DM2010", (short) 10, (byte) 1).size();
+
+        assertEquals(26, actual);
+    }
+
+    @Test
+    void serialFilesToDatabaseTest2() throws IOException {
+        context.getBean(SerialFilesToDatabase.class).transfer("target/test-data/");
+
+        int actual = messages.get("DM2010", (short) 100, (byte) 1).size();
 
         assertEquals(26, actual);
     }
