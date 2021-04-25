@@ -4,8 +4,8 @@ Interprets the raw data of the ARES21 Serial Transmission Protocol by [Swiss Tim
 
 ## Notes
 
-The implementation is based on the the transmission protocol description version 1.00 from March 1998. Additional and
-corrected information has been extracted from captured data during competitions.
+The implementation is based on the the transmission protocol description version 1.00 from March 1998. Additional and corrected information has been extracted
+from captured data during competitions.
 
 ## Status
 
@@ -26,5 +26,5 @@ corrected information has been extracted from captured data during competitions.
 
 The GALACTICA protocol also includes all messages from the UNT4 protocol.
 
-Ping messages are similar to the Lap Counter messages, but are only used to signal activity. Most devices will blink
-during incoming serial communication and therefore indicate a working connection.
+Ping messages are similar to the Lap Counter messages, but are only used to signal activity. Most devices will blink during incoming serial communication and
+therefore indicate a working connection.

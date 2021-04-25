@@ -50,6 +50,4 @@ HELP.md
 !**/src/main/**/target/
 !**/src/test/**/target/
 
-/data/
-
-/application*.yaml
+/work/

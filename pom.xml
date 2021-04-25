@@ -3,21 +3,23 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>de.dennisfabri</groupId>
-    <artifactId>alphatimer</artifactId>
+    <groupId>de.dennisfabri.alphatimer</groupId>
+    <artifactId>parent</artifactId>
     <version>1.0.0-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <modules>
-        <module>alphatimer.api.protocol</module>
-        <module>alphatimer.api.refinedmessages</module>
-        <module>alphatimer.collector</module>
-        <module>alphatimer.legacy</module>
-        <module>alphatimer.datatests</module>
-        <module>alphatimer.serial</module>
-        <module>alphatimer.serialstorage</module>
-        <module>alphatimer.messagesstorage</module>
-        <module>alphatimer.server</module>
+        <module>protocol-api</module>
+        <module>refinedmessages-api</module>
+        <module>messaging</module>
+        <module>collector</module>
+        <module>refinedmessages</module>
+        <module>legacy</module>
+        <module>datatests</module>
+        <module>serial</module>
+        <module>serialstorage</module>
+        <module>messagesstorage</module>
+        <module>server</module>
     </modules>
 
     <name>Alpha Translator</name>
@@ -32,54 +34,65 @@
         <junit.version>5.7.1</junit.version>
         <slf4j.version>1.7.30</slf4j.version>
         <spring.version>2.4.5</spring.version>
+        <kotlin.version>1.4.32</kotlin.version>
     </properties>
 
 
     <dependencyManagement>
         <dependencies>
             <dependency>
-                <groupId>de.dennisfabri</groupId>
-                <artifactId>alphatimer.api.protocol</artifactId>
+                <groupId>de.dennisfabri.alphatimer</groupId>
+                <artifactId>protocol-api</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
-                <groupId>de.dennisfabri</groupId>
-                <artifactId>alphatimer.api.refinedmessages</artifactId>
+                <groupId>de.dennisfabri.alphatimer</groupId>
+                <artifactId>refinedmessages-api</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
-                <groupId>de.dennisfabri</groupId>
-                <artifactId>alphatimer.collector</artifactId>
+                <groupId>de.dennisfabri.alphatimer</groupId>
+                <artifactId>refinedmessages</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
-                <groupId>de.dennisfabri</groupId>
-                <artifactId>alphatimer.legacy</artifactId>
+                <groupId>de.dennisfabri.alphatimer</groupId>
+                <artifactId>messaging</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
-                <groupId>de.dennisfabri</groupId>
-                <artifactId>alphatimer.datatests</artifactId>
+                <groupId>de.dennisfabri.alphatimer</groupId>
+                <artifactId>collector</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
-                <groupId>de.dennisfabri</groupId>
-                <artifactId>alphatimer.serial</artifactId>
+                <groupId>de.dennisfabri.alphatimer</groupId>
+                <artifactId>legacy</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
-                <groupId>de.dennisfabri</groupId>
-                <artifactId>alphatimer.serialstorage</artifactId>
+                <groupId>de.dennisfabri.alphatimer</groupId>
+                <artifactId>datatests</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
-                <groupId>de.dennisfabri</groupId>
-                <artifactId>alphatimer.messagesstorage</artifactId>
+                <groupId>de.dennisfabri.alphatimer</groupId>
+                <artifactId>serial</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
-                <groupId>de.dennisfabri</groupId>
-                <artifactId>alphatimer.server</artifactId>
+                <groupId>de.dennisfabri.alphatimer</groupId>
+                <artifactId>serialstorage</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>de.dennisfabri.alphatimer</groupId>
+                <artifactId>messagesstorage</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>de.dennisfabri.alphatimer</groupId>
+                <artifactId>server</artifactId>
                 <version>${project.version}</version>
             </dependency>
 
@@ -140,10 +153,25 @@
                 <artifactId>mssql-jdbc</artifactId>
                 <version>9.2.1.jre11</version>
             </dependency>
+            <dependency>
+                <groupId>org.jetbrains.kotlin</groupId>
+                <artifactId>kotlin-stdlib-jdk8</artifactId>
+                <version>${kotlin.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.jetbrains.kotlin</groupId>
+                <artifactId>kotlin-test</artifactId>
+                <version>${kotlin.version}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
     <dependencies>
+        <dependency>
+            <groupId>org.jetbrains.kotlin</groupId>
+            <artifactId>kotlin-stdlib-jdk8</artifactId>
+        </dependency>
+
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-api</artifactId>
@@ -162,6 +190,11 @@
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-params</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.jetbrains.kotlin</groupId>
+            <artifactId>kotlin-test</artifactId>
             <scope>test</scope>
         </dependency>
     </dependencies>
@@ -189,12 +222,29 @@
                     <artifactId>spring-boot-maven-plugin</artifactId>
                     <version>${spring.version}</version>
                 </plugin>
+                <plugin>
+                    <groupId>org.projectlombok</groupId>
+                    <artifactId>lombok-maven-plugin</artifactId>
+                    <version>1.18.20.0</version>
+                </plugin>
             </plugins>
         </pluginManagement>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>org.projectlombok</groupId>
+                <artifactId>lombok-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>delombok</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -220,6 +270,30 @@
                         <version>0.14</version>
                     </dependency>
                 </dependencies>
+            </plugin>
+            <plugin>
+                <groupId>org.jetbrains.kotlin</groupId>
+                <artifactId>kotlin-maven-plugin</artifactId>
+                <version>${kotlin.version}</version>
+                <executions>
+                    <execution>
+                        <id>compile</id>
+                        <phase>compile</phase>
+                        <goals>
+                            <goal>compile</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>test-compile</id>
+                        <phase>test-compile</phase>
+                        <goals>
+                            <goal>test-compile</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <jvmTarget>1.8</jvmTarget>
+                </configuration>
             </plugin>
         </plugins>
     </build>
