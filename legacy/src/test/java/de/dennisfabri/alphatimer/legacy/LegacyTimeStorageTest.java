@@ -3,7 +3,7 @@ package de.dennisfabri.alphatimer.legacy;
 import de.dennisfabri.alphatimer.api.protocol.events.messages.DataHandlingMessage;
 import de.dennisfabri.alphatimer.api.protocol.events.messages.enums.*;
 import de.dennisfabri.alphatimer.api.protocol.events.messages.values.UsedLanes;
-import de.dennisfabri.alphatimer.collector.DataHandlingMessageAggregator;
+import de.dennisfabri.alphatimer.protocol.DataHandlingMessageAggregator;
 import de.dennisfabri.alphatimer.legacy.model.Heat;
 import de.dennisfabri.alphatimer.legacy.model.LaneStatus;
 import org.junit.jupiter.api.AfterEach;

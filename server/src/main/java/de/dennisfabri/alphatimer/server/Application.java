@@ -1,6 +1,6 @@
 package de.dennisfabri.alphatimer.server;
 
-import de.dennisfabri.alphatimer.collector.InputCollector;
+import de.dennisfabri.alphatimer.protocol.InputCollector;
 import de.dennisfabri.alphatimer.legacy.LegacyTimeStorage;
 import de.dennisfabri.alphatimer.serial.DefaultSerialConnectionBuilder;
 import de.dennisfabri.alphatimer.serial.SerialConnectionBuilder;

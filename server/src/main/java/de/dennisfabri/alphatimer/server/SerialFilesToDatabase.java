@@ -1,8 +1,7 @@
 package de.dennisfabri.alphatimer.server;
 
-import de.dennisfabri.alphatimer.api.protocol.events.messages.DataHandlingMessage;
-import de.dennisfabri.alphatimer.collector.DataHandlingMessageAggregator;
-import de.dennisfabri.alphatimer.collector.InputCollector;
+import de.dennisfabri.alphatimer.protocol.DataHandlingMessageAggregator;
+import de.dennisfabri.alphatimer.protocol.InputCollector;
 import de.dennisfabri.alphatimer.messagesstorage.AresMessageRepository;
 import de.dennisfabri.alphatimer.messagesstorage.Messages;
 import lombok.RequiredArgsConstructor;

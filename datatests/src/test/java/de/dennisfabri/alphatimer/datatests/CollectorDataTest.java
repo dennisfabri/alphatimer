@@ -6,7 +6,7 @@ import de.dennisfabri.alphatimer.api.protocol.events.messages.DataHandlingMessag
 import de.dennisfabri.alphatimer.api.protocol.events.messages.DataHandlingMessage2;
 import de.dennisfabri.alphatimer.api.protocol.events.messages.Message;
 import de.dennisfabri.alphatimer.api.protocol.events.messages.Ping;
-import de.dennisfabri.alphatimer.collector.InputCollector;
+import de.dennisfabri.alphatimer.protocol.InputCollector;
 import org.junit.jupiter.api.*;
 import org.mockito.Mockito;
 

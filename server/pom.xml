@@ -15,7 +15,7 @@
     <dependencies>
         <dependency>
             <groupId>de.dennisfabri.alphatimer</groupId>
-            <artifactId>collector</artifactId>
+            <artifactId>protocol</artifactId>
         </dependency>
         <dependency>
             <groupId>de.dennisfabri.alphatimer</groupId>

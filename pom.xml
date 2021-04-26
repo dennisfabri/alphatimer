@@ -12,7 +12,7 @@
         <module>protocol-api</module>
         <module>refinedmessages-api</module>
         <module>messaging</module>
-        <module>collector</module>
+        <module>protocol</module>
         <module>refinedmessages</module>
         <module>legacy</module>
         <module>datatests</module>
@@ -62,7 +62,7 @@
             </dependency>
             <dependency>
                 <groupId>de.dennisfabri.alphatimer</groupId>
-                <artifactId>collector</artifactId>
+                <artifactId>protocol</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>

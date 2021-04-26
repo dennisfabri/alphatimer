@@ -1,7 +1,7 @@
 package de.dennisfabri.alphatimer.datatests;
 
-import de.dennisfabri.alphatimer.collector.DataHandlingMessageAggregator;
-import de.dennisfabri.alphatimer.collector.InputCollector;
+import de.dennisfabri.alphatimer.protocol.DataHandlingMessageAggregator;
+import de.dennisfabri.alphatimer.protocol.InputCollector;
 import de.dennisfabri.alphatimer.legacy.LegacyTimeStorage;
 import de.dennisfabri.alphatimer.legacy.model.Heat;
 import org.junit.jupiter.api.AfterAll;

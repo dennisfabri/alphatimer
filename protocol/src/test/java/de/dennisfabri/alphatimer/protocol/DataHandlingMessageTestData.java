@@ -1,7 +1,6 @@
-package de.dennisfabri.alphatimer.server;
+package de.dennisfabri.alphatimer.protocol;
 
 import de.dennisfabri.alphatimer.api.protocol.events.messages.values.UsedLanes;
-import de.dennisfabri.alphatimer.protocol.Characters;
 
 class DataHandlingMessageTestData {
     static final byte A = 0x32;

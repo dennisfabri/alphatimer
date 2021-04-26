@@ -9,22 +9,22 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>legacy</artifactId>
+    <artifactId>protocol</artifactId>
 
     <dependencies>
         <dependency>
             <groupId>de.dennisfabri.alphatimer</groupId>
-            <artifactId>protocol</artifactId>
+            <artifactId>protocol-api</artifactId>
         </dependency>
         <dependency>
-            <groupId>com.thoughtworks.xstream</groupId>
-            <artifactId>xstream</artifactId>
+            <groupId>de.dennisfabri.alphatimer</groupId>
+            <artifactId>messaging</artifactId>
         </dependency>
+
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <scope>provided</scope>
         </dependency>
     </dependencies>
-
 </project>
