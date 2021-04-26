@@ -4,7 +4,9 @@ import java.util.Arrays;
 
 class ByteStorage {
 
-    private final byte[] data = new byte[1024];
+    private final static int MaximumSize = 1024;
+
+    private final byte[] data = new byte[MaximumSize];
 
     private int size = 0;
 

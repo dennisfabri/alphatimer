@@ -2,6 +2,7 @@ package de.dennisfabri.alphatimer.server;
 
 import de.dennisfabri.alphatimer.datatests.TestData;
 import de.dennisfabri.alphatimer.messagesstorage.Messages;
+import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +29,11 @@ class ApplicationTests {
     @BeforeAll
     static void prepareData() throws IOException {
         new TestData().prepare("DM2010.serial");
+    }
+
+    @AfterAll
+    static void cleanup() throws IOException {
+        new TestData().cleanup();
     }
 
     @Test

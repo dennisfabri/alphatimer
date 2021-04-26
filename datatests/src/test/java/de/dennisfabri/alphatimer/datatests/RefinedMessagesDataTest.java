@@ -6,6 +6,7 @@ import de.dennisfabri.alphatimer.api.refinedmessages.dropped.*;
 import de.dennisfabri.alphatimer.collector.DataHandlingMessageAggregator;
 import de.dennisfabri.alphatimer.collector.InputCollector;
 import de.dennisfabri.alphatimer.refinedmessages.DataHandlingMessageRefiner;
+import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
@@ -115,6 +116,11 @@ class RefinedMessagesDataTest {
     @BeforeAll
     static void prepareData() throws IOException {
         new TestData().prepare();
+    }
+
+    @AfterAll
+    static void cleanup() throws IOException {
+        new TestData().cleanup();
     }
 
     @BeforeEach

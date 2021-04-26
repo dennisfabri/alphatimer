@@ -311,9 +311,15 @@
                         <excludedClass>de.dennisfabri.alphatimer.datatests.*</excludedClass>
                         <excludedClass>de.dennisfabri.alphatimer.serial.*</excludedClass>
                     </excludedClasses>
+                    <avoidCallsTo>
+                        <avoidCallsTo>java.util.logging</avoidCallsTo>
+                        <avoidCallsTo>org.apache.log4j</avoidCallsTo>
+                        <avoidCallsTo>org.slf4j</avoidCallsTo>
+                        <avoidCallsTo>org.apache.commons.logging</avoidCallsTo>
+                    </avoidCallsTo>
                     <mutators>
-                        <mutator>CONSTRUCTOR_CALLS</mutator>
-                        <mutator>NON_VOID_METHOD_CALLS</mutator>
+                        <mutator>DEFAULTS</mutator>
+                        <!-- <mutator>ALL</mutator> -->
                     </mutators>
                 </configuration>
                 <dependencies>

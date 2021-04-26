@@ -7,10 +7,7 @@ import de.dennisfabri.alphatimer.api.protocol.events.messages.DataHandlingMessag
 import de.dennisfabri.alphatimer.api.protocol.events.messages.Message;
 import de.dennisfabri.alphatimer.api.protocol.events.messages.Ping;
 import de.dennisfabri.alphatimer.collector.InputCollector;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import org.mockito.Mockito;
 
 import java.io.IOException;
@@ -27,6 +24,11 @@ class CollectorDataTest {
     @BeforeAll
     static void prepareData() throws IOException {
         new TestData().prepare();
+    }
+
+    @AfterAll
+    static void cleanup() throws IOException {
+        new TestData().cleanup();
     }
 
     @BeforeEach

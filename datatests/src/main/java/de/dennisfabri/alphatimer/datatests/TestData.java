@@ -7,8 +7,11 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.file.FileVisitResult;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.SimpleFileVisitor;
+import java.nio.file.attribute.BasicFileAttributes;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
@@ -25,13 +28,33 @@ public class TestData {
     }
 
     public void prepare(String filenameFilter) throws IOException {
-        if (Files.exists(Path.of(TEST_DATA_DIRECTORY))) {
-            return;
-        }
+        cleanup();
 
         var classLoader = getClass().getClassLoader();
         try (InputStream is = classLoader.getResourceAsStream(TEST_DATA_ZIP)) {
             new TestData().unzipTestData(is, TEST_DATA_DIRECTORY, filenameFilter);
+        }
+    }
+
+    public void cleanup() throws IOException {
+        if (Files.exists(Path.of(TEST_DATA_DIRECTORY))) {
+            Files.walkFileTree(Path.of(TEST_DATA_DIRECTORY),
+                               new SimpleFileVisitor<Path>() {
+                                   @Override
+                                   public FileVisitResult postVisitDirectory(
+                                           Path dir, IOException exc) throws IOException {
+                                       Files.delete(dir);
+                                       return FileVisitResult.CONTINUE;
+                                   }
+
+                                   @Override
+                                   public FileVisitResult visitFile(
+                                           Path file, BasicFileAttributes attrs)
+                                           throws IOException {
+                                       Files.delete(file);
+                                       return FileVisitResult.CONTINUE;
+                                   }
+                               });
         }
     }
 
@@ -66,19 +89,21 @@ public class TestData {
                     throw new IOException("Failed to create directory " + newFile);
                 }
             } else if (filterByName(newFile, filenameFilter)) {
-                // fix for Windows-created archives
-                File parent = newFile.getParentFile();
-                if (!parent.isDirectory() && !parent.mkdirs()) {
-                    throw new IOException("Failed to create directory " + parent);
-                }
+                if (!newFile.exists()) {
+                    // fix for Windows-created archives
+                    File parent = newFile.getParentFile();
+                    if (!parent.isDirectory() && !parent.mkdirs()) {
+                        throw new IOException("Failed to create directory " + parent);
+                    }
 
-                // write file content
-                FileOutputStream fos = new FileOutputStream(newFile);
-                int len;
-                while ((len = zis.read(buffer)) > 0) {
-                    fos.write(buffer, 0, len);
+                    // write file content
+                    try (FileOutputStream fos = new FileOutputStream(newFile)) {
+                        int len;
+                        while ((len = zis.read(buffer)) > 0) {
+                            fos.write(buffer, 0, len);
+                        }
+                    }
                 }
-                fos.close();
             }
             zipEntry = zis.getNextEntry();
         }
