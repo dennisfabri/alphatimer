@@ -14,6 +14,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Arrays;
+import java.util.Locale;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -22,13 +23,8 @@ class SerialFilesToDatabase {
 
     private final AresMessageRepository repository;
 
-    private static final String[] files = new String[]{"DM2008Freitag", "DM2008Samstag", "DM2009", "DM2010",
-            "JRP2019Freitag", "JRP2019Samstag", "JRP2019Sonntag",
-            "DP2019Freitag", "DP2019Samstag",
-            "DMM2019Freitag", "DMM2019Samstag", "DMM2019Sonntag"};
-
     void transfer(String path) throws IOException {
-        String[] filenames = Files.list(Path.of(path)).map(p -> p.getFileName().toString()).toArray(String[]::new);
+        String[] files = Files.list(Path.of(path)).map(p -> p.getFileName().toString()).filter(p -> p.toLowerCase(Locale.ROOT).endsWith(".serial")).map(p -> p.substring(0, p.lastIndexOf("."))).toArray(String[]::new);
         Arrays.stream(files).forEach(file -> transferFile(path, file));
     }
 
@@ -40,7 +36,7 @@ class SerialFilesToDatabase {
 
             DataHandlingMessageAggregator aggregator = new DataHandlingMessageAggregator(event -> messages.put(event, file));
             alphaTranslator.register(event -> {
-                log.info("Received message: '{}'", event);
+                log.debug("Received message: '{}'", event);
                 aggregator.accept(event);
             });
 

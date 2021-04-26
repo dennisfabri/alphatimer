@@ -56,6 +56,7 @@ public class TestData {
                                    }
                                });
         }
+        Files.deleteIfExists(Path.of(TEST_DATA_DIRECTORY));
     }
 
     Heat[] readLegacyData(String filename) {
