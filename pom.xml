@@ -3,7 +3,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>de.dennisfabri.alphatimer</groupId>
+    <groupId>org.lisasp.alphatimer</groupId>
     <artifactId>parent</artifactId>
     <version>1.0.0-SNAPSHOT</version>
     <packaging>pom</packaging>
@@ -41,57 +41,57 @@
     <dependencyManagement>
         <dependencies>
             <dependency>
-                <groupId>de.dennisfabri.alphatimer</groupId>
+                <groupId>org.lisasp.alphatimer</groupId>
                 <artifactId>protocol-api</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
-                <groupId>de.dennisfabri.alphatimer</groupId>
+                <groupId>org.lisasp.alphatimer</groupId>
                 <artifactId>refinedmessages-api</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
-                <groupId>de.dennisfabri.alphatimer</groupId>
+                <groupId>org.lisasp.alphatimer</groupId>
                 <artifactId>refinedmessages</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
-                <groupId>de.dennisfabri.alphatimer</groupId>
+                <groupId>org.lisasp.alphatimer</groupId>
                 <artifactId>messaging</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
-                <groupId>de.dennisfabri.alphatimer</groupId>
+                <groupId>org.lisasp.alphatimer</groupId>
                 <artifactId>protocol</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
-                <groupId>de.dennisfabri.alphatimer</groupId>
+                <groupId>org.lisasp.alphatimer</groupId>
                 <artifactId>legacy</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
-                <groupId>de.dennisfabri.alphatimer</groupId>
+                <groupId>org.lisasp.alphatimer</groupId>
                 <artifactId>datatests</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
-                <groupId>de.dennisfabri.alphatimer</groupId>
+                <groupId>org.lisasp.alphatimer</groupId>
                 <artifactId>serial</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
-                <groupId>de.dennisfabri.alphatimer</groupId>
+                <groupId>org.lisasp.alphatimer</groupId>
                 <artifactId>serialstorage</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
-                <groupId>de.dennisfabri.alphatimer</groupId>
+                <groupId>org.lisasp.alphatimer</groupId>
                 <artifactId>messagesstorage</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
-                <groupId>de.dennisfabri.alphatimer</groupId>
+                <groupId>org.lisasp.alphatimer</groupId>
                 <artifactId>server</artifactId>
                 <version>${project.version}</version>
             </dependency>
@@ -308,8 +308,8 @@
                     <timestampedReports>false</timestampedReports>
                     <failWhenNoMutations>false</failWhenNoMutations>
                     <excludedClasses>
-                        <excludedClass>de.dennisfabri.alphatimer.datatests.*</excludedClass>
-                        <excludedClass>de.dennisfabri.alphatimer.serial.*</excludedClass>
+                        <excludedClass>org.lisasp.alphatimer.datatests.*</excludedClass>
+                        <excludedClass>org.lisasp.alphatimer.serial.*</excludedClass>
                     </excludedClasses>
                     <avoidCallsTo>
                         <avoidCallsTo>java.util.logging</avoidCallsTo>
