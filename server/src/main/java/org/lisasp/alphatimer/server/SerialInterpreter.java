@@ -82,7 +82,7 @@ public class SerialInterpreter {
     }
 
     private void initializePipeline() {
-        MessageAggregator aggregator = new MessageAggregator();
+        DataHandlingMessageAggregator aggregator = new MessageAggregator();
         aggregator.register(legacy);
         aggregator.register(e -> messages.put(e, competitionKey));
         alphaTranslator.register(event -> {
