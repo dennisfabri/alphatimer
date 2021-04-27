@@ -4,6 +4,7 @@ import org.lisasp.alphatimer.api.protocol.events.messages.DataHandlingMessage;
 import org.lisasp.alphatimer.api.protocol.events.messages.enums.*;
 import org.lisasp.alphatimer.api.protocol.events.messages.values.UsedLanes;
 import org.lisasp.alphatimer.api.refinedmessages.RefinedMessage;
+import org.lisasp.alphatimer.api.refinedmessages.RefinedMessageListener;
 import org.lisasp.alphatimer.api.refinedmessages.accepted.OfficialEndMessage;
 import org.lisasp.alphatimer.api.refinedmessages.dropped.DroppedOfficialEndMessage;
 import org.junit.jupiter.api.BeforeEach;
@@ -17,11 +18,11 @@ import static org.mockito.Mockito.*;
 class OfficialResultMessageTest {
 
     private DataHandlingMessageRefiner refiner;
-    private Consumer<RefinedMessage> listener;
+    private RefinedMessageListener listener;
 
     @BeforeEach
     void prepare() {
-        listener = Mockito.mock(Consumer.class);
+        listener = Mockito.mock(RefinedMessageListener.class);
 
         refiner = new DataHandlingMessageRefiner();
         refiner.register(listener);

@@ -1,14 +1,13 @@
 package org.lisasp.alphatimer.legacy;
 
-import org.lisasp.alphatimer.api.protocol.events.messages.DataHandlingMessage;
-import org.lisasp.alphatimer.api.protocol.events.messages.enums.*;
-import org.lisasp.alphatimer.api.protocol.events.messages.values.UsedLanes;
-import org.lisasp.alphatimer.protocol.DataHandlingMessageAggregator;
-import org.lisasp.alphatimer.legacy.model.Heat;
-import org.lisasp.alphatimer.legacy.model.LaneStatus;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.lisasp.alphatimer.api.protocol.events.messages.DataHandlingMessage;
+import org.lisasp.alphatimer.api.protocol.events.messages.enums.*;
+import org.lisasp.alphatimer.api.protocol.events.messages.values.UsedLanes;
+import org.lisasp.alphatimer.legacy.model.Heat;
+import org.lisasp.alphatimer.legacy.model.LaneStatus;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
@@ -20,8 +19,6 @@ class LegacyTimeStorageTest {
     @BeforeEach
     void prepare() {
         timeStorage = new LegacyTimeStorage();
-
-        DataHandlingMessageAggregator aggregator = new DataHandlingMessageAggregator(timeStorage);
     }
 
     @AfterEach

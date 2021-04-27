@@ -1,11 +1,11 @@
 package org.lisasp.alphatimer.server;
 
+import org.lisasp.alphatimer.api.protocol.DataHandlingMessageAggregator;
 import org.lisasp.alphatimer.api.protocol.DataHandlingMessageRepository;
-import org.lisasp.alphatimer.protocol.DataHandlingMessageAggregator;
+import org.lisasp.alphatimer.protocol.MessageAggregator;
 import org.lisasp.alphatimer.protocol.InputCollector;
 import org.lisasp.alphatimer.legacy.LegacyTimeStorage;
 import org.lisasp.alphatimer.legacy.LegacyXStreamUtil;
-import org.lisasp.alphatimer.messagesstorage.Messages;
 import org.lisasp.alphatimer.serial.SerialConnectionBuilder;
 import org.lisasp.alphatimer.serial.SerialPortReader;
 import org.lisasp.alphatimer.serial.exceptions.NoPortsFoundException;
@@ -71,7 +71,7 @@ public class SerialInterpreter {
 
     private static void preload(LegacyTimeStorage legacy, Storage storage) {
         try (final InputCollector preloadInputCollector = new InputCollector()) {
-            DataHandlingMessageAggregator preloadAggregator = new DataHandlingMessageAggregator(legacy);
+            DataHandlingMessageAggregator preloadAggregator = new MessageAggregator(legacy);
             preloadInputCollector.register(e -> preloadAggregator.accept(e));
             for (byte b : storage.read()) {
                 preloadInputCollector.accept(b);
@@ -82,7 +82,7 @@ public class SerialInterpreter {
     }
 
     private void initializePipeline() {
-        DataHandlingMessageAggregator aggregator = new DataHandlingMessageAggregator();
+        MessageAggregator aggregator = new MessageAggregator();
         aggregator.register(legacy);
         aggregator.register(e -> messages.put(e, competitionKey));
         alphaTranslator.register(event -> {

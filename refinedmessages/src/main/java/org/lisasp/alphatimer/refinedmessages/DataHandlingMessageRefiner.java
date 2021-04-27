@@ -4,11 +4,10 @@ import org.lisasp.alphatimer.api.protocol.DataHandlingMessageListener;
 import org.lisasp.alphatimer.api.protocol.events.messages.DataHandlingMessage;
 import org.lisasp.alphatimer.api.protocol.events.messages.enums.MessageType;
 import org.lisasp.alphatimer.api.refinedmessages.RefinedMessage;
+import org.lisasp.alphatimer.api.refinedmessages.RefinedMessageListener;
 import org.lisasp.alphatimer.api.refinedmessages.dropped.DroppedUnknownMessage;
 import org.lisasp.alphatimer.messaging.CollectingConsumer;
 import org.lisasp.alphatimer.messaging.Notifier;
-
-import java.util.function.Consumer;
 
 public class DataHandlingMessageRefiner implements DataHandlingMessageListener {
 
@@ -47,7 +46,7 @@ public class DataHandlingMessageRefiner implements DataHandlingMessageListener {
         return collector;
     }
 
-    public void register(Consumer<RefinedMessage> listener) {
+    public void register(RefinedMessageListener listener) {
         notifier.register(listener);
     }
 }

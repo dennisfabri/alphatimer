@@ -1,5 +1,6 @@
 package org.lisasp.alphatimer.protocol;
 
+import org.lisasp.alphatimer.api.protocol.DataHandlingMessageAggregator;
 import org.lisasp.alphatimer.api.protocol.DataHandlingMessageListener;
 import org.lisasp.alphatimer.api.protocol.events.dropped.UnstructuredInputDroppedEvent;
 import org.lisasp.alphatimer.api.protocol.events.messages.DataHandlingMessage;
@@ -27,7 +28,7 @@ class DataHandlingMessageAggregatorTest {
     @BeforeEach
     void prepare() {
         listener = Mockito.mock(DataHandlingMessageListener.class);
-        aggregator = new DataHandlingMessageAggregator(listener);
+        aggregator = new MessageAggregator(listener);
     }
 
     @AfterEach
@@ -40,8 +41,7 @@ class DataHandlingMessageAggregatorTest {
     void register() {
         listener = Mockito.mock(DataHandlingMessageListener.class);
 
-        aggregator = new DataHandlingMessageAggregator();
-        aggregator.register(listener);
+        aggregator = new MessageAggregator(listener);
 
         aggregator.accept(new DataHandlingMessage1(
                 "1",

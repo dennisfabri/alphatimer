@@ -1,6 +1,7 @@
 package org.lisasp.alphatimer.datatests;
 
-import org.lisasp.alphatimer.protocol.DataHandlingMessageAggregator;
+import org.lisasp.alphatimer.api.protocol.DataHandlingMessageAggregator;
+import org.lisasp.alphatimer.protocol.MessageAggregator;
 import org.lisasp.alphatimer.protocol.InputCollector;
 import org.lisasp.alphatimer.legacy.LegacyTimeStorage;
 import org.lisasp.alphatimer.legacy.model.Heat;
@@ -36,7 +37,7 @@ class LegacyDataTest {
     void prepare() {
         timeStorage = new LegacyTimeStorage();
 
-        DataHandlingMessageAggregator aggregator = new DataHandlingMessageAggregator(timeStorage);
+        DataHandlingMessageAggregator aggregator = new MessageAggregator(timeStorage);
 
         alphaTranslator = new InputCollector();
         alphaTranslator.register(aggregator);

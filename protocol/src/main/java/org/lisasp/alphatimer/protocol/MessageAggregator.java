@@ -1,7 +1,7 @@
 package org.lisasp.alphatimer.protocol;
 
+import org.lisasp.alphatimer.api.protocol.DataHandlingMessageAggregator;
 import org.lisasp.alphatimer.api.protocol.DataHandlingMessageListener;
-import org.lisasp.alphatimer.api.protocol.DataInputEventListener;
 import org.lisasp.alphatimer.api.protocol.events.DataInputEvent;
 import org.lisasp.alphatimer.api.protocol.events.messages.DataHandlingMessage;
 import org.lisasp.alphatimer.api.protocol.events.messages.DataHandlingMessage1;
@@ -14,16 +14,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 @NoArgsConstructor
-public class DataHandlingMessageAggregator implements DataInputEventListener {
+public class MessageAggregator implements DataHandlingMessageAggregator {
 
     private DataHandlingMessage1 message1 = null;
 
     private final List<DataHandlingMessageListener> listeners = new ArrayList<>();
 
-    public DataHandlingMessageAggregator(DataHandlingMessageListener listener) {
+    public MessageAggregator(DataHandlingMessageListener listener) {
         register(listener);
     }
 
+    @Override
     @Synchronized("listeners")
     public void register(DataHandlingMessageListener listener) {
         listeners.add(listener);

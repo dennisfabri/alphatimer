@@ -1,7 +1,8 @@
 package org.lisasp.alphatimer.server;
 
+import org.lisasp.alphatimer.api.protocol.DataHandlingMessageAggregator;
 import org.lisasp.alphatimer.api.protocol.DataHandlingMessageRepository;
-import org.lisasp.alphatimer.protocol.DataHandlingMessageAggregator;
+import org.lisasp.alphatimer.protocol.MessageAggregator;
 import org.lisasp.alphatimer.protocol.InputCollector;
 import org.lisasp.alphatimer.messagesstorage.AresMessageRepository;
 import org.lisasp.alphatimer.messagesstorage.Messages;
@@ -34,7 +35,7 @@ class SerialFilesToDatabase {
         try (final InputCollector alphaTranslator = new InputCollector()) {
             DataHandlingMessageRepository messages = new Messages(repository);
 
-            DataHandlingMessageAggregator aggregator = new DataHandlingMessageAggregator(event -> messages.put(event, file));
+            DataHandlingMessageAggregator aggregator = new MessageAggregator(event -> messages.put(event, file));
             alphaTranslator.register(event -> {
                 log.debug("Received message: '{}'", event);
                 aggregator.accept(event);

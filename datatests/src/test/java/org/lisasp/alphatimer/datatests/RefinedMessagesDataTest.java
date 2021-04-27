@@ -1,22 +1,21 @@
 package org.lisasp.alphatimer.datatests;
 
-import org.lisasp.alphatimer.api.refinedmessages.RefinedMessage;
-import org.lisasp.alphatimer.api.refinedmessages.accepted.*;
-import org.lisasp.alphatimer.api.refinedmessages.dropped.*;
-import org.lisasp.alphatimer.protocol.DataHandlingMessageAggregator;
-import org.lisasp.alphatimer.protocol.InputCollector;
-import org.lisasp.alphatimer.refinedmessages.DataHandlingMessageRefiner;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
+import org.lisasp.alphatimer.api.refinedmessages.RefinedMessageListener;
+import org.lisasp.alphatimer.api.refinedmessages.accepted.*;
+import org.lisasp.alphatimer.api.refinedmessages.dropped.*;
+import org.lisasp.alphatimer.protocol.MessageAggregator;
+import org.lisasp.alphatimer.protocol.InputCollector;
+import org.lisasp.alphatimer.refinedmessages.DataHandlingMessageRefiner;
 import org.mockito.Mockito;
 
 import java.io.IOException;
 import java.util.Hashtable;
-import java.util.function.Consumer;
 
 import static org.mockito.Mockito.*;
 
@@ -110,7 +109,7 @@ class RefinedMessagesDataTest {
     private static final boolean verbose = false;
 
     private InputCollector alphaTranslator;
-    private Consumer<RefinedMessage> listener;
+    private RefinedMessageListener listener;
     private DataHandlingMessageRefiner refiner;
 
     @BeforeAll
@@ -125,14 +124,14 @@ class RefinedMessagesDataTest {
 
     @BeforeEach
     void prepare() {
-        listener = (Consumer<RefinedMessage>) mock(Consumer.class);
+        listener = mock(RefinedMessageListener.class);
 
         refiner = new DataHandlingMessageRefiner();
         refiner.register(listener);
 
 
         alphaTranslator = new InputCollector();
-        alphaTranslator.register(new DataHandlingMessageAggregator(refiner));
+        alphaTranslator.register(new MessageAggregator(refiner));
         if (verbose) {
             refiner.register(event -> {
                 if (event instanceof DroppedRefinedMessage) {
