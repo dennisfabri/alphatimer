@@ -5,10 +5,10 @@ import com.thoughtworks.xstream.security.ArrayTypePermission;
 import com.thoughtworks.xstream.security.NoTypePermission;
 import com.thoughtworks.xstream.security.NullPermission;
 import com.thoughtworks.xstream.security.PrimitiveTypePermission;
+import lombok.experimental.UtilityClass;
 import org.lisasp.alphatimer.legacy.model.Heat;
 import org.lisasp.alphatimer.legacy.model.Lane;
 import org.lisasp.alphatimer.legacy.model.LaneStatus;
-import lombok.experimental.UtilityClass;
 
 import java.util.Collection;
 

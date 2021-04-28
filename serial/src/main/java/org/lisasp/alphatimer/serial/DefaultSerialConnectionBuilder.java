@@ -1,17 +1,16 @@
 package org.lisasp.alphatimer.serial;
 
-import org.lisasp.alphatimer.serial.configuration.SerialConfiguration;
-import org.lisasp.alphatimer.serial.exceptions.NoPortsFoundException;
 import gnu.io.CommPortIdentifier;
 import gnu.io.NoSuchPortException;
 import gnu.io.PortInUseException;
 import gnu.io.UnsupportedCommOperationException;
 import lombok.extern.slf4j.Slf4j;
+import org.lisasp.alphatimer.serial.configuration.SerialConfiguration;
+import org.lisasp.alphatimer.serial.exceptions.NoPortsFoundException;
 
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.List;
-import java.util.TooManyListenersException;
 
 @Slf4j
 public class DefaultSerialConnectionBuilder implements SerialConnectionBuilder {
@@ -27,12 +26,10 @@ public class DefaultSerialConnectionBuilder implements SerialConnectionBuilder {
     }
 
     @Override
-    public SerialPortReader buildReader(ByteListener listener) throws
-                                                               NoSuchPortException,
-                                                               PortInUseException,
-                                                               TooManyListenersException,
-                                                               UnsupportedCommOperationException {
-        return new SerialReader(port, config, listener);
+    public SerialPortReader buildReader() throws NoSuchPortException,
+                                                 PortInUseException,
+                                                 UnsupportedCommOperationException {
+        return new SerialReader(port, config);
     }
 
     @Override

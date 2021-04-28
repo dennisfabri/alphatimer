@@ -1,13 +1,13 @@
 package org.lisasp.alphatimer.protocol;
 
-import org.lisasp.alphatimer.api.protocol.ByteConsumer;
+import org.lisasp.alphatimer.api.protocol.ByteInputConverter;
 import org.lisasp.alphatimer.api.protocol.DataInputEventListener;
 import org.lisasp.alphatimer.api.protocol.events.DataInputEvent;
 import org.lisasp.alphatimer.messaging.Notifier;
 
 import java.util.Optional;
 
-public class InputCollector implements ByteConsumer {
+public class InputCollector implements ByteInputConverter {
 
     private final ByteValidator validator = new ByteValidator();
     private final Notifier<DataInputEvent> notifier = new Notifier<>();

@@ -1,7 +1,7 @@
 package org.lisasp.alphatimer.api.refinedmessages.accepted;
 
-import org.lisasp.alphatimer.api.refinedmessages.RefinedMessage;
 import lombok.Value;
+import org.lisasp.alphatimer.api.refinedmessages.RefinedMessage;
 
 @Value
 public class OfficialEndMessage implements RefinedMessage {

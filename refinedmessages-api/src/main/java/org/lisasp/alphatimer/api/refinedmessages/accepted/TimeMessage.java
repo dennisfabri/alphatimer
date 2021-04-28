@@ -1,10 +1,10 @@
 package org.lisasp.alphatimer.api.refinedmessages.accepted;
 
+import lombok.Value;
 import org.lisasp.alphatimer.api.refinedmessages.RefinedMessage;
 import org.lisasp.alphatimer.api.refinedmessages.accepted.enums.RefinedKindOfTime;
 import org.lisasp.alphatimer.api.refinedmessages.accepted.enums.RefinedMessageType;
 import org.lisasp.alphatimer.api.refinedmessages.accepted.enums.RefinedTimeType;
-import lombok.Value;
 
 @Value
 public class TimeMessage implements RefinedMessage {

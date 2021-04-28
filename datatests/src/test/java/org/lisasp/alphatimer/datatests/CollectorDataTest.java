@@ -1,5 +1,6 @@
 package org.lisasp.alphatimer.datatests;
 
+import org.junit.jupiter.api.*;
 import org.lisasp.alphatimer.api.protocol.DataInputEventListener;
 import org.lisasp.alphatimer.api.protocol.events.dropped.*;
 import org.lisasp.alphatimer.api.protocol.events.messages.DataHandlingMessage1;
@@ -7,7 +8,6 @@ import org.lisasp.alphatimer.api.protocol.events.messages.DataHandlingMessage2;
 import org.lisasp.alphatimer.api.protocol.events.messages.Message;
 import org.lisasp.alphatimer.api.protocol.events.messages.Ping;
 import org.lisasp.alphatimer.protocol.InputCollector;
-import org.junit.jupiter.api.*;
 import org.mockito.Mockito;
 
 import java.io.IOException;

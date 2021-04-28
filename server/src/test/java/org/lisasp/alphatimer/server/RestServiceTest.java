@@ -1,14 +1,14 @@
 package org.lisasp.alphatimer.server;
 
-import org.lisasp.alphatimer.protocol.InputCollector;
+import org.junit.jupiter.api.Test;
 import org.lisasp.alphatimer.legacy.LegacyTimeStorage;
 import org.lisasp.alphatimer.messagesstorage.AresMessageRepository;
 import org.lisasp.alphatimer.messagesstorage.Messages;
+import org.lisasp.alphatimer.protocol.InputCollector;
 import org.lisasp.alphatimer.serial.SerialConnectionBuilder;
 import org.lisasp.alphatimer.storage.DateFacade;
 import org.lisasp.alphatimer.storage.FileFacade;
 import org.lisasp.alphatimer.storage.Storage;
-import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
 import java.time.LocalDate;

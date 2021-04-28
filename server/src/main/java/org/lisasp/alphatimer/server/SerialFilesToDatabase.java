@@ -1,13 +1,13 @@
 package org.lisasp.alphatimer.server;
 
-import org.lisasp.alphatimer.api.protocol.DataHandlingMessageAggregator;
-import org.lisasp.alphatimer.api.protocol.DataHandlingMessageRepository;
-import org.lisasp.alphatimer.protocol.MessageAggregator;
-import org.lisasp.alphatimer.protocol.InputCollector;
-import org.lisasp.alphatimer.messagesstorage.AresMessageRepository;
-import org.lisasp.alphatimer.messagesstorage.Messages;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.lisasp.alphatimer.api.protocol.DataHandlingMessageAggregator;
+import org.lisasp.alphatimer.api.protocol.DataHandlingMessageRepository;
+import org.lisasp.alphatimer.messagesstorage.AresMessageRepository;
+import org.lisasp.alphatimer.messagesstorage.Messages;
+import org.lisasp.alphatimer.protocol.InputCollector;
+import org.lisasp.alphatimer.protocol.MessageAggregator;
 import org.springframework.stereotype.Component;
 
 import java.io.File;
@@ -25,8 +25,14 @@ class SerialFilesToDatabase {
     private final AresMessageRepository repository;
 
     void transfer(String path) throws IOException {
-        String[] files = Files.list(Path.of(path)).map(p -> p.getFileName().toString()).filter(p -> p.toLowerCase(Locale.ROOT).endsWith(".serial")).map(p -> p.substring(0, p.lastIndexOf("."))).toArray(String[]::new);
-        Arrays.stream(files).forEach(file -> transferFile(path, file));
+        Arrays.stream(getFilenamesIn(path, ".serial")).forEach(file -> transferFile(path, file));
+    }
+
+    private String[] getFilenamesIn(String path, String suffix) throws IOException {
+        return Files.list(Path.of(path))
+                    .map(p -> p.getFileName().toString())
+                    .filter(p -> p.toLowerCase(Locale.ROOT).endsWith(".serial"))
+                    .map(p -> p.substring(0, p.lastIndexOf("."))).toArray(String[]::new);
     }
 
     private void transferFile(String path, String file) {

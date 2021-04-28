@@ -9,8 +9,8 @@ import org.junit.jupiter.params.provider.ValueSource;
 import org.lisasp.alphatimer.api.refinedmessages.RefinedMessageListener;
 import org.lisasp.alphatimer.api.refinedmessages.accepted.*;
 import org.lisasp.alphatimer.api.refinedmessages.dropped.*;
-import org.lisasp.alphatimer.protocol.MessageAggregator;
 import org.lisasp.alphatimer.protocol.InputCollector;
+import org.lisasp.alphatimer.protocol.MessageAggregator;
 import org.lisasp.alphatimer.refinedmessages.DataHandlingMessageRefiner;
 import org.mockito.Mockito;
 

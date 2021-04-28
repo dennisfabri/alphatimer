@@ -1,8 +1,8 @@
 package org.lisasp.alphatimer.legacy;
 
+import org.junit.jupiter.api.Test;
 import org.lisasp.alphatimer.legacy.model.Heat;
 import org.lisasp.alphatimer.legacy.model.LaneStatus;
-import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 

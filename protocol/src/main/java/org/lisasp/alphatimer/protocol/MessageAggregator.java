@@ -1,5 +1,7 @@
 package org.lisasp.alphatimer.protocol;
 
+import lombok.NoArgsConstructor;
+import lombok.Synchronized;
 import org.lisasp.alphatimer.api.protocol.DataHandlingMessageAggregator;
 import org.lisasp.alphatimer.api.protocol.DataHandlingMessageListener;
 import org.lisasp.alphatimer.api.protocol.events.DataInputEvent;
@@ -7,8 +9,6 @@ import org.lisasp.alphatimer.api.protocol.events.messages.DataHandlingMessage;
 import org.lisasp.alphatimer.api.protocol.events.messages.DataHandlingMessage1;
 import org.lisasp.alphatimer.api.protocol.events.messages.DataHandlingMessage2;
 import org.lisasp.alphatimer.api.protocol.events.messages.Ping;
-import lombok.NoArgsConstructor;
-import lombok.Synchronized;
 
 import java.util.ArrayList;
 import java.util.List;

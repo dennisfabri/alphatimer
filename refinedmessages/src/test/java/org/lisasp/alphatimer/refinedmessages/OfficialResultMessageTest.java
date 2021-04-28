@@ -1,17 +1,14 @@
 package org.lisasp.alphatimer.refinedmessages;
 
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.lisasp.alphatimer.api.protocol.events.messages.DataHandlingMessage;
 import org.lisasp.alphatimer.api.protocol.events.messages.enums.*;
 import org.lisasp.alphatimer.api.protocol.events.messages.values.UsedLanes;
-import org.lisasp.alphatimer.api.refinedmessages.RefinedMessage;
 import org.lisasp.alphatimer.api.refinedmessages.RefinedMessageListener;
 import org.lisasp.alphatimer.api.refinedmessages.accepted.OfficialEndMessage;
 import org.lisasp.alphatimer.api.refinedmessages.dropped.DroppedOfficialEndMessage;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
-
-import java.util.function.Consumer;
 
 import static org.mockito.Mockito.*;
 

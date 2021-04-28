@@ -2,17 +2,17 @@ package org.lisasp.alphatimer.server;
 
 import ch.qos.logback.classic.spi.ILoggingEvent;
 import ch.qos.logback.core.read.ListAppender;
-import org.lisasp.alphatimer.serial.SerialConnectionBuilder;
-import org.lisasp.alphatimer.serial.SerialPortReader;
-import org.lisasp.alphatimer.serial.SerialPortWriter;
-import org.lisasp.alphatimer.serial.exceptions.NoPortsFoundException;
-import org.lisasp.alphatimer.storage.ActualFile;
 import gnu.io.NoSuchPortException;
 import gnu.io.PortInUseException;
 import gnu.io.UnsupportedCommOperationException;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.lisasp.alphatimer.serial.SerialConnectionBuilder;
+import org.lisasp.alphatimer.serial.SerialPortReader;
+import org.lisasp.alphatimer.serial.SerialPortWriter;
+import org.lisasp.alphatimer.serial.exceptions.NoPortsFoundException;
+import org.lisasp.alphatimer.storage.ActualFile;
 import org.mockito.Mockito;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -44,7 +44,7 @@ class CommandLineInterpreterTest {
         when(serialConnectionBuilder.listAvailablePorts()).thenReturn(new String[]{"Port1", "Port2"});
         when(serialConnectionBuilder.autoconfigurePort()).thenReturn("AutoconfiguredPort");
         when(serialConnectionBuilder.configure(any(), any())).thenReturn(serialConnectionBuilder);
-        when(serialConnectionBuilder.buildReader(any())).thenReturn(Mockito.mock(SerialPortReader.class));
+        when(serialConnectionBuilder.buildReader()).thenReturn(Mockito.mock(SerialPortReader.class));
         when(serialConnectionBuilder.buildWriter()).thenReturn(Mockito.mock(SerialPortWriter.class));
         cli = new CommandLineInterpreter(serialConnectionBuilder);
     }

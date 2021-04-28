@@ -1,12 +1,12 @@
 package org.lisasp.alphatimer.protocol;
 
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.lisasp.alphatimer.api.protocol.DataInputEventListener;
 import org.lisasp.alphatimer.api.protocol.events.messages.DataHandlingMessage2;
 import org.lisasp.alphatimer.api.protocol.events.messages.enums.TimeInfo;
 import org.lisasp.alphatimer.api.protocol.events.messages.enums.TimeMarker;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
 import java.util.Arrays;

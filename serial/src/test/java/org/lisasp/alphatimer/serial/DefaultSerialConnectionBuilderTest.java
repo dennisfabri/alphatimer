@@ -1,7 +1,7 @@
 package org.lisasp.alphatimer.serial;
 
-import org.lisasp.alphatimer.serial.exceptions.NoPortsFoundException;
 import org.junit.jupiter.api.Test;
+import org.lisasp.alphatimer.serial.exceptions.NoPortsFoundException;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 

@@ -1,5 +1,8 @@
 package org.lisasp.alphatimer.protocol;
 
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.lisasp.alphatimer.api.protocol.DataInputEventListener;
 import org.lisasp.alphatimer.api.protocol.events.dropped.UnstructuredInputDroppedEvent;
 import org.lisasp.alphatimer.api.protocol.events.messages.DataHandlingMessage1;
@@ -7,9 +10,6 @@ import org.lisasp.alphatimer.api.protocol.events.messages.enums.KindOfTime;
 import org.lisasp.alphatimer.api.protocol.events.messages.enums.MessageType;
 import org.lisasp.alphatimer.api.protocol.events.messages.enums.RankInfo;
 import org.lisasp.alphatimer.api.protocol.events.messages.enums.TimeType;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
 import java.util.Arrays;

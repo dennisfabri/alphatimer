@@ -1,10 +1,10 @@
 package org.lisasp.alphatimer.messagesstorage;
 
-import org.lisasp.alphatimer.api.protocol.events.messages.enums.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import org.lisasp.alphatimer.api.protocol.events.messages.enums.*;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

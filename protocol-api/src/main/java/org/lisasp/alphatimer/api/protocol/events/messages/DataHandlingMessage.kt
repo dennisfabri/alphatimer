@@ -2,7 +2,6 @@ package org.lisasp.alphatimer.api.protocol.events.messages
 
 import org.lisasp.alphatimer.api.protocol.events.messages.enums.*
 import org.lisasp.alphatimer.api.protocol.events.messages.values.UsedLanes
-import org.lisasp.alphatimer.api.protocol.events.messages.enums.*
 
 data class DataHandlingMessage(
     val originalText1: String,

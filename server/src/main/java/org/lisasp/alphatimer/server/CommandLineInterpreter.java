@@ -1,11 +1,11 @@
 package org.lisasp.alphatimer.server;
 
-import org.lisasp.alphatimer.serial.DefaultSerialConnectionBuilder;
-import org.lisasp.alphatimer.serial.SerialConnectionBuilder;
-import org.lisasp.alphatimer.serial.exceptions.NoPortsFoundException;
 import gnu.io.NoSuchPortException;
 import gnu.io.PortInUseException;
 import gnu.io.UnsupportedCommOperationException;
+import org.lisasp.alphatimer.serial.DefaultSerialConnectionBuilder;
+import org.lisasp.alphatimer.serial.SerialConnectionBuilder;
+import org.lisasp.alphatimer.serial.exceptions.NoPortsFoundException;
 
 import java.io.IOException;
 import java.util.Locale;

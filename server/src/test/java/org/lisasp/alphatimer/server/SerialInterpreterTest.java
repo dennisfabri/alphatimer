@@ -1,19 +1,18 @@
 package org.lisasp.alphatimer.server;
 
+import lombok.Setter;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.lisasp.alphatimer.api.protocol.DataHandlingMessageRepository;
-import org.lisasp.alphatimer.protocol.InputCollector;
 import org.lisasp.alphatimer.legacy.LegacyTimeStorage;
-import org.lisasp.alphatimer.messagesstorage.Messages;
-import org.lisasp.alphatimer.serial.ByteListener;
+import org.lisasp.alphatimer.messaging.ByteListener;
+import org.lisasp.alphatimer.protocol.InputCollector;
 import org.lisasp.alphatimer.serial.SerialConnectionBuilder;
 import org.lisasp.alphatimer.serial.SerialPortReader;
 import org.lisasp.alphatimer.serial.SerialPortWriter;
 import org.lisasp.alphatimer.serial.configuration.SerialConfiguration;
 import org.lisasp.alphatimer.storage.FileFacade;
 import org.lisasp.alphatimer.storage.Storage;
-import lombok.Setter;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
 import java.time.LocalDate;
@@ -77,14 +76,14 @@ class SerialInterpreterTest {
     }
 
     @Test
-    void start() throws Exception {
+    void start() {
         serialInterpreter.start();
 
         Mockito.verify(messages, times(0)).put(any(), eq(expectedDate));
     }
 
     @Test
-    void startWithAutoconfigure() throws Exception {
+    void startWithAutoconfigure() {
         config.setSerialPort("");
 
         serialInterpreter.start();
@@ -93,7 +92,7 @@ class SerialInterpreterTest {
     }
 
     @Test
-    void startAndSend() throws Exception {
+    void startAndSend() {
         serialInterpreter.start();
 
         for (byte b : DataHandlingMessageTestData.message1) {
@@ -107,7 +106,7 @@ class SerialInterpreterTest {
     }
 
     @Test
-    void onDestroy() throws Exception {
+    void onDestroy() {
         serialInterpreter.start();
         serialInterpreter.onDestroy();
 
@@ -124,6 +123,12 @@ class SerialInterpreterTest {
         }
 
         @Override
+        public SerialPortReader register(ByteListener listener) {
+            this.listener = listener;
+            return this;
+        }
+
+        @Override
         public void close() {
             // Nothing to do
         }
@@ -137,8 +142,7 @@ class SerialInterpreterTest {
         }
 
         @Override
-        public SerialPortReader buildReader(ByteListener listener) {
-            serialPortReader.setListener(listener);
+        public SerialPortReader buildReader() {
             return serialPortReader;
         }
 

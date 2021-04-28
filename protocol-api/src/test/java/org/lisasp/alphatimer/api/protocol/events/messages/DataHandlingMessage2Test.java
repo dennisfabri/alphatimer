@@ -1,8 +1,8 @@
 package org.lisasp.alphatimer.api.protocol.events.messages;
 
+import org.junit.jupiter.api.Test;
 import org.lisasp.alphatimer.api.protocol.events.messages.enums.TimeInfo;
 import org.lisasp.alphatimer.api.protocol.events.messages.enums.TimeMarker;
-import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;

@@ -1,8 +1,8 @@
 package org.lisasp.alphatimer.api.protocol.events.messages;
 
+import org.junit.jupiter.api.Test;
 import org.lisasp.alphatimer.api.protocol.events.messages.enums.*;
 import org.lisasp.alphatimer.api.protocol.events.messages.values.UsedLanes;
-import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;

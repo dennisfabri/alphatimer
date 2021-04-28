@@ -1,8 +1,8 @@
 package org.lisasp.alphatimer.serial;
 
+import org.junit.jupiter.api.Test;
 import org.lisasp.alphatimer.serial.configuration.SerialConfiguration;
 import org.lisasp.alphatimer.serial.exceptions.NotEnoughSerialPortsException;
-import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 

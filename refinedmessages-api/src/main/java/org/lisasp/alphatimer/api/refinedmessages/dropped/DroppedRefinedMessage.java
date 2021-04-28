@@ -1,10 +1,10 @@
 package org.lisasp.alphatimer.api.refinedmessages.dropped;
 
+import lombok.*;
 import org.lisasp.alphatimer.api.protocol.events.messages.DataHandlingMessage;
 import org.lisasp.alphatimer.api.protocol.events.messages.enums.*;
 import org.lisasp.alphatimer.api.protocol.events.messages.values.UsedLanes;
 import org.lisasp.alphatimer.api.refinedmessages.RefinedMessage;
-import lombok.*;
 
 @RequiredArgsConstructor(access = AccessLevel.PRIVATE)
 @Getter

@@ -1,7 +1,7 @@
 package org.lisasp.alphatimer.protocol.utils;
 
-import org.lisasp.alphatimer.protocol.exceptions.InvalidDataException;
 import lombok.AllArgsConstructor;
+import org.lisasp.alphatimer.protocol.exceptions.InvalidDataException;
 
 import java.nio.charset.StandardCharsets;
 import java.util.Arrays;

@@ -1,13 +1,13 @@
 package org.lisasp.alphatimer.server;
 
-import org.lisasp.alphatimer.serial.SerialConnectionBuilder;
-import org.lisasp.alphatimer.serial.SerialLoopTester;
-import org.lisasp.alphatimer.serial.configuration.SerialConfiguration;
-import org.lisasp.alphatimer.serial.exceptions.NotEnoughSerialPortsException;
 import gnu.io.NoSuchPortException;
 import gnu.io.PortInUseException;
 import gnu.io.UnsupportedCommOperationException;
 import lombok.extern.slf4j.Slf4j;
+import org.lisasp.alphatimer.serial.SerialConnectionBuilder;
+import org.lisasp.alphatimer.serial.SerialLoopTester;
+import org.lisasp.alphatimer.serial.configuration.SerialConfiguration;
+import org.lisasp.alphatimer.serial.exceptions.NotEnoughSerialPortsException;
 
 import java.io.IOException;
 import java.util.TooManyListenersException;

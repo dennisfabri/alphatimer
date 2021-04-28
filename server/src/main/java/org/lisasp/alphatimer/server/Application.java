@@ -1,15 +1,16 @@
 package org.lisasp.alphatimer.server;
 
-import org.lisasp.alphatimer.protocol.InputCollector;
+import lombok.RequiredArgsConstructor;
+import lombok.Synchronized;
+import lombok.extern.slf4j.Slf4j;
 import org.lisasp.alphatimer.legacy.LegacyTimeStorage;
+import org.lisasp.alphatimer.protocol.InputCollector;
 import org.lisasp.alphatimer.serial.DefaultSerialConnectionBuilder;
 import org.lisasp.alphatimer.serial.SerialConnectionBuilder;
 import org.lisasp.alphatimer.storage.ActualDate;
 import org.lisasp.alphatimer.storage.ActualFile;
 import org.lisasp.alphatimer.storage.DateFacade;
 import org.lisasp.alphatimer.storage.Storage;
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.SpringApplication;
@@ -25,22 +26,25 @@ import java.io.IOException;
 import java.util.List;
 
 @Slf4j
-// @Configuration
+@RequiredArgsConstructor
 @ComponentScan("org.lisasp.alphatimer")
 @EntityScan(basePackages = {"org.lisasp.alphatimer"})
 @EnableJpaRepositories("org.lisasp.alphatimer")
 @SpringBootApplication(scanBasePackages = {"org.lisasp.alphatimer"})
 public class Application implements ApplicationRunner {
 
-    @Autowired
-    private ConfigurableApplicationContext context;
+    private final ConfigurableApplicationContext context;
+
+    private InputCollector inputCollector;
+    private ActualDate date;
+    private LegacyTimeStorage legacyTimeStorage;
 
     public static void main(String[] args) throws Exception {
         if (new CommandLineInterpreter().run(args)) {
             return;
         }
 
-        ConfigurableApplicationContext context = SpringApplication.run(Application.class, args);
+        SpringApplication.run(Application.class, args);
     }
 
     @Override
@@ -55,6 +59,7 @@ public class Application implements ApplicationRunner {
             return;
         }
 
+        context.getBean(SerialDataPreloader.class).preload();
         context.getBean(SerialInterpreter.class).start();
     }
 
@@ -70,17 +75,29 @@ public class Application implements ApplicationRunner {
     }
 
     @Bean
+    @Synchronized
     LegacyTimeStorage createLegacyTimeStorage() {
-        return new LegacyTimeStorage();
+        if (legacyTimeStorage == null) {
+            legacyTimeStorage = new LegacyTimeStorage();
+        }
+        return legacyTimeStorage;
     }
 
     @Bean
+    @Synchronized
     InputCollector createAlphaTranslator() {
-        return new InputCollector();
+        if (inputCollector == null) {
+            inputCollector = new InputCollector();
+        }
+        return inputCollector;
     }
 
     @Bean
+    @Synchronized
     DateFacade createDateFacade() {
-        return new ActualDate();
+        if (date == null) {
+            date = new ActualDate();
+        }
+        return date;
     }
 }

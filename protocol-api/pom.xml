@@ -12,10 +12,12 @@
     <artifactId>protocol-api</artifactId>
     <name>Alphatimer Protocol API</name>
 
-    <properties>
-    </properties>
-
     <dependencies>
+        <dependency>
+            <groupId>org.lisasp.alphatimer</groupId>
+            <artifactId>messaging</artifactId>
+        </dependency>
+
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>

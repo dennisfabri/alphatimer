@@ -1,16 +1,16 @@
 package org.lisasp.alphatimer.datatests;
 
-import org.lisasp.alphatimer.api.protocol.DataHandlingMessageAggregator;
-import org.lisasp.alphatimer.protocol.MessageAggregator;
-import org.lisasp.alphatimer.protocol.InputCollector;
-import org.lisasp.alphatimer.legacy.LegacyTimeStorage;
-import org.lisasp.alphatimer.legacy.model.Heat;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
+import org.lisasp.alphatimer.api.protocol.DataHandlingMessageAggregator;
+import org.lisasp.alphatimer.legacy.LegacyTimeStorage;
+import org.lisasp.alphatimer.legacy.model.Heat;
+import org.lisasp.alphatimer.protocol.InputCollector;
+import org.lisasp.alphatimer.protocol.MessageAggregator;
 
 import java.io.IOException;
 

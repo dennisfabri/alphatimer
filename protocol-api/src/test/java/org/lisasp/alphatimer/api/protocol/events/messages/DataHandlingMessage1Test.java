@@ -1,11 +1,11 @@
 package org.lisasp.alphatimer.api.protocol.events.messages;
 
+import org.junit.jupiter.api.Test;
 import org.lisasp.alphatimer.api.protocol.events.messages.enums.KindOfTime;
 import org.lisasp.alphatimer.api.protocol.events.messages.enums.MessageType;
 import org.lisasp.alphatimer.api.protocol.events.messages.enums.RankInfo;
 import org.lisasp.alphatimer.api.protocol.events.messages.enums.TimeType;
 import org.lisasp.alphatimer.api.protocol.events.messages.values.UsedLanes;
-import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;

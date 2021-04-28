@@ -1,4 +1,4 @@
-package org.lisasp.alphatimer.serial;
+package org.lisasp.alphatimer.messaging;
 
 public interface ByteListener {
     void accept(byte data);

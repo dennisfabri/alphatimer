@@ -1,10 +1,10 @@
 package org.lisasp.alphatimer.protocol;
 
+import lombok.RequiredArgsConstructor;
+import lombok.Synchronized;
 import org.lisasp.alphatimer.api.protocol.events.DataInputEvent;
 import org.lisasp.alphatimer.api.protocol.events.dropped.UnstructuredInputDroppedEvent;
 import org.lisasp.alphatimer.protocol.parser.Parser;
-import lombok.RequiredArgsConstructor;
-import lombok.Synchronized;
 
 import java.util.Optional;
 

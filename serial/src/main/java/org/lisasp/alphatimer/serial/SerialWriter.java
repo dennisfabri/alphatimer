@@ -1,8 +1,8 @@
 package org.lisasp.alphatimer.serial;
 
-import org.lisasp.alphatimer.serial.configuration.SerialConfiguration;
 import gnu.io.*;
 import lombok.extern.slf4j.Slf4j;
+import org.lisasp.alphatimer.serial.configuration.SerialConfiguration;
 
 import java.io.IOException;
 

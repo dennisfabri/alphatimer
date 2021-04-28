@@ -1,7 +1,7 @@
 package org.lisasp.alphatimer.server;
 
-import org.lisasp.alphatimer.serial.configuration.SerialConfiguration;
 import lombok.Data;
+import org.lisasp.alphatimer.serial.configuration.SerialConfiguration;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
