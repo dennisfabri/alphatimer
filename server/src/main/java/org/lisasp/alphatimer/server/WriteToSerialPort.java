@@ -8,6 +8,7 @@ import org.lisasp.alphatimer.serial.SerialConnectionBuilder;
 import org.lisasp.alphatimer.serial.SerialPortWriter;
 import org.lisasp.alphatimer.serial.configuration.SerialConfiguration;
 import org.lisasp.alphatimer.serial.exceptions.NoPortsFoundException;
+import org.lisasp.alphatimer.storage.ActualDate;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -26,7 +27,7 @@ public class WriteToSerialPort {
         if (isEmpty(port)) {
             port = serialConnectionBuilder.autoconfigurePort();
         }
-        SerialConfiguration serialConfiguration = new ConfigurationValues().getSerialConfigurationObject(config);
+        SerialConfiguration serialConfiguration = new ConfigurationValues(new ActualDate()).getSerialConfigurationObject(config);
 
         log.info("Writing content of file {} to port {} with settings {}.", filename, port, serialConfiguration);
         try (SerialPortWriter writer = serialConnectionBuilder.configure(port, serialConfiguration).buildWriter()) {

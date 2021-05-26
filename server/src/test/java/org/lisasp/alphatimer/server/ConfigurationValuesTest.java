@@ -4,6 +4,7 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.lisasp.alphatimer.serial.configuration.SerialConfiguration;
+import org.lisasp.alphatimer.server.testdoubles.TestDateFacade;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -13,7 +14,7 @@ class ConfigurationValuesTest {
 
     @BeforeEach
     void prepare() {
-        config = new ConfigurationValues();
+        config = new ConfigurationValues(new TestDateFacade());
     }
 
     @AfterEach
@@ -47,4 +48,5 @@ class ConfigurationValuesTest {
 
         assertEquals(SerialConfiguration.TEST, actual);
     }
+
 }

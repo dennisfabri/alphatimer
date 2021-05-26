@@ -3,19 +3,40 @@ package org.lisasp.alphatimer.messagesstorage;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.lisasp.alphatimer.api.protocol.events.messages.DataHandlingMessage;
 import org.lisasp.alphatimer.api.protocol.events.messages.enums.*;
 import org.lisasp.alphatimer.api.protocol.events.messages.values.UsedLanes;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
+import org.springframework.test.context.DynamicPropertyRegistry;
+import org.springframework.test.context.DynamicPropertySource;
+import org.testcontainers.containers.MSSQLServerContainer;
+import org.testcontainers.junit.jupiter.Container;
+import org.testcontainers.junit.jupiter.Testcontainers;
+
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
-@ExtendWith(SpringExtension.class)
 @DataJpaTest
+@Testcontainers
+@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 class MessagesTest {
+
+    @Container
+    private static MSSQLServerContainer dbserver = (MSSQLServerContainer) new MSSQLServerContainer("mcr.microsoft.com/mssql/server:2019-latest")
+            .acceptLicense();
+
+    @DynamicPropertySource
+    static void setDatasourceProperties(DynamicPropertyRegistry propertyRegistry) {
+        propertyRegistry.add("spring.datasource.url", dbserver::getJdbcUrl);
+        propertyRegistry.add("spring.datasource.password", dbserver::getPassword);
+        propertyRegistry.add("spring.datasource.username", dbserver::getUsername);
+    }
 
     @Autowired
     AresMessageRepository repository;
@@ -125,6 +146,11 @@ class MessagesTest {
     }
 
     @Test
+    void test() {
+        assertTrue(dbserver.isRunning());
+    }
+
+    @Test
     void empty() {
         assertEquals(0, messages.size());
     }
@@ -149,15 +175,15 @@ class MessagesTest {
 
         assertEquals(2, messages.size());
 
-        assertEquals(2, messages.findBy(competitionKey, messageHeat1Lane1.getEvent(), messageHeat1Lane1.getHeat()).size());
-        assertEquals(messageHeat1Lane1String,
-                     messages.findBy(competitionKey,
-                                     messageHeat1Lane1.getEvent(),
-                                     messageHeat1Lane1.getHeat()).get(0).toString());
-        assertEquals(messageHeat1Lane2String,
-                     messages.findBy(competitionKey,
-                                     messageHeat1Lane1.getEvent(),
-                                     messageHeat1Lane1.getHeat()).get(1).toString());
+        List<DataHandlingMessage> actual1 = messages.findBy(competitionKey,
+                                                            messageHeat1Lane1.getEvent(),
+                                                            messageHeat1Lane1.getHeat());
+
+        Collections.sort(actual1, Comparator.comparingInt(DataHandlingMessage::getLane));
+
+        assertEquals(2, actual1.size());
+        assertEquals(messageHeat1Lane1String, actual1.get(0).toString());
+        assertEquals(messageHeat1Lane2String, actual1.get(1).toString());
     }
 
     @Test
@@ -168,21 +194,22 @@ class MessagesTest {
 
         assertEquals(3, messages.size());
 
-        assertEquals(2, messages.findBy(competitionKey, messageHeat1Lane1.getEvent(), messageHeat1Lane1.getHeat()).size());
-        assertEquals(messageHeat1Lane1String,
-                     messages.findBy(competitionKey,
-                                     messageHeat1Lane1.getEvent(),
-                                     messageHeat1Lane1.getHeat()).get(0).toString());
-        assertEquals(messageHeat1Lane2String,
-                     messages.findBy(competitionKey,
-                                     messageHeat1Lane1.getEvent(),
-                                     messageHeat1Lane1.getHeat()).get(1).toString());
+        List<DataHandlingMessage> actual1 = messages.findBy(competitionKey,
+                                                            messageHeat1Lane1.getEvent(),
+                                                            messageHeat1Lane1.getHeat());
+        List<DataHandlingMessage> actual2 = messages.findBy(competitionKey,
+                                                            messageHeat2Lane1.getEvent(),
+                                                            messageHeat2Lane1.getHeat());
 
-        assertEquals(1, messages.findBy(competitionKey, messageHeat2Lane1.getEvent(), messageHeat2Lane1.getHeat()).size());
-        assertEquals(messageHeat2Lane1String,
-                     messages.findBy(competitionKey,
-                                     messageHeat2Lane1.getEvent(),
-                                     messageHeat2Lane1.getHeat()).get(0).toString());
+        Collections.sort(actual1, Comparator.comparingInt(DataHandlingMessage::getLane));
+        Collections.sort(actual2, Comparator.comparingInt(DataHandlingMessage::getLane));
+
+        assertEquals(2, actual1.size());
+        assertEquals(messageHeat1Lane1String, actual1.get(0).toString());
+        assertEquals(messageHeat1Lane2String, actual1.get(1).toString());
+
+        assertEquals(1, actual2.size());
+        assertEquals(messageHeat2Lane1String, actual2.get(0).toString());
     }
 
     @Test
@@ -194,24 +221,22 @@ class MessagesTest {
 
         assertEquals(4, messages.size());
 
-        assertEquals(2, messages.findBy(competitionKey, messageHeat1Lane1.getEvent(), messageHeat1Lane1.getHeat()).size());
-        assertEquals(messageHeat1Lane1String,
-                     messages.findBy(competitionKey,
-                                     messageHeat1Lane1.getEvent(),
-                                     messageHeat1Lane1.getHeat()).get(0).toString());
-        assertEquals(messageHeat1Lane2String,
-                     messages.findBy(competitionKey,
-                                     messageHeat1Lane1.getEvent(),
-                                     messageHeat1Lane1.getHeat()).get(1).toString());
+        List<DataHandlingMessage> actual1 = messages.findBy(competitionKey,
+                                                           messageHeat1Lane1.getEvent(),
+                                                           messageHeat1Lane1.getHeat());
+        List<DataHandlingMessage> actual2 = messages.findBy(competitionKey,
+                                                           messageHeat2Lane1.getEvent(),
+                                                           messageHeat2Lane1.getHeat());
 
-        assertEquals(2, messages.findBy(competitionKey, messageHeat2Lane1.getEvent(), messageHeat2Lane1.getHeat()).size());
-        assertEquals(messageHeat2Lane1String,
-                     messages.findBy(competitionKey,
-                                     messageHeat2Lane1.getEvent(),
-                                     messageHeat2Lane1.getHeat()).get(0).toString());
-        assertEquals(messageHeat2Lane2String,
-                     messages.findBy(competitionKey,
-                                     messageHeat2Lane1.getEvent(),
-                                     messageHeat2Lane1.getHeat()).get(1).toString());
+        Collections.sort(actual1, Comparator.comparingInt(DataHandlingMessage::getLane));
+        Collections.sort(actual2, Comparator.comparingInt(DataHandlingMessage::getLane));
+
+        assertEquals(2, actual1.size());
+        assertEquals(messageHeat1Lane1String, actual1.get(0).toString());
+        assertEquals(messageHeat1Lane2String, actual1.get(1).toString());
+
+        assertEquals(2, actual2.size());
+        assertEquals(messageHeat2Lane1String, actual2.get(0).toString());
+        assertEquals(messageHeat2Lane2String, actual2.get(1).toString());
     }
 }

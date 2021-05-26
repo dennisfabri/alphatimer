@@ -19,7 +19,7 @@ class CollectingConsumerTest {
     @BeforeEach
     void prepare() {
         consumer = new CollectingConsumer<>();
-        listener = Mockito.mock(Consumer.class);
+        listener = (Consumer<String>) Mockito.mock(Consumer.class);
     }
 
     @AfterEach

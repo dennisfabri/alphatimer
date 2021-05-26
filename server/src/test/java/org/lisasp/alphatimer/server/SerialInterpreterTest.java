@@ -7,16 +7,12 @@ import org.lisasp.alphatimer.api.protocol.DataHandlingMessageRepository;
 import org.lisasp.alphatimer.legacy.LegacyTimeStorage;
 import org.lisasp.alphatimer.messaging.ByteListener;
 import org.lisasp.alphatimer.protocol.InputCollector;
-import org.lisasp.alphatimer.serial.SerialConnectionBuilder;
 import org.lisasp.alphatimer.serial.SerialPortReader;
-import org.lisasp.alphatimer.serial.SerialPortWriter;
-import org.lisasp.alphatimer.serial.configuration.SerialConfiguration;
-import org.lisasp.alphatimer.storage.FileFacade;
+import org.lisasp.alphatimer.server.testdoubles.TestDateFacade;
+import org.lisasp.alphatimer.server.testdoubles.TestFileFacade;
+import org.lisasp.alphatimer.server.testdoubles.TestSerialConnectionBuilder;
 import org.lisasp.alphatimer.storage.Storage;
 import org.mockito.Mockito;
-
-import java.time.LocalDate;
-import java.time.Month;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
@@ -30,11 +26,11 @@ class SerialInterpreterTest {
     private TestSerialPortReader serialPortReader;
     private ConfigurationValues config;
 
-    private final static String expectedDate = "2020-01-05";
+    private final static String expectedDate = "2021-04-17";
 
     @BeforeEach
     void prepare() {
-        config = new ConfigurationValues();
+        config = new ConfigurationValues(new TestDateFacade());
         config.setSerialPort("TestPort");
         config.setSerialConfiguration("ARES21");
         config.setStoragePath("target/test-SerialInterpreterTest");
@@ -43,29 +39,14 @@ class SerialInterpreterTest {
 
         serialPortReader = new TestSerialPortReader();
 
-        Storage storage = new Storage("test", new FileFacade() {
-            @Override
-            public void write(String filename, byte b) {
-            }
-
-            @Override
-            public byte[] read(String filename) {
-                return new byte[0];
-            }
-
-            @Override
-            public String getSeparator() {
-                return "/";
-            }
-        }, () -> LocalDate.of(2021, Month.APRIL, 20));
+        Storage storage = new Storage("test", new TestFileFacade(), new TestDateFacade());
 
         serialInterpreter = new SerialInterpreter(messages,
-                                                  new TestSerialConnectionBuilder(),
+                                                  new TestSerialConnectionBuilder(serialPortReader),
                                                   config,
                                                   storage,
                                                   new LegacyTimeStorage(),
-                                                  new InputCollector(),
-                                                  () -> LocalDate.of(2020, Month.JANUARY, 5)
+                                                  new InputCollector()
         );
     }
 
@@ -134,31 +115,4 @@ class SerialInterpreterTest {
         }
     }
 
-    private class TestSerialConnectionBuilder implements SerialConnectionBuilder {
-        @Override
-        public SerialConnectionBuilder configure(String port,
-                                                 SerialConfiguration config) {
-            return this;
-        }
-
-        @Override
-        public SerialPortReader buildReader() {
-            return serialPortReader;
-        }
-
-        @Override
-        public SerialPortWriter buildWriter() {
-            return Mockito.mock(SerialPortWriter.class);
-        }
-
-        @Override
-        public String[] listAvailablePorts() {
-            return new String[]{"TestPort1", "TestPort2"};
-        }
-
-        @Override
-        public String autoconfigurePort() {
-            return "TestPort3";
-        }
-    }
 }
