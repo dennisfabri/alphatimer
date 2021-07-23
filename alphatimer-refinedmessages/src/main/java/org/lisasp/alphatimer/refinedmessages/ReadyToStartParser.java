@@ -13,7 +13,9 @@ public class ReadyToStartParser implements Parser {
     public void accept(DataHandlingMessage message, Consumer<RefinedMessage> resultCollector) {
         if (message.getMessageType() == MessageType.ReadyToStart) {
             if (isValid(message)) {
-                resultCollector.accept(new ReadyToStartMessage(message.getEvent(),
+                resultCollector.accept(new ReadyToStartMessage(message.getTimestamp(),
+                                                               message.getCompetition(),
+                                                               message.getEvent(),
                                                                message.getHeat(),
                                                                message.getLapCount()));
             } else {

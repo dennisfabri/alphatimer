@@ -5,13 +5,13 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import org.lisasp.alphatimer.api.protocol.events.messages.enums.*;
+import org.lisasp.alphatimer.spring.jpa.AbstractBaseEntity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
+import javax.persistence.*;
+import java.time.LocalDateTime;
 
-@Entity
+@Entity()
+@Table(name = "AresMessage")
 @Data
 @EqualsAndHashCode(callSuper = true)
 @NoArgsConstructor
@@ -21,6 +21,8 @@ public class AresMessage extends AbstractBaseEntity {
     private String originalText1;
     @Column(nullable = false)
     private String originalText2;
+    @Column(nullable = false)
+    private LocalDateTime timestamp;
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private MessageType messageType;

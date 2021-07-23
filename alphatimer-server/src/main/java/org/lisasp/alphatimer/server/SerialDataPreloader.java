@@ -21,7 +21,8 @@ public class SerialDataPreloader {
 
     void preload() {
         try (final InputCollector preloadInputCollector = new InputCollector()) {
-            DataHandlingMessageAggregator preloadAggregator = new MessageAggregator(legacy);
+            DataHandlingMessageAggregator preloadAggregator = new MessageAggregator("legacy");
+            preloadAggregator.register(legacy);
             preloadInputCollector.register(e -> preloadAggregator.accept(e));
             for (byte b : storage.read()) {
                 preloadInputCollector.accept(b);

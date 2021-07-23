@@ -7,6 +7,8 @@ import org.lisasp.alphatimer.api.protocol.events.messages.enums.RankInfo;
 import org.lisasp.alphatimer.api.protocol.events.messages.enums.TimeType;
 import org.lisasp.alphatimer.api.protocol.events.messages.values.UsedLanes;
 
+import java.time.LocalDateTime;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 

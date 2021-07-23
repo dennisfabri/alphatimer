@@ -13,7 +13,9 @@ public class DidNotStartParser implements Parser {
     public void accept(DataHandlingMessage message, Consumer<RefinedMessage> resultCollector) {
         if (message.getMessageType() == MessageType.CurrentRaceResults && message.getTimeMarker() == TimeMarker.DidNotStart) {
             if (isValid(message)) {
-                resultCollector.accept(new DidNotStartMessage(message.getEvent(),
+                resultCollector.accept(new DidNotStartMessage(message.getTimestamp(),
+                                                              message.getCompetition(),
+                                                              message.getEvent(),
                                                               message.getHeat(),
                                                               message.getLane()
                 ));

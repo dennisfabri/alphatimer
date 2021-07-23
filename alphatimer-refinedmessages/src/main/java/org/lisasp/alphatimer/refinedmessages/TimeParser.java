@@ -16,16 +16,19 @@ public class TimeParser implements Parser {
     public void accept(DataHandlingMessage message, Consumer<RefinedMessage> resultCollector) {
         if ((message.getMessageType() == MessageType.CurrentRaceResults || message.getMessageType() == MessageType.PreviousRaceResults || message.getMessageType() == MessageType.OnLineTime) && (message.getKindOfTime() == KindOfTime.Finish || message.getKindOfTime() == KindOfTime.SplitTime)) {
             if (isValid(message)) {
-                resultCollector.accept(new TimeMessage(message.getEvent(),
-                                                       message.getHeat(),
-                                                       utils.convertMessageType(message.getMessageType()),
-                                                       utils.convertKindOfTime(message.getKindOfTime()),
-                                                       message.getLane(),
-                                                       message.getCurrentLap(),
-                                                       message.getLapCount(),
-                                                       message.getRank(),
-                                                       message.getTimeInMillis(),
-                                                       utils.convertTimeType(message.getTimeType())));
+                resultCollector.accept(new TimeMessage(
+                        message.getTimestamp(),
+                        message.getCompetition(),
+                        message.getEvent(),
+                        message.getHeat(),
+                        utils.convertMessageType(message.getMessageType()),
+                        utils.convertKindOfTime(message.getKindOfTime()),
+                        message.getLane(),
+                        message.getCurrentLap(),
+                        message.getLapCount(),
+                        message.getRank(),
+                        message.getTimeInMillis(),
+                        utils.convertTimeType(message.getTimeType())));
             } else {
                 resultCollector.accept(new DroppedTimeMessage(message));
             }

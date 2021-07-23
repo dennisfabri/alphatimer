@@ -8,6 +8,14 @@ alphatimer:
   serialConfiguration: Ares21
 
 spring:
+  artemis:
+    mode: embedded
+    broker-url: tcp://localhost:61616
+    user: dev
+    password: dev
+    embedded:
+      enabled: true
+
   jpa:
     show-sql: false
     generate-ddl: true

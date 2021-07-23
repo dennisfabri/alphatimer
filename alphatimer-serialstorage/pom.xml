@@ -12,5 +12,9 @@
     <artifactId>alphatimer-serialstorage</artifactId>
 
     <dependencies>
+        <dependency>
+            <groupId>org.lisasp.alphatimer</groupId>
+            <artifactId>alphatimer-jre</artifactId>
+        </dependency>
     </dependencies>
 </project>

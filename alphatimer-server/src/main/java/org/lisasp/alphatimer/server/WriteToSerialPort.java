@@ -8,7 +8,7 @@ import org.lisasp.alphatimer.serial.SerialConnectionBuilder;
 import org.lisasp.alphatimer.serial.SerialPortWriter;
 import org.lisasp.alphatimer.serial.configuration.SerialConfiguration;
 import org.lisasp.alphatimer.serial.exceptions.NoPortsFoundException;
-import org.lisasp.alphatimer.storage.ActualDate;
+import org.lisasp.alphatimer.jre.date.ActualDate;
 
 import java.io.IOException;
 import java.nio.file.Files;

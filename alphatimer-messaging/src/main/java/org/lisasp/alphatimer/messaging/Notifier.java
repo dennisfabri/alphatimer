@@ -8,7 +8,7 @@ import java.util.function.Consumer;
 
 public class Notifier<T> implements Consumer<T> {
 
-    private final List<Consumer<T>> dataListeners = new ArrayList<>();
+    protected final List<Consumer<T>> dataListeners = new ArrayList<>();
 
     @Synchronized("dataListeners")
     public void accept(T event) {

@@ -1,6 +1,6 @@
 package org.lisasp.alphatimer.protocol;
 
-import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import lombok.Synchronized;
 import org.lisasp.alphatimer.api.protocol.DataHandlingMessageAggregator;
 import org.lisasp.alphatimer.api.protocol.DataHandlingMessageListener;
@@ -9,19 +9,24 @@ import org.lisasp.alphatimer.api.protocol.events.messages.DataHandlingMessage;
 import org.lisasp.alphatimer.api.protocol.events.messages.DataHandlingMessage1;
 import org.lisasp.alphatimer.api.protocol.events.messages.DataHandlingMessage2;
 import org.lisasp.alphatimer.api.protocol.events.messages.Ping;
+import org.lisasp.alphatimer.jre.date.ActualDateTime;
+import org.lisasp.alphatimer.jre.date.DateTimeFacade;
 
 import java.util.ArrayList;
 import java.util.List;
 
-@NoArgsConstructor
+@RequiredArgsConstructor
 public class MessageAggregator implements DataHandlingMessageAggregator {
 
     private DataHandlingMessage1 message1 = null;
 
+    private final DateTimeFacade datetime;
+    private final String competition;
+
     private final List<DataHandlingMessageListener> listeners = new ArrayList<>();
 
-    public MessageAggregator(DataHandlingMessageListener listener) {
-        register(listener);
+    public MessageAggregator(String competition) {
+        this(new ActualDateTime(), competition);
     }
 
     @Override
@@ -46,6 +51,8 @@ public class MessageAggregator implements DataHandlingMessageAggregator {
             notify(new DataHandlingMessage(
                     message1.getOriginal(),
                     message2.getOriginal(),
+                    datetime.now(),
+                    competition,
                     message1.getMessageType(),
                     message1.getKindOfTime(),
                     message1.getTimeType(),

@@ -16,13 +16,13 @@ public class Messages implements DataHandlingMessageRepository {
     private final AresMessageRepository repository;
 
     @Override
-    public void put(DataHandlingMessage message, String competitionKey) {
-        repository.save(mapDataHandlingMessageToAresMessage(message, competitionKey));
+    public void put(DataHandlingMessage message) {
+        repository.save(mapDataHandlingMessageToAresMessage(message));
     }
 
     @Override
-    public List<DataHandlingMessage> findBy(String competitionKey, short event, byte heat) {
-        return repository.findAllByCompetitionKeyAndEventAndHeat(competitionKey, event, heat)
+    public List<DataHandlingMessage> findBy(String competition, short event, byte heat) {
+        return repository.findAllByCompetitionKeyAndEventAndHeat(competition, event, heat)
                          .stream()
                          .map(am -> mapAresMessageToDataHandlingMessage(am))
                          .collect(Collectors.toList());
@@ -33,43 +33,46 @@ public class Messages implements DataHandlingMessageRepository {
         return (int) repository.count();
     }
 
-    private AresMessage mapDataHandlingMessageToAresMessage(DataHandlingMessage am, String competitionKey) {
-        return new AresMessage(am.getOriginalText1(),
-                               am.getOriginalText2(),
-                               am.getMessageType(),
-                               am.getKindOfTime(),
-                               am.getTimeType(),
-                               toString(am.getUsedLanes()),
-                               am.getLapCount(),
-                               am.getEvent(),
-                               am.getHeat(),
-                               am.getRank(),
-                               am.getRankInfo(),
-                               am.getLane(),
-                               am.getCurrentLap(),
-                               am.getTimeInMillis(),
-                               am.getTimeInfo(),
-                               am.getTimeMarker(),
-                               competitionKey);
+    private AresMessage mapDataHandlingMessageToAresMessage(DataHandlingMessage message) {
+        return new AresMessage(message.getOriginalText1(),
+                               message.getOriginalText2(),
+                               message.getTimestamp(),
+                               message.getMessageType(),
+                               message.getKindOfTime(),
+                               message.getTimeType(),
+                               toString(message.getUsedLanes()),
+                               message.getLapCount(),
+                               message.getEvent(),
+                               message.getHeat(),
+                               message.getRank(),
+                               message.getRankInfo(),
+                               message.getLane(),
+                               message.getCurrentLap(),
+                               message.getTimeInMillis(),
+                               message.getTimeInfo(),
+                               message.getTimeMarker(),
+                               message.getCompetition());
     }
 
-    private DataHandlingMessage mapAresMessageToDataHandlingMessage(AresMessage am) {
-        return new DataHandlingMessage(am.getOriginalText1(),
-                                       am.getOriginalText2(),
-                                       am.getMessageType(),
-                                       am.getKindOfTime(),
-                                       am.getTimeType(),
-                                       toUsedLanes(am.getUsedLanes()),
-                                       am.getLapCount(),
-                                       am.getEvent(),
-                                       am.getHeat(),
-                                       am.getRank(),
-                                       am.getRankInfo(),
-                                       am.getLane(),
-                                       am.getCurrentLap(),
-                                       am.getTimeInMillis(),
-                                       am.getTimeInfo(),
-                                       am.getTimeMarker());
+    private DataHandlingMessage mapAresMessageToDataHandlingMessage(AresMessage message) {
+        return new DataHandlingMessage(message.getOriginalText1(),
+                                       message.getOriginalText2(),
+                                       message.getTimestamp(),
+                                       message.getCompetitionKey(),
+                                       message.getMessageType(),
+                                       message.getKindOfTime(),
+                                       message.getTimeType(),
+                                       toUsedLanes(message.getUsedLanes()),
+                                       message.getLapCount(),
+                                       message.getEvent(),
+                                       message.getHeat(),
+                                       message.getRank(),
+                                       message.getRankInfo(),
+                                       message.getLane(),
+                                       message.getCurrentLap(),
+                                       message.getTimeInMillis(),
+                                       message.getTimeInfo(),
+                                       message.getTimeMarker());
     }
 
     private UsedLanes toUsedLanes(String usedLanes) {

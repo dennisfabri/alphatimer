@@ -5,10 +5,12 @@ import org.lisasp.alphatimer.legacy.LegacyTimeStorage;
 import org.lisasp.alphatimer.messagesstorage.AresMessageRepository;
 import org.lisasp.alphatimer.messagesstorage.Messages;
 import org.lisasp.alphatimer.protocol.InputCollector;
+import org.lisasp.alphatimer.refinedmessages.DataHandlingMessageRefiner;
 import org.lisasp.alphatimer.serial.SerialConnectionBuilder;
+import org.lisasp.alphatimer.server.mq.Sender;
 import org.lisasp.alphatimer.server.testdoubles.TestDateFacade;
-import org.lisasp.alphatimer.storage.DateFacade;
-import org.lisasp.alphatimer.storage.FileFacade;
+import org.lisasp.alphatimer.jre.date.DateFacade;
+import org.lisasp.alphatimer.jre.io.FileFacade;
 import org.lisasp.alphatimer.storage.Storage;
 import org.mockito.Mockito;
 
@@ -26,7 +28,9 @@ class RestServiceTest {
                         new ConfigurationValues(new TestDateFacade()),
                         storage,
                         new LegacyTimeStorage(),
-                        new InputCollector()
+                        new InputCollector(),
+                        new DataHandlingMessageRefiner(),
+                        Mockito.mock(Sender.class)
                 )
         );
 

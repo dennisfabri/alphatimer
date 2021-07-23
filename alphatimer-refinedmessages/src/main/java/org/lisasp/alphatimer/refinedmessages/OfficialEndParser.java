@@ -13,9 +13,12 @@ public class OfficialEndParser implements Parser {
     public void accept(DataHandlingMessage message, Consumer<RefinedMessage> resultCollector) {
         if (message.getMessageType() == MessageType.OfficialEnd) {
             if (isValid(message)) {
-                resultCollector.accept(new OfficialEndMessage(message.getEvent(),
-                                                              message.getHeat(),
-                                                              message.getLapCount()));
+                resultCollector.accept(new OfficialEndMessage(
+                        message.getTimestamp(),
+                        message.getCompetition(),
+                        message.getEvent(),
+                        message.getHeat(),
+                        message.getLapCount()));
             } else {
                 resultCollector.accept(new DroppedOfficialEndMessage(message));
             }

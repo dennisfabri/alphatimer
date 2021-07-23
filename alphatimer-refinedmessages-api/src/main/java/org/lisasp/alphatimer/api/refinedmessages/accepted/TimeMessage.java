@@ -6,8 +6,12 @@ import org.lisasp.alphatimer.api.refinedmessages.accepted.enums.RefinedKindOfTim
 import org.lisasp.alphatimer.api.refinedmessages.accepted.enums.RefinedMessageType;
 import org.lisasp.alphatimer.api.refinedmessages.accepted.enums.RefinedTimeType;
 
+import java.time.LocalDateTime;
+
 @Value
 public class TimeMessage implements RefinedMessage {
+    private final LocalDateTime timestamp;
+    private final String competition;
     private final short event;
     private final byte heat;
     private final RefinedMessageType messageType;

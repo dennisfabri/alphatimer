@@ -9,6 +9,8 @@ import org.lisasp.alphatimer.api.protocol.events.messages.values.UsedLanes;
 import org.lisasp.alphatimer.legacy.model.Heat;
 import org.lisasp.alphatimer.legacy.model.LaneStatus;
 
+import java.time.LocalDateTime;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
@@ -52,6 +54,8 @@ class LegacyTimeStorageTest {
         timeStorage.accept(new DataHandlingMessage(
                 "1",
                 "2",
+                LocalDateTime.of(2021, 6, 1, 10, 0),
+                "TestWK",
                 MessageType.OnLineTime,
                 KindOfTime.Finish,
                 TimeType.Empty,
@@ -77,6 +81,8 @@ class LegacyTimeStorageTest {
         timeStorage.accept(new DataHandlingMessage(
                 "1",
                 "2",
+                LocalDateTime.of(2021, 6, 1, 10, 0),
+                "TestWK",
                 MessageType.PreviousRaceResultsWithBackupTimes,
                 KindOfTime.Finish,
                 TimeType.Empty,
@@ -102,6 +108,8 @@ class LegacyTimeStorageTest {
         timeStorage.accept(new DataHandlingMessage(
                 "1",
                 "2",
+                LocalDateTime.of(2021, 6, 1, 10, 0),
+                "TestWK",
                 MessageType.PreviousRaceResults,
                 KindOfTime.Finish,
                 TimeType.Empty,
@@ -127,6 +135,8 @@ class LegacyTimeStorageTest {
         timeStorage.accept(new DataHandlingMessage(
                 "1",
                 "2",
+                LocalDateTime.of(2021, 6, 1, 10, 0),
+                "TestWK",
                 MessageType.CurrentRaceResultsWithBackupTimes,
                 KindOfTime.Finish,
                 TimeType.Empty,
@@ -152,6 +162,8 @@ class LegacyTimeStorageTest {
         timeStorage.accept(new DataHandlingMessage(
                 "1",
                 "2",
+                LocalDateTime.of(2021, 6, 1, 10, 0),
+                "TestWK",
                 MessageType.CurrentRaceResults,
                 KindOfTime.Finish,
                 TimeType.Empty,
@@ -177,6 +189,8 @@ class LegacyTimeStorageTest {
         timeStorage.accept(new DataHandlingMessage(
                 "1",
                 "2",
+                LocalDateTime.of(2021, 6, 1, 10, 0),
+                "TestWK",
                 MessageType.ReadyToStart,
                 KindOfTime.Finish,
                 TimeType.Empty,
@@ -202,6 +216,8 @@ class LegacyTimeStorageTest {
         timeStorage.accept(new DataHandlingMessage(
                 "1",
                 "2",
+                LocalDateTime.of(2021, 6, 1, 10, 0),
+                "TestWK",
                 MessageType.UnknownValue7,
                 KindOfTime.Finish,
                 TimeType.Empty,
@@ -227,6 +243,8 @@ class LegacyTimeStorageTest {
         timeStorage.accept(new DataHandlingMessage(
                 "1",
                 "2",
+                LocalDateTime.of(2021, 6, 1, 10, 0),
+                "TestWK",
                 MessageType.OnLineTime,
                 KindOfTime.SplitTime,
                 TimeType.Empty,
@@ -251,6 +269,8 @@ class LegacyTimeStorageTest {
         timeStorage.accept(new DataHandlingMessage(
                 "1",
                 "2",
+                LocalDateTime.of(2021, 6, 1, 10, 0),
+                "TestWK",
                 MessageType.OfficialEnd,
                 KindOfTime.Finish,
                 TimeType.Empty,
@@ -275,6 +295,8 @@ class LegacyTimeStorageTest {
         timeStorage.accept(new DataHandlingMessage(
                 "1",
                 "2",
+                LocalDateTime.of(2021, 6, 1, 10, 0),
+                "TestWK",
                 MessageType.OnLineTime,
                 KindOfTime.Finish,
                 TimeType.Empty,
@@ -292,6 +314,8 @@ class LegacyTimeStorageTest {
         timeStorage.accept(new DataHandlingMessage(
                 "1",
                 "2",
+                LocalDateTime.of(2021, 6, 1, 10, 0),
+                "TestWK",
                 MessageType.OnLineTime,
                 KindOfTime.Finish,
                 TimeType.Empty,
@@ -317,6 +341,8 @@ class LegacyTimeStorageTest {
         timeStorage.accept(new DataHandlingMessage(
                 "1",
                 "2",
+                LocalDateTime.of(2021, 6, 1, 10, 0),
+                "TestWK",
                 MessageType.OnLineTime,
                 KindOfTime.Finish,
                 TimeType.Empty,
@@ -334,6 +360,8 @@ class LegacyTimeStorageTest {
         timeStorage.accept(new DataHandlingMessage(
                 "1",
                 "2",
+                LocalDateTime.of(2021, 6, 1, 10, 0),
+                "TestWK",
                 MessageType.OnLineTime,
                 KindOfTime.Finish,
                 TimeType.Empty,
@@ -360,6 +388,8 @@ class LegacyTimeStorageTest {
         timeStorage.accept(new DataHandlingMessage(
                 "1",
                 "2",
+                LocalDateTime.of(2021, 6, 1, 10, 0),
+                "TestWK",
                 MessageType.OnLineTime,
                 KindOfTime.Finish,
                 TimeType.Empty,
@@ -377,6 +407,8 @@ class LegacyTimeStorageTest {
         timeStorage.accept(new DataHandlingMessage(
                 "1",
                 "2",
+                LocalDateTime.of(2021, 6, 1, 10, 0),
+                "TestWK",
                 MessageType.OnLineTime,
                 KindOfTime.Finish,
                 TimeType.Empty,

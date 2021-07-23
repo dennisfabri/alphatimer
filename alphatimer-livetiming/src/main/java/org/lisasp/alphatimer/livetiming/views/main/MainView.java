@@ -9,14 +9,12 @@ import com.vaadin.flow.component.html.Image;
 import com.vaadin.flow.component.orderedlayout.FlexComponent;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
-import com.vaadin.flow.component.page.Push;
 import com.vaadin.flow.component.tabs.Tab;
 import com.vaadin.flow.component.tabs.TabVariant;
 import com.vaadin.flow.component.tabs.Tabs;
 import com.vaadin.flow.router.RouterLink;
 import org.lisasp.alphatimer.livetiming.views.about.AboutView;
 import org.lisasp.alphatimer.livetiming.views.live.LiveView;
-import org.lisasp.alphatimer.livetiming.views.times.TimesView;
 
 import java.util.Optional;
 
@@ -69,7 +67,7 @@ public class MainView extends AppLayout {
     }
 
     private static Tab[] getAvailableTabs() {
-        return new Tab[]{createTab("Live", LiveView.class), createTab("Times", TimesView.class), createTab("About", AboutView.class)};
+        return new Tab[]{createTab("Live", LiveView.class), createTab("About", AboutView.class)};
     }
 
     private static Tab createTab(String text, Class<? extends Component> navigationTarget) {

@@ -3,7 +3,7 @@ package org.lisasp.alphatimer.server;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import org.lisasp.alphatimer.serial.configuration.SerialConfiguration;
-import org.lisasp.alphatimer.storage.DateFacade;
+import org.lisasp.alphatimer.jre.date.DateFacade;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
@@ -25,6 +25,9 @@ public class ConfigurationValues {
     private String serialConfiguration;
     @Value("${alphatimer.competitionKey:}")
     private String competitionKey;
+
+    @Value("${alphatimer.queue:ares-messages}")
+    private String queueName;
 
     SerialConfiguration getSerialConfigurationObject() {
         return getSerialConfigurationObject(getSerialConfiguration());

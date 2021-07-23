@@ -6,8 +6,12 @@ import org.lisasp.alphatimer.api.protocol.events.messages.enums.TimeType;
 import org.lisasp.alphatimer.api.refinedmessages.RefinedMessage;
 import org.lisasp.alphatimer.api.refinedmessages.accepted.enums.RefinedMessageType;
 
+import java.time.LocalDateTime;
+
 @Value
 public class TakeOverTimeMessage implements RefinedMessage {
+    private final LocalDateTime timestamp;
+    private final String competition;
     private final short event;
     private final byte heat;
     private final RefinedMessageType messageType;

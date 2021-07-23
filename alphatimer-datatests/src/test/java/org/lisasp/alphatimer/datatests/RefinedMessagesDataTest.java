@@ -9,19 +9,21 @@ import org.junit.jupiter.params.provider.ValueSource;
 import org.lisasp.alphatimer.api.refinedmessages.RefinedMessageListener;
 import org.lisasp.alphatimer.api.refinedmessages.accepted.*;
 import org.lisasp.alphatimer.api.refinedmessages.dropped.*;
+import org.lisasp.alphatimer.jre.date.DateTimeFacade;
 import org.lisasp.alphatimer.protocol.InputCollector;
 import org.lisasp.alphatimer.protocol.MessageAggregator;
 import org.lisasp.alphatimer.refinedmessages.DataHandlingMessageRefiner;
 import org.mockito.Mockito;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.Hashtable;
 
 import static org.mockito.Mockito.*;
 
 class RefinedMessagesDataTest {
 
-    private static final Hashtable<Class, Integer> createHashtable(int didNotFinish,
+    private static Hashtable<Class<?>, Integer> createHashtable(int didNotFinish,
                                                                    int didNotStart,
                                                                    int finish,
                                                                    int officialEnd,
@@ -29,7 +31,7 @@ class RefinedMessagesDataTest {
                                                                    int start,
                                                                    int takeOverTime,
                                                                    int usedLanes) {
-        Hashtable<Class, Integer> hashtable = new Hashtable<>();
+        Hashtable<Class<?>, Integer> hashtable = new Hashtable<>();
 
         hashtable.put(DidNotFinishMessage.class, didNotFinish);
         hashtable.put(DidNotStartMessage.class, didNotStart);
@@ -43,7 +45,7 @@ class RefinedMessagesDataTest {
         return hashtable;
     }
 
-    private static void extendHashtable(Hashtable<Class, Integer> hashtable,
+    private static void extendHashtable(Hashtable<Class<?>, Integer> hashtable,
                                         int didNotFinish,
                                         int didNotStart,
                                         int finish,
@@ -66,11 +68,11 @@ class RefinedMessagesDataTest {
         hashtable.put(DroppedUnknownMessage.class, droppedUnknown);
     }
 
-    private static final Hashtable<String, Hashtable<Class, Integer>> testData = new Hashtable<>();
+    private static final Hashtable<String, Hashtable<Class<?>, Integer>> testData = new Hashtable<>();
 
-    private static final Hashtable<Class, Integer> EMPTY = new Hashtable<>();
+    private static final Hashtable<Class<?>, Integer> EMPTY = new Hashtable<>();
 
-    private static int getValue(String name, Class message) {
+    private static int getValue(String name, Class<?> message) {
         return testData.getOrDefault(name, EMPTY).getOrDefault(message, 0);
     }
 
@@ -129,9 +131,14 @@ class RefinedMessagesDataTest {
         refiner = new DataHandlingMessageRefiner();
         refiner.register(listener);
 
+        DateTimeFacade datetime = Mockito.mock(DateTimeFacade.class);
+        Mockito.when(datetime.now()).thenReturn(LocalDateTime.of(2021, 6, 1, 10, 0));
+
+        MessageAggregator messageAggregator = new MessageAggregator(datetime, "TestWK");
+        messageAggregator.register(refiner);
 
         alphaTranslator = new InputCollector();
-        alphaTranslator.register(new MessageAggregator(refiner));
+        alphaTranslator.register(messageAggregator);
         if (verbose) {
             refiner.register(event -> {
                 if (event instanceof DroppedRefinedMessage) {

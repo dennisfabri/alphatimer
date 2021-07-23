@@ -9,10 +9,16 @@
     </parent>
     <artifactId>alphatimer-server</artifactId>
     <name>AlphaTimer Server</name>
+    <packaging>jar</packaging>
 
     <description>Server for AlphaTimer</description>
 
     <dependencies>
+        <dependency>
+            <groupId>org.lisasp.alphatimer</groupId>
+            <artifactId>alphatimer-spring-jms</artifactId>
+        </dependency>
+
         <dependency>
             <groupId>org.lisasp.alphatimer</groupId>
             <artifactId>alphatimer-protocol</artifactId>
@@ -33,10 +39,18 @@
             <groupId>org.lisasp.alphatimer</groupId>
             <artifactId>alphatimer-messagesstorage</artifactId>
         </dependency>
+        <dependency>
+            <groupId>org.lisasp.alphatimer</groupId>
+            <artifactId>alphatimer-refinedmessages</artifactId>
+        </dependency>
 
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-artemis</artifactId>
         </dependency>
 
         <dependency>
@@ -74,5 +88,19 @@
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>org.apache.activemq</groupId>
+            <artifactId>artemis-jms-server</artifactId>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
 </project>

@@ -10,9 +10,13 @@ import org.lisasp.alphatimer.api.refinedmessages.accepted.OfficialEndMessage;
 import org.lisasp.alphatimer.api.refinedmessages.dropped.DroppedOfficialEndMessage;
 import org.mockito.Mockito;
 
+import java.time.LocalDateTime;
+
 import static org.mockito.Mockito.*;
 
 class OfficialResultMessageTest {
+
+    private static final LocalDateTime TIMESTAMP = LocalDateTime.of(2021, 6, 1, 10, 0);
 
     private DataHandlingMessageRefiner refiner;
     private RefinedMessageListener listener;
@@ -33,6 +37,8 @@ class OfficialResultMessageTest {
 
         refiner.accept(new DataHandlingMessage(
                 "1", "2",
+                LocalDateTime.of(2021, 6, 1, 10, 0),
+                "TestWK",
                 MessageType.OfficialEnd,
                 KindOfTime.Empty,
                 TimeType.Empty,
@@ -48,7 +54,7 @@ class OfficialResultMessageTest {
                 TimeInfo.Normal,
                 TimeMarker.Empty));
 
-        verify(listener, times(1)).accept(new OfficialEndMessage(event, heat, lapCount));
+        verify(listener, times(1)).accept(new OfficialEndMessage(TIMESTAMP, "TestWK", event, heat, lapCount));
         verifyNoMoreInteractions(listener);
     }
 
@@ -60,6 +66,8 @@ class OfficialResultMessageTest {
 
         refiner.accept(new DataHandlingMessage(
                 "1", "2",
+                LocalDateTime.of(2021, 6, 1, 10, 0),
+                "TestWK",
                 MessageType.OfficialEnd,
                 KindOfTime.SplitTime,
                 TimeType.Empty,
@@ -77,6 +85,8 @@ class OfficialResultMessageTest {
 
         verify(listener, times(1)).accept(new DroppedOfficialEndMessage(new DataHandlingMessage(
                 "1", "2",
+                LocalDateTime.of(2021, 6, 1, 10, 0),
+                "TestWK",
                 MessageType.OfficialEnd,
                 KindOfTime.SplitTime,
                 TimeType.Empty,
@@ -102,6 +112,8 @@ class OfficialResultMessageTest {
 
         refiner.accept(new DataHandlingMessage(
                 "1", "2",
+                LocalDateTime.of(2021, 6, 1, 10, 0),
+                "TestWK",
                 MessageType.OfficialEnd,
                 KindOfTime.Empty,
                 TimeType.CorrectedTime,
@@ -119,6 +131,8 @@ class OfficialResultMessageTest {
 
         verify(listener, times(1)).accept(new DroppedOfficialEndMessage(new DataHandlingMessage(
                 "1", "2",
+                LocalDateTime.of(2021, 6, 1, 10, 0),
+                "TestWK",
                 MessageType.OfficialEnd,
                 KindOfTime.Empty,
                 TimeType.CorrectedTime,
@@ -144,6 +158,8 @@ class OfficialResultMessageTest {
 
         refiner.accept(new DataHandlingMessage(
                 "1", "2",
+                LocalDateTime.of(2021, 6, 1, 10, 0),
+                "TestWK",
                 MessageType.OfficialEnd,
                 KindOfTime.Empty,
                 TimeType.Empty,
@@ -161,6 +177,8 @@ class OfficialResultMessageTest {
 
         verify(listener, times(1)).accept(new DroppedOfficialEndMessage(new DataHandlingMessage(
                 "1", "2",
+                LocalDateTime.of(2021, 6, 1, 10, 0),
+                "TestWK",
                 MessageType.OfficialEnd,
                 KindOfTime.Empty,
                 TimeType.Empty,
@@ -186,6 +204,8 @@ class OfficialResultMessageTest {
 
         refiner.accept(new DataHandlingMessage(
                 "1", "2",
+                LocalDateTime.of(2021, 6, 1, 10, 0),
+                "TestWK",
                 MessageType.OfficialEnd,
                 KindOfTime.Empty,
                 TimeType.Empty,
@@ -203,6 +223,8 @@ class OfficialResultMessageTest {
 
         verify(listener, times(1)).accept(new DroppedOfficialEndMessage(new DataHandlingMessage(
                 "1", "2",
+                LocalDateTime.of(2021, 6, 1, 10, 0),
+                "TestWK",
                 MessageType.OfficialEnd,
                 KindOfTime.Empty,
                 TimeType.Empty,
@@ -228,6 +250,8 @@ class OfficialResultMessageTest {
 
         refiner.accept(new DataHandlingMessage(
                 "1", "2",
+                LocalDateTime.of(2021, 6, 1, 10, 0),
+                "TestWK",
                 MessageType.OfficialEnd,
                 KindOfTime.Empty,
                 TimeType.Empty,
@@ -245,6 +269,8 @@ class OfficialResultMessageTest {
 
         verify(listener, times(1)).accept(new DroppedOfficialEndMessage(new DataHandlingMessage(
                 "1", "2",
+                LocalDateTime.of(2021, 6, 1, 10, 0),
+                "TestWK",
                 MessageType.OfficialEnd,
                 KindOfTime.Empty,
                 TimeType.Empty,
@@ -270,6 +296,8 @@ class OfficialResultMessageTest {
 
         refiner.accept(new DataHandlingMessage(
                 "1", "2",
+                LocalDateTime.of(2021, 6, 1, 10, 0),
+                "TestWK",
                 MessageType.OfficialEnd,
                 KindOfTime.Empty,
                 TimeType.Empty,
@@ -287,6 +315,8 @@ class OfficialResultMessageTest {
 
         verify(listener, times(1)).accept(new DroppedOfficialEndMessage(new DataHandlingMessage(
                 "1", "2",
+                LocalDateTime.of(2021, 6, 1, 10, 0),
+                "TestWK",
                 MessageType.OfficialEnd,
                 KindOfTime.Empty,
                 TimeType.Empty,
@@ -312,6 +342,8 @@ class OfficialResultMessageTest {
 
         refiner.accept(new DataHandlingMessage(
                 "1", "2",
+                LocalDateTime.of(2021, 6, 1, 10, 0),
+                "TestWK",
                 MessageType.OfficialEnd,
                 KindOfTime.Empty,
                 TimeType.Empty,
@@ -329,6 +361,8 @@ class OfficialResultMessageTest {
 
         verify(listener, times(1)).accept(new DroppedOfficialEndMessage(new DataHandlingMessage(
                 "1", "2",
+                LocalDateTime.of(2021, 6, 1, 10, 0),
+                "TestWK",
                 MessageType.OfficialEnd,
                 KindOfTime.Empty,
                 TimeType.Empty,
@@ -354,6 +388,8 @@ class OfficialResultMessageTest {
 
         refiner.accept(new DataHandlingMessage(
                 "1", "2",
+                LocalDateTime.of(2021, 6, 1, 10, 0),
+                "TestWK",
                 MessageType.OfficialEnd,
                 KindOfTime.Empty,
                 TimeType.Empty,
@@ -371,6 +407,8 @@ class OfficialResultMessageTest {
 
         verify(listener, times(1)).accept(new DroppedOfficialEndMessage(new DataHandlingMessage(
                 "1", "2",
+                LocalDateTime.of(2021, 6, 1, 10, 0),
+                "TestWK",
                 MessageType.OfficialEnd,
                 KindOfTime.Empty,
                 TimeType.Empty,
@@ -396,6 +434,8 @@ class OfficialResultMessageTest {
 
         refiner.accept(new DataHandlingMessage(
                 "1", "2",
+                LocalDateTime.of(2021, 6, 1, 10, 0),
+                "TestWK",
                 MessageType.OfficialEnd,
                 KindOfTime.Empty,
                 TimeType.Empty,
@@ -413,6 +453,8 @@ class OfficialResultMessageTest {
 
         verify(listener, times(1)).accept(new DroppedOfficialEndMessage(new DataHandlingMessage(
                 "1", "2",
+                TIMESTAMP,
+                "TestWK",
                 MessageType.OfficialEnd,
                 KindOfTime.Empty,
                 TimeType.Empty,

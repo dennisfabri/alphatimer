@@ -13,7 +13,9 @@ public class DidNotFinishParser implements Parser {
     public void accept(DataHandlingMessage message, Consumer<RefinedMessage> resultCollector) {
         if (message.getMessageType() == MessageType.CurrentRaceResults && message.getTimeMarker() == TimeMarker.DidNotFinish) {
             if (isValid(message)) {
-                resultCollector.accept(new DidNotFinishMessage(message.getEvent(),
+                resultCollector.accept(new DidNotFinishMessage(message.getTimestamp(),
+                                                               message.getCompetition(),
+                                                               message.getEvent(),
                                                                message.getHeat(),
                                                                message.getLane()
                 ));

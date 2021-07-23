@@ -3,12 +3,23 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>2.5.1</version>
+    </parent>
+
     <groupId>org.lisasp.alphatimer</groupId>
     <artifactId>parent</artifactId>
     <version>1.0.0-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <modules>
+        <module>alphatimer-jre</module>
+
+        <module>alphatimer-spring-jpa</module>
+        <module>alphatimer-spring-jms</module>
+
         <module>alphatimer-protocol-api</module>
         <module>alphatimer-refinedmessages-api</module>
         <module>alphatimer-messaging</module>
@@ -20,8 +31,8 @@
         <module>alphatimer-serialstorage</module>
         <module>alphatimer-messagesstorage</module>
         <module>alphatimer-server</module>
-        <module>alphatimer-livetiming</module>
         <module>alphatimer-heats</module>
+        <module>alphatimer-livetiming</module>
     </modules>
 
     <name>Alpha Translator</name>
@@ -31,45 +42,31 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <java.version>11</java.version>
 
-        <junit.version>5.7.1</junit.version>
         <slf4j.version>1.7.30</slf4j.version>
         <spring.version>2.5.1</spring.version>
-        <kotlin.version>1.5.0</kotlin.version>
+        <kotlin.version>1.5.20</kotlin.version>
         <lombok.version>1.18.20</lombok.version>
-        <vaadin.version>20.0.3</vaadin.version>
-        <vaadinhelper.version>1.6.2</vaadinhelper.version>
         <nrjavaserial.version>5.2.1</nrjavaserial.version>
         <xstream.version>1.4.17</xstream.version>
+        <vaadin.version>20.0.4</vaadin.version>
+        <vaadinhelper.version>1.6.2</vaadinhelper.version>
+
+        <junit.version>5.7.1</junit.version>
         <testcontainers.version>1.15.3</testcontainers.version>
         <mockito.version>3.11.1</mockito.version>
         <webdrivermanager.version>4.4.3</webdrivermanager.version>
+
         <h2.version>1.4.200</h2.version>
         <mssql-jdbc.version>9.2.1.jre11</mssql-jdbc.version>
     </properties>
 
-    <repositories>
-        <!-- The order of definitions matters. Explicitly defining central here to make sure it has the highest priority. -->
-
-        <!-- Main Maven repository -->
-        <repository>
-            <id>central</id>
-            <url>https://repo.maven.apache.org/maven2</url>
-            <snapshots>
-                <enabled>false</enabled>
-            </snapshots>
-        </repository>
-        <!-- Repository used by many Vaadin add-ons -->
-        <repository>
-            <id>Vaadin Directory</id>
-            <url>https://maven.vaadin.com/vaadin-addons</url>
-            <snapshots>
-                <enabled>false</enabled>
-            </snapshots>
-        </repository>
-    </repositories>
-
     <dependencyManagement>
         <dependencies>
+            <dependency>
+                <groupId>org.lisasp.alphatimer</groupId>
+                <artifactId>alphatimer-jre</artifactId>
+                <version>${project.version}</version>
+            </dependency>
             <dependency>
                 <groupId>org.lisasp.alphatimer</groupId>
                 <artifactId>alphatimer-heats</artifactId>
@@ -88,6 +85,11 @@
             <dependency>
                 <groupId>org.lisasp.alphatimer</groupId>
                 <artifactId>alphatimer-refinedmessages</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.lisasp.alphatimer</groupId>
+                <artifactId>alphatimer-spring-jms</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
@@ -135,6 +137,11 @@
                 <artifactId>alphatimer-server</artifactId>
                 <version>${project.version}</version>
             </dependency>
+            <dependency>
+                <groupId>org.lisasp.alphatimer</groupId>
+                <artifactId>alphatimer-spring-jpa</artifactId>
+                <version>${project.version}</version>
+            </dependency>
 
             <dependency>
                 <groupId>org.projectlombok</groupId>
@@ -151,6 +158,7 @@
                 <artifactId>xstream</artifactId>
                 <version>${xstream.version}</version>
             </dependency>
+            <!--
             <dependency>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-dependencies</artifactId>
@@ -158,6 +166,7 @@
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
+            -->
             <dependency>
                 <groupId>com.vaadin</groupId>
                 <artifactId>vaadin-bom</artifactId>
@@ -170,7 +179,6 @@
                 <artifactId>a-vaadin-helper</artifactId>
                 <version>${vaadinhelper.version}</version>
             </dependency>
-
             <dependency>
                 <groupId>org.slf4j</groupId>
                 <artifactId>slf4j-api</artifactId>
@@ -195,6 +203,11 @@
                 <version>${junit.version}</version>
                 <scope>import</scope>
                 <type>pom</type>
+            </dependency>
+            <dependency>
+                <groupId>junit</groupId>
+                <artifactId>junit</artifactId>
+                <version>4.13.2</version>
             </dependency>
             <dependency>
                 <groupId>org.mockito</groupId>
@@ -321,11 +334,13 @@
                     <artifactId>maven-surefire-plugin</artifactId>
                     <version>2.22.2</version>
                 </plugin>
+                <!--
                 <plugin>
                     <groupId>org.springframework.boot</groupId>
                     <artifactId>spring-boot-maven-plugin</artifactId>
                     <version>${spring.version}</version>
                 </plugin>
+                -->
                 <plugin>
                     <groupId>org.projectlombok</groupId>
                     <artifactId>lombok-maven-plugin</artifactId>
@@ -465,4 +480,25 @@
             </plugin>
         </plugins>
     </build>
+
+    <repositories>
+        <!-- The order of definitions matters. Explicitly defining central here to make sure it has the highest priority. -->
+
+        <!-- Main Maven repository -->
+        <repository>
+            <id>central</id>
+            <url>https://repo.maven.apache.org/maven2</url>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </repository>
+        <!-- Repository used by many Vaadin add-ons -->
+        <repository>
+            <id>Vaadin Directory</id>
+            <url>https://maven.vaadin.com/vaadin-addons</url>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </repository>
+    </repositories>
 </project>

@@ -2,10 +2,13 @@ package org.lisasp.alphatimer.api.protocol.events.messages
 
 import org.lisasp.alphatimer.api.protocol.events.messages.enums.*
 import org.lisasp.alphatimer.api.protocol.events.messages.values.UsedLanes
+import java.time.LocalDateTime
 
 data class DataHandlingMessage(
     val originalText1: String,
     val originalText2: String,
+    val timestamp: LocalDateTime,
+    val competition: String,
     val messageType: MessageType,
     val kindOfTime: KindOfTime,
     val timeType: TimeType,

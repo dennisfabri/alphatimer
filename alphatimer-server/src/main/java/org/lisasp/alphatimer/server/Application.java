@@ -1,16 +1,18 @@
 package org.lisasp.alphatimer.server;
 
 import lombok.RequiredArgsConstructor;
-import lombok.Synchronized;
 import lombok.extern.slf4j.Slf4j;
 import org.lisasp.alphatimer.legacy.LegacyTimeStorage;
 import org.lisasp.alphatimer.protocol.InputCollector;
+import org.lisasp.alphatimer.refinedmessages.DataHandlingMessageRefiner;
 import org.lisasp.alphatimer.serial.DefaultSerialConnectionBuilder;
 import org.lisasp.alphatimer.serial.SerialConnectionBuilder;
-import org.lisasp.alphatimer.storage.ActualDate;
-import org.lisasp.alphatimer.storage.ActualFile;
-import org.lisasp.alphatimer.storage.DateFacade;
+import org.lisasp.alphatimer.spring.jms.JsonMessageConverter;
+import org.lisasp.alphatimer.jre.date.ActualDate;
+import org.lisasp.alphatimer.jre.io.ActualFile;
+import org.lisasp.alphatimer.jre.date.DateFacade;
 import org.lisasp.alphatimer.storage.Storage;
+import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.SpringApplication;
@@ -19,7 +21,10 @@ import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Scope;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+import org.springframework.jms.connection.CachingConnectionFactory;
+import org.springframework.jms.core.JmsTemplate;
 
 import java.io.File;
 import java.io.IOException;
@@ -34,10 +39,6 @@ import java.util.List;
 public class Application implements ApplicationRunner {
 
     private final ConfigurableApplicationContext context;
-
-    private InputCollector inputCollector;
-    private ActualDate date;
-    private LegacyTimeStorage legacyTimeStorage;
 
     public static void main(String[] args) throws Exception {
         if (new CommandLineInterpreter().run(args)) {
@@ -64,40 +65,46 @@ public class Application implements ApplicationRunner {
     }
 
     @Bean
-    SerialConnectionBuilder getSerialConnectionBuilder() {
+    @Scope(value = ConfigurableBeanFactory.SCOPE_SINGLETON)
+    SerialConnectionBuilder serialConnectionBuilder() {
         return new DefaultSerialConnectionBuilder();
     }
 
     @Bean
-    Storage createStorage(ConfigurationValues config) throws IOException {
+    @Scope(value = ConfigurableBeanFactory.SCOPE_SINGLETON)
+    Storage storage(ConfigurationValues config) throws IOException {
         log.info("Using data path   : {}", new File(config.getStoragePath()).getCanonicalPath());
         return new Storage(config.getStoragePath(), new ActualFile(), new ActualDate());
     }
 
     @Bean
-    @Synchronized
-    LegacyTimeStorage createLegacyTimeStorage() {
-        if (legacyTimeStorage == null) {
-            legacyTimeStorage = new LegacyTimeStorage();
-        }
-        return legacyTimeStorage;
+    @Scope(value = ConfigurableBeanFactory.SCOPE_SINGLETON)
+    LegacyTimeStorage legacyTimeStorage() {
+        return new LegacyTimeStorage();
     }
 
     @Bean
-    @Synchronized
-    InputCollector createAlphaTranslator() {
-        if (inputCollector == null) {
-            inputCollector = new InputCollector();
-        }
-        return inputCollector;
+    @Scope(value = ConfigurableBeanFactory.SCOPE_SINGLETON)
+    InputCollector inputCollector() {
+        return new InputCollector();
     }
 
     @Bean
-    @Synchronized
-    DateFacade createDateFacade() {
-        if (date == null) {
-            date = new ActualDate();
-        }
-        return date;
+    @Scope(value = ConfigurableBeanFactory.SCOPE_SINGLETON)
+    DataHandlingMessageRefiner messageRefiner() {
+        return new DataHandlingMessageRefiner();
+    }
+
+    @Bean
+    @Scope(value = ConfigurableBeanFactory.SCOPE_SINGLETON)
+    DateFacade dateFacade() {
+        return new ActualDate();
+    }
+
+    @Bean
+    JmsTemplate jmsTemplate(CachingConnectionFactory connectionFactory) {
+        JmsTemplate template = new JmsTemplate(connectionFactory);
+        template.setMessageConverter(new JsonMessageConverter());
+        return template;
     }
 }

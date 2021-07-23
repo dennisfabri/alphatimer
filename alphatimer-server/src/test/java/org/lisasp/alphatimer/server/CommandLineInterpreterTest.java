@@ -12,7 +12,7 @@ import org.lisasp.alphatimer.serial.SerialConnectionBuilder;
 import org.lisasp.alphatimer.serial.SerialPortReader;
 import org.lisasp.alphatimer.serial.SerialPortWriter;
 import org.lisasp.alphatimer.serial.exceptions.NoPortsFoundException;
-import org.lisasp.alphatimer.storage.ActualFile;
+import org.lisasp.alphatimer.jre.io.ActualFile;
 import org.mockito.Mockito;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

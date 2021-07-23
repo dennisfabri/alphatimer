@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
+import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -31,10 +32,10 @@ class MessagesTest {
 
     private final String competitionKey = "TestCompetition";
 
-    private final String messageHeat1Lane1String = "DataHandlingMessage(originalText1=1, originalText2=2, messageType=ReadyToStart, kindOfTime=Empty, timeType=Empty, usedLanes=UsedLanes(1010101010), lapCount=0, event=1, heat=1, rank=0, rankInfo=Normal, lane=1, currentLap=0, timeInMillis=0, timeInfo=Normal, timeMarker=Empty)";
-    private final String messageHeat1Lane2String = "DataHandlingMessage(originalText1=1, originalText2=2, messageType=ReadyToStart, kindOfTime=Empty, timeType=Empty, usedLanes=UsedLanes(1010101010), lapCount=0, event=1, heat=1, rank=0, rankInfo=Normal, lane=2, currentLap=0, timeInMillis=0, timeInfo=Normal, timeMarker=Empty)";
-    private final String messageHeat2Lane1String = "DataHandlingMessage(originalText1=1, originalText2=2, messageType=ReadyToStart, kindOfTime=Empty, timeType=Empty, usedLanes=UsedLanes(1010101010), lapCount=0, event=1, heat=2, rank=0, rankInfo=Normal, lane=1, currentLap=0, timeInMillis=0, timeInfo=Normal, timeMarker=Empty)";
-    private final String messageHeat2Lane2String = "DataHandlingMessage(originalText1=1, originalText2=2, messageType=ReadyToStart, kindOfTime=Empty, timeType=Empty, usedLanes=UsedLanes(1010101010), lapCount=0, event=1, heat=2, rank=0, rankInfo=Normal, lane=2, currentLap=0, timeInMillis=0, timeInfo=Normal, timeMarker=Empty)";
+    private final String messageHeat1Lane1String = "DataHandlingMessage(originalText1=1, originalText2=2, timestamp=2021-06-01T10:00, competition=TestCompetition, messageType=ReadyToStart, kindOfTime=Empty, timeType=Empty, usedLanes=UsedLanes(1010101010), lapCount=0, event=1, heat=1, rank=0, rankInfo=Normal, lane=1, currentLap=0, timeInMillis=0, timeInfo=Normal, timeMarker=Empty)";
+    private final String messageHeat1Lane2String = "DataHandlingMessage(originalText1=1, originalText2=2, timestamp=2021-06-01T10:00, competition=TestCompetition, messageType=ReadyToStart, kindOfTime=Empty, timeType=Empty, usedLanes=UsedLanes(1010101010), lapCount=0, event=1, heat=1, rank=0, rankInfo=Normal, lane=2, currentLap=0, timeInMillis=0, timeInfo=Normal, timeMarker=Empty)";
+    private final String messageHeat2Lane1String = "DataHandlingMessage(originalText1=1, originalText2=2, timestamp=2021-06-01T10:00, competition=TestCompetition, messageType=ReadyToStart, kindOfTime=Empty, timeType=Empty, usedLanes=UsedLanes(1010101010), lapCount=0, event=1, heat=2, rank=0, rankInfo=Normal, lane=1, currentLap=0, timeInMillis=0, timeInfo=Normal, timeMarker=Empty)";
+    private final String messageHeat2Lane2String = "DataHandlingMessage(originalText1=1, originalText2=2, timestamp=2021-06-01T10:00, competition=TestCompetition, messageType=ReadyToStart, kindOfTime=Empty, timeType=Empty, usedLanes=UsedLanes(1010101010), lapCount=0, event=1, heat=2, rank=0, rankInfo=Normal, lane=2, currentLap=0, timeInMillis=0, timeInfo=Normal, timeMarker=Empty)";
 
     @BeforeEach
     void prepare() {
@@ -42,6 +43,8 @@ class MessagesTest {
         messageHeat1Lane1 = new DataHandlingMessage(
                 "1",
                 "2",
+                LocalDateTime.of(2021, 6, 1, 10, 0),
+                competitionKey,
                 MessageType.ReadyToStart,
                 KindOfTime.Empty,
                 TimeType.Empty,
@@ -59,6 +62,8 @@ class MessagesTest {
         messageHeat1Lane2 = new DataHandlingMessage(
                 "1",
                 "2",
+                LocalDateTime.of(2021, 6, 1, 10, 0),
+                competitionKey,
                 MessageType.ReadyToStart,
                 KindOfTime.Empty,
                 TimeType.Empty,
@@ -77,6 +82,8 @@ class MessagesTest {
         messageHeat2Lane1 = new DataHandlingMessage(
                 "1",
                 "2",
+                LocalDateTime.of(2021, 6, 1, 10, 0),
+                competitionKey,
                 MessageType.ReadyToStart,
                 KindOfTime.Empty,
                 TimeType.Empty,
@@ -94,6 +101,8 @@ class MessagesTest {
         messageHeat2Lane2 = new DataHandlingMessage(
                 "1",
                 "2",
+                LocalDateTime.of(2021, 6, 1, 10, 0),
+                competitionKey,
                 MessageType.ReadyToStart,
                 KindOfTime.Empty,
                 TimeType.Empty,
@@ -134,7 +143,7 @@ class MessagesTest {
 
     @Test
     void put1Message() {
-        messages.put(messageHeat1Lane1, competitionKey);
+        messages.put(messageHeat1Lane1);
 
         assertEquals(1, messages.size());
 
@@ -147,8 +156,8 @@ class MessagesTest {
 
     @Test
     void put2Messages() {
-        messages.put(messageHeat1Lane1, competitionKey);
-        messages.put(messageHeat1Lane2, competitionKey);
+        messages.put(messageHeat1Lane1);
+        messages.put(messageHeat1Lane2);
 
         assertEquals(2, messages.size());
 
@@ -165,9 +174,9 @@ class MessagesTest {
 
     @Test
     void put3Messages() {
-        messages.put(messageHeat1Lane1, competitionKey);
-        messages.put(messageHeat1Lane2, competitionKey);
-        messages.put(messageHeat2Lane1, competitionKey);
+        messages.put(messageHeat1Lane1);
+        messages.put(messageHeat1Lane2);
+        messages.put(messageHeat2Lane1);
 
         assertEquals(3, messages.size());
 
@@ -191,10 +200,10 @@ class MessagesTest {
 
     @Test
     void put4Messages() {
-        messages.put(messageHeat1Lane1, competitionKey);
-        messages.put(messageHeat1Lane2, competitionKey);
-        messages.put(messageHeat2Lane1, competitionKey);
-        messages.put(messageHeat2Lane2, competitionKey);
+        messages.put(messageHeat1Lane1);
+        messages.put(messageHeat1Lane2);
+        messages.put(messageHeat2Lane1);
+        messages.put(messageHeat2Lane2);
 
         assertEquals(4, messages.size());
 

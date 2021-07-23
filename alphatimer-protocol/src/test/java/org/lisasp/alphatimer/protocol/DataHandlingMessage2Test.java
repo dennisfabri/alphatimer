@@ -12,8 +12,8 @@ import org.mockito.Mockito;
 
 import java.util.Arrays;
 
-import static org.lisasp.alphatimer.protocol.DataHandlingMessageTestData.bogus;
 import static org.lisasp.alphatimer.protocol.DataHandlingMessageTestData.message2;
+import static org.lisasp.alphatimer.protocol.DataHandlingMessageTestData.bogus;
 import static org.mockito.Mockito.*;
 
 /**

@@ -11,9 +11,11 @@ import org.lisasp.alphatimer.legacy.LegacyTimeStorage;
 import org.lisasp.alphatimer.legacy.LegacyXStreamUtil;
 import org.lisasp.alphatimer.protocol.InputCollector;
 import org.lisasp.alphatimer.protocol.MessageAggregator;
+import org.lisasp.alphatimer.refinedmessages.DataHandlingMessageRefiner;
 import org.lisasp.alphatimer.serial.SerialConnectionBuilder;
 import org.lisasp.alphatimer.serial.SerialPortReader;
 import org.lisasp.alphatimer.serial.exceptions.NoPortsFoundException;
+import org.lisasp.alphatimer.server.mq.Sender;
 import org.lisasp.alphatimer.storage.Storage;
 import org.springframework.stereotype.Component;
 
@@ -31,6 +33,8 @@ public class SerialInterpreter {
     private final Storage storage;
     private final LegacyTimeStorage legacy;
     private final InputCollector inputCollector;
+    private final DataHandlingMessageRefiner messageRefiner;
+    private final Sender sender;
 
     private String competitionKey;
 
@@ -56,9 +60,13 @@ public class SerialInterpreter {
     }
 
     private void initializePipeline() {
-        DataHandlingMessageAggregator aggregator = new MessageAggregator();
+        messageRefiner.register(m -> sender.send(m));
+
+        DataHandlingMessageAggregator aggregator = new MessageAggregator(competitionKey);
         aggregator.register(legacy);
-        aggregator.register(e -> messages.put(e, competitionKey));
+        aggregator.register(e -> messages.put(e));
+        aggregator.register(messageRefiner);
+
         inputCollector.register(event -> {
             log.info("Received message: '{}'", event);
             aggregator.accept(event);

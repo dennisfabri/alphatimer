@@ -7,7 +7,9 @@ import org.lisasp.alphatimer.api.protocol.DataHandlingMessageRepository;
 import org.lisasp.alphatimer.legacy.LegacyTimeStorage;
 import org.lisasp.alphatimer.messaging.ByteListener;
 import org.lisasp.alphatimer.protocol.InputCollector;
+import org.lisasp.alphatimer.refinedmessages.DataHandlingMessageRefiner;
 import org.lisasp.alphatimer.serial.SerialPortReader;
+import org.lisasp.alphatimer.server.mq.Sender;
 import org.lisasp.alphatimer.server.testdoubles.TestDateFacade;
 import org.lisasp.alphatimer.server.testdoubles.TestFileFacade;
 import org.lisasp.alphatimer.server.testdoubles.TestSerialConnectionBuilder;
@@ -46,8 +48,10 @@ class SerialInterpreterTest {
                                                   config,
                                                   storage,
                                                   new LegacyTimeStorage(),
-                                                  new InputCollector()
-        );
+                                                  new InputCollector(),
+                                                  new DataHandlingMessageRefiner(),
+                                                  Mockito.mock(Sender.class)
+                                                  );
     }
 
     @Test
@@ -60,7 +64,7 @@ class SerialInterpreterTest {
     void start() {
         serialInterpreter.start();
 
-        Mockito.verify(messages, times(0)).put(any(), eq(expectedDate));
+        Mockito.verify(messages, times(0)).put(any());
     }
 
     @Test
@@ -69,7 +73,7 @@ class SerialInterpreterTest {
 
         serialInterpreter.start();
 
-        Mockito.verify(messages, times(0)).put(any(), eq(expectedDate));
+        Mockito.verify(messages, times(0)).put(any());
     }
 
     @Test
@@ -83,7 +87,7 @@ class SerialInterpreterTest {
             serialPortReader.put(b);
         }
 
-        Mockito.verify(messages, times(1)).put(any(), eq(expectedDate));
+        Mockito.verify(messages, times(1)).put(any());
     }
 
     @Test
@@ -91,7 +95,7 @@ class SerialInterpreterTest {
         serialInterpreter.start();
         serialInterpreter.onDestroy();
 
-        Mockito.verify(messages, times(0)).put(any(), eq(expectedDate));
+        Mockito.verify(messages, times(0)).put(any());
     }
 
     private static class TestSerialPortReader implements SerialPortReader {

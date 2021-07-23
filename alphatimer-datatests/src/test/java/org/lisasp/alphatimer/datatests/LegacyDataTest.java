@@ -9,10 +9,13 @@ import org.junit.jupiter.params.provider.ValueSource;
 import org.lisasp.alphatimer.api.protocol.DataHandlingMessageAggregator;
 import org.lisasp.alphatimer.legacy.LegacyTimeStorage;
 import org.lisasp.alphatimer.legacy.model.Heat;
+import org.lisasp.alphatimer.jre.date.DateTimeFacade;
 import org.lisasp.alphatimer.protocol.InputCollector;
 import org.lisasp.alphatimer.protocol.MessageAggregator;
+import org.mockito.Mockito;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -37,7 +40,11 @@ class LegacyDataTest {
     void prepare() {
         timeStorage = new LegacyTimeStorage();
 
-        DataHandlingMessageAggregator aggregator = new MessageAggregator(timeStorage);
+        DateTimeFacade datetime = Mockito.mock(DateTimeFacade.class);
+        Mockito.when(datetime.now()).thenReturn(LocalDateTime.of(2021, 6, 1, 10, 0));
+
+        DataHandlingMessageAggregator aggregator = new MessageAggregator(datetime, "TestWK");
+        aggregator.register(timeStorage);
 
         alphaTranslator = new InputCollector();
         alphaTranslator.register(aggregator);
