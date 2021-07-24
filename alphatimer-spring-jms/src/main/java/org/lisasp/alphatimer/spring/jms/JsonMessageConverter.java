@@ -33,6 +33,7 @@ public class JsonMessageConverter implements MessageConverter {
             message.setText(valueToPayload(value));
             return message;
         } catch (JsonProcessingException e) {
+            log.warn("Could not convert to json.", e);
             throw new MessageConversionException("Could not convert to json.", e);
         }
     }
@@ -49,6 +50,7 @@ public class JsonMessageConverter implements MessageConverter {
 
             return mapper.readValue(extractJsonFromPayload(payload), extractClassFromPayload(payload));
         } catch (Exception e) {
+            log.warn("Could not convert from json.", e);
             throw new MessageConversionException("Could not convert from json.", e);
         }
     }

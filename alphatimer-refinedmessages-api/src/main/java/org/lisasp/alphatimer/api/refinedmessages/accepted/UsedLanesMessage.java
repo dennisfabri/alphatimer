@@ -12,5 +12,5 @@ public class UsedLanesMessage implements RefinedMessage {
     private final String competition;
     private final short event;
     private final byte heat;
-    private final UsedLanes usedLanes;
+    private final String usedLanes;
 }

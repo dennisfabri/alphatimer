@@ -45,6 +45,8 @@ public class CurrentHeatService implements Consumer<RefinedMessage> {
 
     @Override
     public void accept(RefinedMessage message) {
+        log.info("Received message '{}'.", message);
+
         HeatDto heatDto = repository.findHeat(message.getCompetition(), message.getEvent(), message.getHeat()).orElseGet(() -> repository.createHeat(message.getCompetition(), message.getEvent(), message.getHeat(), message.getTimestamp(), laneCount));
 
         Heat heat = new Heat(heatDto);
@@ -59,7 +61,7 @@ public class CurrentHeatService implements Consumer<RefinedMessage> {
         } else if (message instanceof OfficialEndMessage) {
             heat.finish((OfficialEndMessage) message);
         } else {
-            log.warn("Did not apply message '%s'.", message);
+            log.warn("Did not apply message '{}'.", message);
         }
 
         HeatDto updatedHeat = heat.createDto();

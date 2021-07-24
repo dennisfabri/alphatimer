@@ -2,6 +2,7 @@ package org.lisasp.alphatimer.heats.current.domain;
 
 import lombok.RequiredArgsConstructor;
 import lombok.ToString;
+import org.lisasp.alphatimer.api.protocol.events.messages.values.UsedLanes;
 import org.lisasp.alphatimer.api.refinedmessages.RefinedMessage;
 import org.lisasp.alphatimer.api.refinedmessages.accepted.OfficialEndMessage;
 import org.lisasp.alphatimer.api.refinedmessages.accepted.StartMessage;
@@ -44,7 +45,8 @@ public class Heat {
     }
 
     public void usedLanes(UsedLanesMessage message) {
-        lanes.forEach(l -> l.used(message.getUsedLanes().isUsed(l.getNumber()-1)));
+        UsedLanes usedLanes = UsedLanes.fromValue(message.getUsedLanes());
+        lanes.forEach(l -> l.used(usedLanes.isUsed(l.getNumber()-1)));
     }
 
     public void touch(TimeMessage message) {

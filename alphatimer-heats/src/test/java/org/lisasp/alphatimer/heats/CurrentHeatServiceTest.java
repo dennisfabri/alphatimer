@@ -66,7 +66,7 @@ class CurrentHeatServiceTest {
                                                                            COMPETITION,
                                                                            EVENT,
                                                                            HEAT,
-                                                                           new UsedLanes(new boolean[]{true, true, true, true, true, true, true, true, false, false}));
+                                                                           new UsedLanes(new boolean[]{true, true, true, true, true, true, true, true, false, false}).toValue());
     private final TimeMessage timeLane1Message = new TimeMessage(TIMESTAMP3,
                                                                  COMPETITION,
                                                                  EVENT,

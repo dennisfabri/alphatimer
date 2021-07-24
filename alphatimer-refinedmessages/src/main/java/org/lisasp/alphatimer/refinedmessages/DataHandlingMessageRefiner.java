@@ -20,7 +20,8 @@ public class DataHandlingMessageRefiner implements DataHandlingMessageListener {
             new StartParser(),
             new DidNotStartParser(),
             new DidNotFinishParser(),
-            new TakeOverTimeParser()
+            new TakeOverTimeParser(),
+            new UsedLanesParser()
     };
 
     @Override
