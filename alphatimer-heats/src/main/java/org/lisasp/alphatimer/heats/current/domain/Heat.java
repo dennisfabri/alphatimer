@@ -2,13 +2,18 @@ package org.lisasp.alphatimer.heats.current.domain;
 
 import lombok.RequiredArgsConstructor;
 import lombok.ToString;
+import org.lisasp.alphatimer.api.refinedmessages.RefinedMessage;
 import org.lisasp.alphatimer.api.refinedmessages.accepted.OfficialEndMessage;
 import org.lisasp.alphatimer.api.refinedmessages.accepted.StartMessage;
+import org.lisasp.alphatimer.api.refinedmessages.accepted.TimeMessage;
+import org.lisasp.alphatimer.api.refinedmessages.accepted.UsedLanesMessage;
 import org.lisasp.alphatimer.heats.current.api.HeatDto;
 import org.lisasp.alphatimer.heats.current.api.LaneDto;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.NoSuchElementException;
+import java.util.Optional;
 
 @RequiredArgsConstructor
 @ToString
@@ -34,16 +39,32 @@ public class Heat {
         return new HeatDto(competition, event, heat, started, lanes.stream().map(lane -> lane.createDto()).toArray(LaneDto[]::new));
     }
 
-    public void apply(StartMessage message) {
+    public void start(StartMessage message) {
         this.started = message.getTimestamp();
     }
 
-    public void apply(OfficialEndMessage message) {
-        if (started == null) {
-            this.started = message.getTimestamp();
-        }
+    public void usedLanes(UsedLanesMessage message) {
+        lanes.forEach(l -> l.used(message.getUsedLanes().isUsed(l.getNumber()-1)));
+    }
+
+    public void touch(TimeMessage message) {
+        assureStarted(message);
+
+        int laneNumber = message.getLane();
+        Lane lane = lanes.stream().filter(l -> l.getNumber() == laneNumber).findFirst().orElseThrow(() -> new NoSuchElementException(String.format("%s %d %d: Lane %d not found.", competition, event, heat, laneNumber)));
+        lane.apply(message);
+    }
+
+    public void finish(OfficialEndMessage message) {
+        assureStarted(message);
         for (Lane lane : lanes) {
             lane.finish();
+        }
+    }
+
+    private void assureStarted(RefinedMessage message) {
+        if (started == null) {
+            this.started = message.getTimestamp();
         }
     }
 }

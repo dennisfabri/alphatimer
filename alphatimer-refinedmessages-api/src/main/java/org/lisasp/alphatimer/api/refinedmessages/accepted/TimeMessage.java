@@ -20,6 +20,6 @@ public class TimeMessage implements RefinedMessage {
     private final byte currentLap;
     private final byte lapCount;
     private final byte rank;
-    private final int timeOfDayInMillis;
+    private final int timeInMillis;
     private final RefinedTimeType timeType;
 }

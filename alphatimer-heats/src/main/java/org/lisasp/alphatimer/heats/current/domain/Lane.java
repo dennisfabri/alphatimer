@@ -1,8 +1,10 @@
 package org.lisasp.alphatimer.heats.current.domain;
 
 import lombok.EqualsAndHashCode;
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.ToString;
+import org.lisasp.alphatimer.api.refinedmessages.accepted.TimeMessage;
 import org.lisasp.alphatimer.heats.api.LaneStatus;
 import org.lisasp.alphatimer.heats.current.api.LaneDto;
 
@@ -11,6 +13,7 @@ import org.lisasp.alphatimer.heats.current.api.LaneDto;
 @EqualsAndHashCode
 public class Lane {
 
+    @Getter
     private final int number;
 
     private int timeInMillis;
@@ -28,5 +31,28 @@ public class Lane {
 
     public void finish() {
         status = status.finish();
+    }
+
+    public void apply(TimeMessage message) {
+        status = status.timeUpdate();
+        timeInMillis = message.getTimeInMillis();
+
+        assureTimeFitsStatus();
+    }
+
+    public void used(boolean used) {
+        if (used) {
+            status = status.used();
+        } else {
+            status = status.unused();
+        }
+
+        assureTimeFitsStatus();
+    }
+
+    private void assureTimeFitsStatus() {
+        if (!status.mayHaveTime()) {
+            timeInMillis = 0;
+        }
     }
 }

@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.lisasp.alphatimer.api.protocol.DataHandlingMessageAggregator;
 import org.lisasp.alphatimer.api.protocol.DataHandlingMessageRepository;
+import org.lisasp.alphatimer.api.protocol.events.messages.Ping;
 import org.lisasp.alphatimer.legacy.LegacyTimeStorage;
 import org.lisasp.alphatimer.legacy.LegacyXStreamUtil;
 import org.lisasp.alphatimer.protocol.InputCollector;
@@ -68,7 +69,9 @@ public class SerialInterpreter {
         aggregator.register(messageRefiner);
 
         inputCollector.register(event -> {
-            log.info("Received message: '{}'", event);
+            if (!(event instanceof Ping)) {
+                log.info("Received message: '{}'", event);
+            }
             aggregator.accept(event);
         });
     }

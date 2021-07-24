@@ -5,6 +5,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.lisasp.alphatimer.api.refinedmessages.RefinedMessage;
 import org.lisasp.alphatimer.api.refinedmessages.accepted.OfficialEndMessage;
 import org.lisasp.alphatimer.api.refinedmessages.accepted.StartMessage;
+import org.lisasp.alphatimer.api.refinedmessages.accepted.TimeMessage;
+import org.lisasp.alphatimer.api.refinedmessages.accepted.UsedLanesMessage;
 import org.lisasp.alphatimer.api.refinedmessages.dropped.DroppedRefinedMessage;
 import org.lisasp.alphatimer.heats.current.api.HeatDto;
 import org.lisasp.alphatimer.heats.current.domain.Heat;
@@ -49,9 +51,13 @@ public class CurrentHeatService implements Consumer<RefinedMessage> {
         if (message instanceof DroppedRefinedMessage) {
             // Nothing to do
         } else if (message instanceof StartMessage) {
-            heat.apply((StartMessage) message);
+            heat.start((StartMessage) message);
+        } else if (message instanceof UsedLanesMessage) {
+            heat.usedLanes((UsedLanesMessage) message);
+        } else if (message instanceof TimeMessage) {
+            heat.touch((TimeMessage) message);
         } else if (message instanceof OfficialEndMessage) {
-            heat.apply((OfficialEndMessage) message);
+            heat.finish((OfficialEndMessage) message);
         } else {
             log.warn("Did not apply message '%s'.", message);
         }
