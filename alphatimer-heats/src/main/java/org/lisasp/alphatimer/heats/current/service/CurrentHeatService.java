@@ -8,6 +8,7 @@ import org.lisasp.alphatimer.api.refinedmessages.accepted.StartMessage;
 import org.lisasp.alphatimer.api.refinedmessages.accepted.TimeMessage;
 import org.lisasp.alphatimer.api.refinedmessages.accepted.UsedLanesMessage;
 import org.lisasp.alphatimer.api.refinedmessages.dropped.DroppedRefinedMessage;
+import org.lisasp.alphatimer.heats.api.HeatStatus;
 import org.lisasp.alphatimer.heats.current.api.HeatDto;
 import org.lisasp.alphatimer.heats.current.domain.Heat;
 import org.lisasp.alphatimer.jre.date.DateTimeFacade;
@@ -33,7 +34,9 @@ public class CurrentHeatService implements Consumer<RefinedMessage> {
     private final Notifier<HeatDto> notifier = new ExceptionCatchingNotifier<>();
 
     private void notifyListeners() {
-        notifier.accept(currentHeat);
+        if (currentHeat != null) {
+            notifier.accept(currentHeat);
+        }
     }
 
     public void register(Consumer<HeatDto> listener) {
@@ -65,10 +68,13 @@ public class CurrentHeatService implements Consumer<RefinedMessage> {
         }
 
         HeatDto updatedHeat = heat.createDto();
-        if (!updatedHeat.equals(currentHeat)) {
-            currentHeat = updatedHeat;
+        if (!updatedHeat.equals(heatDto)) {
+            repository.save(updatedHeat);
 
-            repository.save(currentHeat);
+            if (updatedHeat.getStatus() != HeatStatus.Open) {
+                currentHeat = updatedHeat;
+            }
+
             notifyListeners();
         }
     }

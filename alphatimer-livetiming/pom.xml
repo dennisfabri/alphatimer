@@ -10,11 +10,6 @@
     <artifactId>alphatimer-livetiming</artifactId>
     <name>AlphaTimer Livetiming UI</name>
 
-    <properties>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <java.version>11</java.version>
-    </properties>
-
     <dependencies>
         <dependency>
             <groupId>org.lisasp.alphatimer</groupId>
@@ -45,7 +40,6 @@
         <dependency>
             <groupId>org.vaadin.artur.exampledata</groupId>
             <artifactId>exampledata</artifactId>
-            <version>3.4.0</version>
         </dependency>
 
         <dependency>
@@ -112,6 +106,7 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+                <version>${spring-boot.version}</version>
                 <!-- Clean build and startup time for Vaadin apps sometimes may exceed
                      the default Spring Boot's 30sec timeout.  -->
                 <configuration>
@@ -195,6 +190,7 @@
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-failsafe-plugin</artifactId>
+                        <version>${maven-failsave-plugin.version}</version>
                         <executions>
                             <execution>
                                 <goals>

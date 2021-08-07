@@ -6,7 +6,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.5.1</version>
+        <version>2.5.3</version>
     </parent>
 
     <groupId>org.lisasp.alphatimer</groupId>
@@ -42,22 +42,26 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <java.version>11</java.version>
 
-        <slf4j.version>1.7.30</slf4j.version>
-        <spring.version>2.5.1</spring.version>
+        <spring-boot.version>2.5.3</spring-boot.version>
+        <slf4j.version>1.7.32</slf4j.version>
         <kotlin.version>1.5.20</kotlin.version>
         <lombok.version>1.18.20</lombok.version>
         <nrjavaserial.version>5.2.1</nrjavaserial.version>
         <xstream.version>1.4.17</xstream.version>
-        <vaadin.version>20.0.4</vaadin.version>
-        <vaadinhelper.version>1.6.2</vaadinhelper.version>
+        <vaadin.version>20.0.5</vaadin.version>
+        <vaadin.helper.version>1.7.1</vaadin.helper.version>
+        <vaadin.exampledata.version>3.4.0</vaadin.exampledata.version>
 
-        <junit.version>5.7.1</junit.version>
-        <testcontainers.version>1.15.3</testcontainers.version>
-        <mockito.version>3.11.1</mockito.version>
+        <junit-jupiter.version>5.7.2</junit-jupiter.version>
+        <junit.version>4.13.2</junit.version>
+        <testcontainers.version>1.16.0</testcontainers.version>
+        <mockito.version>3.11.2</mockito.version>
         <webdrivermanager.version>4.4.3</webdrivermanager.version>
 
         <h2.version>1.4.200</h2.version>
-        <mssql-jdbc.version>9.2.1.jre11</mssql-jdbc.version>
+        <mssql-jdbc.version>9.4.0.jre11</mssql-jdbc.version>
+
+        <maven-failsave-plugin.version>2.22.2</maven-failsave-plugin.version>
     </properties>
 
     <dependencyManagement>
@@ -158,15 +162,6 @@
                 <artifactId>xstream</artifactId>
                 <version>${xstream.version}</version>
             </dependency>
-            <!--
-            <dependency>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-dependencies</artifactId>
-                <version>${spring.version}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-            -->
             <dependency>
                 <groupId>com.vaadin</groupId>
                 <artifactId>vaadin-bom</artifactId>
@@ -175,9 +170,14 @@
                 <scope>import</scope>
             </dependency>
             <dependency>
+                <groupId>org.vaadin.artur.exampledata</groupId>
+                <artifactId>exampledata</artifactId>
+                <version>${vaadin.exampledata.version}</version>
+            </dependency>
+            <dependency>
                 <groupId>org.vaadin.artur</groupId>
                 <artifactId>a-vaadin-helper</artifactId>
-                <version>${vaadinhelper.version}</version>
+                <version>${vaadin.helper.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.slf4j</groupId>
@@ -200,14 +200,14 @@
             <dependency>
                 <groupId>org.junit.jupiter</groupId>
                 <artifactId>junit-jupiter-api</artifactId>
-                <version>${junit.version}</version>
+                <version>${junit-jupiter.version}</version>
                 <scope>import</scope>
                 <type>pom</type>
             </dependency>
             <dependency>
                 <groupId>junit</groupId>
                 <artifactId>junit</artifactId>
-                <version>4.13.2</version>
+                <version>${junit.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.mockito</groupId>
@@ -334,13 +334,6 @@
                     <artifactId>maven-surefire-plugin</artifactId>
                     <version>2.22.2</version>
                 </plugin>
-                <!--
-                <plugin>
-                    <groupId>org.springframework.boot</groupId>
-                    <artifactId>spring-boot-maven-plugin</artifactId>
-                    <version>${spring.version}</version>
-                </plugin>
-                -->
                 <plugin>
                     <groupId>org.projectlombok</groupId>
                     <artifactId>lombok-maven-plugin</artifactId>
@@ -349,7 +342,7 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-failsafe-plugin</artifactId>
-                    <version>2.22.2</version>
+                    <version>${maven-failsave-plugin.version}</version>
                 </plugin>
             </plugins>
         </pluginManagement>

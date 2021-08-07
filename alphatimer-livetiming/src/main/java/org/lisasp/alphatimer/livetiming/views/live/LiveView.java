@@ -26,6 +26,8 @@ import org.lisasp.alphatimer.heats.current.api.HeatDto;
 import org.lisasp.alphatimer.heats.current.api.LaneDto;
 import org.lisasp.alphatimer.heats.current.service.CurrentHeatService;
 import org.lisasp.alphatimer.livetiming.components.TextLabel;
+import org.lisasp.alphatimer.livetiming.model.HeatModel;
+import org.lisasp.alphatimer.livetiming.model.LaneModel;
 import org.lisasp.alphatimer.livetiming.views.main.MainView;
 
 import java.time.LocalDateTime;
@@ -42,9 +44,9 @@ public class LiveView extends Div {
     private TextLabel name = new TextLabel();
     private TextLabel started = new TextLabel();
 
-    private Grid<LaneDto> grid = new Grid<>(LaneDto.class, false);
+    private Grid<LaneModel> grid = new Grid<>(LaneModel.class, false);
 
-    private Binder<HeatDto> binder = new Binder<>(HeatDto.class);
+    private Binder<HeatModel> binder = new Binder<>(HeatModel.class);
 
     private CurrentHeatService heatService;
 
@@ -57,7 +59,7 @@ public class LiveView extends Div {
         add(createHeatView());
         add(createLaneView());
 
-        binder.forField(name).bind(HeatDto::createName, null);
+        binder.forField(name).bind(HeatModel::getName, null);
         binder.forField(started).withConverter(new Converter<String, LocalDateTime>() {
             @Override
             public Result<LocalDateTime> convertToModel(String s, ValueContext valueContext) {
@@ -77,12 +79,13 @@ public class LiveView extends Div {
                 // DateTimeFormatter formatter = DateTimeFormatter.ofLocalizedDateTime(FormatStyle.SHORT).localizedBy(locale);
                 return formatter.format(localDateTime);
             }
-        }).bind(HeatDto::getStarted, null);
+        }).bind(HeatModel::getStarted, null);
         binder.bindInstanceFields(this);
 
-        heatService.register(currentHeat -> getUI().ifPresent(ui -> ui.access(() -> {
+        heatService.register(heatDto -> getUI().ifPresent(ui -> ui.access(() -> {
+                                 HeatModel currentHeat = new HeatModel(heatDto);
                                  binder.readBean(currentHeat);
-                                 grid.setItems(Arrays.asList(currentHeat.getLanes()));
+                                 grid.setItems(Arrays.asList(Arrays.stream(heatDto.getLanes()).map(lane -> new LaneModel(lane)).toArray(LaneModel[]::new)));
                              }))
         );
     }
@@ -100,21 +103,20 @@ public class LiveView extends Div {
     }
 
     private Component createLaneView() {
-        // grid.setHeight("100%");
-        // grid.addThemeVariants(GridVariant.LUMO_NO_BORDER, GridVariant.LUMO_NO_ROW_BORDERS);
-        // grid.addComponentColumn(lane -> createCard(lane));
-        // grid.setSortableColumns("number");
-        Grid.Column<LaneDto> number = grid.addColumn(LaneDto::getNumber)
+        Grid.Column<LaneModel> number = grid.addColumn(LaneModel::getNumber)
                                           .setFlexGrow(1)
                                           .setHeader("#")
                                           .setSortProperty("number");
-        Grid.Column<LaneDto> time = grid.addColumn(LaneDto::getTimeInMillis)
+        Grid.Column<LaneModel> name = grid.addColumn(LaneModel::getName)
+                                          .setFlexGrow(2)
+                                          .setHeader("Name");
+        Grid.Column<LaneModel> time = grid.addColumn(LaneModel::getTime)
                                           .setFlexGrow(1)
                                           .setHeader("Time");
-        Grid.Column<LaneDto> status = grid.addColumn(LaneDto::getStatus)
+        Grid.Column<LaneModel> status = grid.addColumn(LaneModel::getStatus)
                                           .setFlexGrow(1)
                                           .setHeader("Status");
-        GridSortOrder<LaneDto> order = new GridSortOrder<>(number, SortDirection.ASCENDING);
+        GridSortOrder<LaneModel> order = new GridSortOrder<>(number, SortDirection.ASCENDING);
         return grid;
     }
 

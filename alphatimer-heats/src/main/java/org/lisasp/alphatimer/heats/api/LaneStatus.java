@@ -14,7 +14,7 @@ public enum LaneStatus {
             case DidNotStart:
                 return DidNotStart;
             case Started:
-                return LaneStatus.DidNotFinish;
+                return LaneStatus.Finished;
             case Finished:
                 return Finished;
         }

@@ -17,6 +17,7 @@ class CollectingConsumerTest {
     private Consumer<String> listener;
 
     @BeforeEach
+    @SuppressWarnings("unchecked")
     void prepare() {
         consumer = new CollectingConsumer<>();
         listener = (Consumer<String>) Mockito.mock(Consumer.class);

@@ -1,6 +1,7 @@
 package org.lisasp.alphatimer.heats.current.service;
 
 import lombok.RequiredArgsConstructor;
+import org.lisasp.alphatimer.heats.api.HeatStatus;
 import org.lisasp.alphatimer.heats.api.LaneStatus;
 import org.lisasp.alphatimer.heats.current.api.HeatDto;
 import org.lisasp.alphatimer.heats.current.api.LaneDto;
@@ -31,7 +32,7 @@ public class CurrentDataRepository {
     }
 
     public HeatDto createHeat(String competition, int event, int heat, LocalDateTime timestamp, int laneCount) {
-        HeatEntity entity = new HeatEntity(competition, event, heat, timestamp);
+        HeatEntity entity = new HeatEntity(competition, event, heat, HeatStatus.Open, timestamp);
         heatRepository.save(entity);
 
         LaneEntity[] lanes = new LaneEntity[laneCount];

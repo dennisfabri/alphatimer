@@ -7,6 +7,7 @@ import org.lisasp.alphatimer.api.protocol.events.messages.enums.*;
 import org.lisasp.alphatimer.api.protocol.events.messages.values.UsedLanes;
 import org.lisasp.alphatimer.api.refinedmessages.RefinedMessageListener;
 import org.lisasp.alphatimer.api.refinedmessages.accepted.ReadyToStartMessage;
+import org.lisasp.alphatimer.api.refinedmessages.accepted.UsedLanesMessage;
 import org.lisasp.alphatimer.api.refinedmessages.dropped.DroppedReadyToStartMessage;
 import org.mockito.Mockito;
 
@@ -55,6 +56,7 @@ class ReadyToStartMessageTest {
                 TimeMarker.Empty));
 
         verify(listener, times(1)).accept(new ReadyToStartMessage(TIMESTAMP, "TestWK", event, heat, lapCount));
+        verify(listener, times(1)).accept(new UsedLanesMessage(TIMESTAMP, "TestWK", event, heat, "1100000000"));
         verifyNoMoreInteractions(listener);
     }
 
@@ -101,6 +103,7 @@ class ReadyToStartMessageTest {
                 0,
                 TimeInfo.Normal,
                 TimeMarker.Empty)));
+        verify(listener, times(1)).accept(new UsedLanesMessage(TIMESTAMP, "TestWK", event, heat, "1100000000"));
         verifyNoMoreInteractions(listener);
     }
 
@@ -147,6 +150,7 @@ class ReadyToStartMessageTest {
                 0,
                 TimeInfo.Normal,
                 TimeMarker.Empty)));
+        verify(listener, times(1)).accept(new UsedLanesMessage(TIMESTAMP, "TestWK", event, heat, "1100000000"));
         verifyNoMoreInteractions(listener);
     }
 
@@ -193,6 +197,7 @@ class ReadyToStartMessageTest {
                 0,
                 TimeInfo.Normal,
                 TimeMarker.Empty)));
+        verify(listener, times(1)).accept(new UsedLanesMessage(TIMESTAMP, "TestWK", event, heat, "1100000000"));
         verifyNoMoreInteractions(listener);
     }
 
@@ -239,6 +244,7 @@ class ReadyToStartMessageTest {
                 0,
                 TimeInfo.Normal,
                 TimeMarker.Empty)));
+        verify(listener, times(1)).accept(new UsedLanesMessage(TIMESTAMP, "TestWK", event, heat, "1100000000"));
         verifyNoMoreInteractions(listener);
     }
 
@@ -285,6 +291,7 @@ class ReadyToStartMessageTest {
                 0,
                 TimeInfo.Normal,
                 TimeMarker.Empty)));
+        verify(listener, times(1)).accept(new UsedLanesMessage(TIMESTAMP, "TestWK", event, heat, "1100000000"));
         verifyNoMoreInteractions(listener);
     }
 
@@ -331,6 +338,7 @@ class ReadyToStartMessageTest {
                 0,
                 TimeInfo.Normal,
                 TimeMarker.Empty)));
+        verify(listener, times(1)).accept(new UsedLanesMessage(TIMESTAMP, "TestWK", event, heat, "1100000000"));
         verifyNoMoreInteractions(listener);
     }
 
@@ -377,6 +385,7 @@ class ReadyToStartMessageTest {
                 12345,
                 TimeInfo.Backup,
                 TimeMarker.Empty)));
+        verify(listener, times(1)).accept(new UsedLanesMessage(TIMESTAMP, "TestWK", event, heat, "1100000000"));
         verifyNoMoreInteractions(listener);
     }
 
@@ -423,6 +432,7 @@ class ReadyToStartMessageTest {
                 0,
                 TimeInfo.Backup,
                 TimeMarker.Empty)));
+        verify(listener, times(1)).accept(new UsedLanesMessage(TIMESTAMP, "TestWK", event, heat, "1100000000"));
         verifyNoMoreInteractions(listener);
     }
 
@@ -469,6 +479,7 @@ class ReadyToStartMessageTest {
                 0,
                 TimeInfo.Normal,
                 TimeMarker.DidNotStart)));
+        verify(listener, times(1)).accept(new UsedLanesMessage(TIMESTAMP, "TestWK", event, heat, "1100000000"));
         verifyNoMoreInteractions(listener);
     }
 }

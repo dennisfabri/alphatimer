@@ -9,8 +9,12 @@ import org.lisasp.alphatimer.heats.current.api.LaneDto;
 import org.lisasp.alphatimer.spring.jpa.AbstractBaseEntity;
 
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.Table;
 
-@Entity
+@Entity(name = "Lane")
+@Table(name="lane")
 @Getter
 @Setter
 @AllArgsConstructor
@@ -21,6 +25,7 @@ public class LaneEntity extends AbstractBaseEntity {
     private int heat;
     private int number;
     private int timeInMillis;
+    @Enumerated(EnumType.STRING)
     private LaneStatus status;
 
     public LaneDto toDto() {

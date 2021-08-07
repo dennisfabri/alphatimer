@@ -12,6 +12,7 @@ import org.lisasp.alphatimer.api.refinedmessages.accepted.UsedLanesMessage;
 import org.lisasp.alphatimer.api.refinedmessages.accepted.enums.RefinedKindOfTime;
 import org.lisasp.alphatimer.api.refinedmessages.accepted.enums.RefinedMessageType;
 import org.lisasp.alphatimer.api.refinedmessages.accepted.enums.RefinedTimeType;
+import org.lisasp.alphatimer.heats.api.HeatStatus;
 import org.lisasp.alphatimer.heats.api.LaneStatus;
 import org.lisasp.alphatimer.heats.current.api.HeatDto;
 import org.lisasp.alphatimer.heats.current.api.LaneDto;
@@ -229,7 +230,7 @@ class CurrentHeatServiceTest {
     void startMessage() {
         heatsService.accept(startMessage);
 
-        verify(listener, times(1)).accept(new HeatDto(COMPETITION, EVENT, HEAT, TIMESTAMP1, emptyLanes));
+        verify(listener, times(1)).accept(new HeatDto(COMPETITION, EVENT, HEAT, HeatStatus.Started, TIMESTAMP1, emptyLanes));
         verifyNoMoreInteractions(listener);
     }
 
@@ -237,7 +238,7 @@ class CurrentHeatServiceTest {
     void unusedTimeLane1Message() {
         heatsService.accept(timeLane1Message);
 
-        verify(listener, times(1)).accept(new HeatDto(COMPETITION, EVENT, HEAT, TIMESTAMP3, emptyLanes));
+        verify(listener, times(1)).accept(new HeatDto(COMPETITION, EVENT, HEAT, HeatStatus.Started, TIMESTAMP3, emptyLanes));
         verifyNoMoreInteractions(listener);
     }
 
@@ -246,8 +247,7 @@ class CurrentHeatServiceTest {
         heatsService.accept(usedLanesMessage);
         heatsService.accept(timeLane1Message);
 
-        verify(listener, times(1)).accept(new HeatDto(COMPETITION, EVENT, HEAT, TIMESTAMP2, usedLanes));
-        verify(listener, times(1)).accept(new HeatDto(COMPETITION, EVENT, HEAT, TIMESTAMP2, lane1Lanes));
+        verify(listener, times(1)).accept(new HeatDto(COMPETITION, EVENT, HEAT, HeatStatus.Started, TIMESTAMP2, lane1Lanes));
         verifyNoMoreInteractions(listener);
     }
 
@@ -255,7 +255,7 @@ class CurrentHeatServiceTest {
     void officialEndMessage() {
         heatsService.accept(officialEndMessage);
 
-        verify(listener, times(1)).accept(new HeatDto(COMPETITION, EVENT, HEAT, TIMESTAMP4, emptyLanes));
+        verify(listener, times(1)).accept(new HeatDto(COMPETITION, EVENT, HEAT, HeatStatus.Finished, TIMESTAMP4, emptyLanes));
         verifyNoMoreInteractions(listener);
     }
 
@@ -264,7 +264,8 @@ class CurrentHeatServiceTest {
         heatsService.accept(startMessage);
         heatsService.accept(officialEndMessage);
 
-        verify(listener, times(1)).accept(new HeatDto(COMPETITION, EVENT, HEAT, TIMESTAMP1, emptyLanes));
+        verify(listener, times(1)).accept(new HeatDto(COMPETITION, EVENT, HEAT, HeatStatus.Started, TIMESTAMP1, emptyLanes));
+        verify(listener, times(1)).accept(new HeatDto(COMPETITION, EVENT, HEAT, HeatStatus.Finished, TIMESTAMP1, emptyLanes));
         verifyNoMoreInteractions(listener);
     }
 
@@ -283,7 +284,7 @@ class CurrentHeatServiceTest {
         heatsService.accept(timeLane8Message);
         heatsService.accept(officialEndMessage);
 
-        verify(listener, times(1)).accept(new HeatDto(COMPETITION, EVENT, HEAT, TIMESTAMP1, emptyLanes));
+        verify(listener, times(1)).accept(new HeatDto(COMPETITION, EVENT, HEAT, HeatStatus.Finished, TIMESTAMP1, emptyLanes));
         verifyNoMoreInteractions(listener);
     }
 }

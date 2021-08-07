@@ -77,34 +77,34 @@ class RefinedMessagesDataTest {
     }
 
     static {
-        testData.put("DM2008Freitag", createHashtable(0, 0, 899, 0, 67, 67, 373, 0));
+        testData.put("DM2008Freitag", createHashtable(0, 0, 899, 0, 67, 67, 373, 1406));
         extendHashtable(testData.get("DM2008Freitag"), 0, 0, 0, 0, 0, 0, 0, 0, 0);
-        testData.put("DM2008Samstag", createHashtable(0, 0, 1177, 0, 154, 145, 0, 0));
+        testData.put("DM2008Samstag", createHashtable(0, 0, 1177, 0, 154, 145, 0, 1476));
         extendHashtable(testData.get("DM2008Samstag"), 0, 0, 0, 0, 0, 0, 0, 0, 0);
 
-        testData.put("DM2009", createHashtable(0, 0, 5739, 8, 658, 638, 1254, 0));
+        testData.put("DM2009", createHashtable(0, 0, 5739, 8, 658, 638, 1254, 8011));
         extendHashtable(testData.get("DM2009"), 0, 0, 2, 0, 0, 2, 0, 0, 0);
 
-        testData.put("DM2010", createHashtable(0, 0, 1621, 2, 147, 142, 525, 0));
+        testData.put("DM2010", createHashtable(0, 0, 1621, 2, 147, 142, 525, 2435));
         extendHashtable(testData.get("DM2010"), 0, 0, 0, 0, 0, 0, 0, 0, 0);
 
-        testData.put("JRP2019Freitag", createHashtable(0, 0, 0, 0, 2, 1, 0, 0));
+        testData.put("JRP2019Freitag", createHashtable(0, 0, 0, 0, 2, 1, 0, 3));
         extendHashtable(testData.get("JRP2019Freitag"), 0, 0, 0, 0, 0, 0, 0, 0, 0);
-        testData.put("JRP2019Samstag", createHashtable(0, 47, 846, 97, 109, 100, 0, 0));
+        testData.put("JRP2019Samstag", createHashtable(0, 47, 846, 97, 109, 100, 0, 1055));
         extendHashtable(testData.get("JRP2019Samstag"), 0, 0, 0, 0, 0, 0, 0, 0, 754);
-        testData.put("JRP2019Sonntag", createHashtable(2, 29, 533, 51, 69, 57, 0, 0));
+        testData.put("JRP2019Sonntag", createHashtable(2, 29, 533, 51, 69, 57, 0, 659));
         extendHashtable(testData.get("JRP2019Sonntag"), 0, 0, 0, 0, 0, 0, 0, 0, 408);
 
-        testData.put("DP2019Freitag", createHashtable(0, 0, 1226, 86, 96, 94, 0, 0));
+        testData.put("DP2019Freitag", createHashtable(0, 0, 1226, 86, 96, 94, 0, 1416));
         extendHashtable(testData.get("DP2019Freitag"), 0, 0, 0, 0, 0, 0, 0, 0, 2);
-        testData.put("DP2019Samstag", createHashtable(0, 0, 1220, 68, 75, 73, 0, 0));
+        testData.put("DP2019Samstag", createHashtable(0, 0, 1220, 68, 75, 73, 0, 1368));
         extendHashtable(testData.get("DP2019Samstag"), 0, 0, 0, 0, 0, 0, 0, 0, 0);
 
-        testData.put("DMM2019Freitag", createHashtable(0, 0, 9, 0, 3, 2, 0, 0));
+        testData.put("DMM2019Freitag", createHashtable(0, 0, 9, 0, 3, 2, 0, 14));
         extendHashtable(testData.get("DMM2019Freitag"), 0, 0, 0, 0, 0, 0, 0, 0, 0);
-        testData.put("DMM2019Samstag", createHashtable(0, 0, 1535, 120, 139, 134, 0, 0));
+        testData.put("DMM2019Samstag", createHashtable(0, 0, 1535, 120, 139, 134, 0, 1811));
         extendHashtable(testData.get("DMM2019Samstag"), 0, 0, 3, 0, 0, 0, 0, 0, 5);
-        testData.put("DMM2019Sonntag", createHashtable(0, 0, 1219, 140, 163, 164, 0, 0));
+        testData.put("DMM2019Sonntag", createHashtable(0, 0, 1219, 140, 163, 164, 0, 1546));
         extendHashtable(testData.get("DMM2019Sonntag"), 0, 0, 0, 0, 0, 0, 0, 0, 0);
     }
 

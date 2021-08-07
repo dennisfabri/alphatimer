@@ -11,7 +11,7 @@ import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity()
-@Table(name = "AresMessage")
+@Table(name = "aresmessage")
 @Data
 @EqualsAndHashCode(callSuper = true)
 @NoArgsConstructor

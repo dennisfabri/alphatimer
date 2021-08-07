@@ -8,13 +8,13 @@ import org.lisasp.alphatimer.api.refinedmessages.accepted.OfficialEndMessage;
 import org.lisasp.alphatimer.api.refinedmessages.accepted.StartMessage;
 import org.lisasp.alphatimer.api.refinedmessages.accepted.TimeMessage;
 import org.lisasp.alphatimer.api.refinedmessages.accepted.UsedLanesMessage;
+import org.lisasp.alphatimer.heats.api.HeatStatus;
 import org.lisasp.alphatimer.heats.current.api.HeatDto;
 import org.lisasp.alphatimer.heats.current.api.LaneDto;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.NoSuchElementException;
-import java.util.Optional;
 
 @RequiredArgsConstructor
 @ToString
@@ -24,6 +24,7 @@ public class Heat {
     private final int event;
     private final int heat;
 
+    private HeatStatus status = HeatStatus.Open;
     private LocalDateTime started;
     private ArrayList<Lane> lanes = new ArrayList<>();
 
@@ -37,34 +38,45 @@ public class Heat {
     }
 
     public HeatDto createDto() {
-        return new HeatDto(competition, event, heat, started, lanes.stream().map(lane -> lane.createDto()).toArray(LaneDto[]::new));
+        return new HeatDto(competition, event, heat, status, started, lanes.stream().map(lane -> lane.createDto()).toArray(LaneDto[]::new));
     }
 
     public void start(StartMessage message) {
-        this.started = message.getTimestamp();
+        assureStarted(message);
     }
 
     public void usedLanes(UsedLanesMessage message) {
         UsedLanes usedLanes = UsedLanes.fromValue(message.getUsedLanes());
-        lanes.forEach(l -> l.used(usedLanes.isUsed(l.getNumber()-1)));
+        lanes.forEach(l -> l.used(usedLanes.isUsed(l.getNumber() - 1)));
     }
 
     public void touch(TimeMessage message) {
         assureStarted(message);
 
         int laneNumber = message.getLane();
-        Lane lane = lanes.stream().filter(l -> l.getNumber() == laneNumber).findFirst().orElseThrow(() -> new NoSuchElementException(String.format("%s %d %d: Lane %d not found.", competition, event, heat, laneNumber)));
+        Lane lane = lanes.stream().filter(l -> l.getNumber() == laneNumber).findFirst().orElseThrow(() -> new NoSuchElementException(String.format(
+                "%s %d %d: Lane %d not found.",
+                competition,
+                event,
+                heat,
+                laneNumber)));
         lane.apply(message);
     }
 
     public void finish(OfficialEndMessage message) {
         assureStarted(message);
+
+        status = HeatStatus.Finished;
+
         for (Lane lane : lanes) {
             lane.finish();
         }
     }
 
     private void assureStarted(RefinedMessage message) {
+        if (status == HeatStatus.Open) {
+            status = HeatStatus.Started;
+        }
         if (started == null) {
             this.started = message.getTimestamp();
         }
