@@ -4,7 +4,6 @@ import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.formlayout.FormLayout;
 import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.grid.GridSortOrder;
-import com.vaadin.flow.component.grid.GridVariant;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.html.H3;
 import com.vaadin.flow.component.html.Span;
@@ -15,14 +14,11 @@ import com.vaadin.flow.data.binder.Result;
 import com.vaadin.flow.data.binder.ValueContext;
 import com.vaadin.flow.data.converter.Converter;
 import com.vaadin.flow.data.provider.SortDirection;
-import com.vaadin.flow.router.AfterNavigationEvent;
-import com.vaadin.flow.router.AfterNavigationObserver;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.server.VaadinService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.NotImplementedException;
-import org.lisasp.alphatimer.heats.current.api.HeatDto;
 import org.lisasp.alphatimer.heats.current.api.LaneDto;
 import org.lisasp.alphatimer.heats.current.service.CurrentHeatService;
 import org.lisasp.alphatimer.livetiming.components.TextLabel;
@@ -34,7 +30,6 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
 import java.util.Locale;
-import java.util.stream.Collectors;
 
 @Slf4j
 @PageTitle("Live")
@@ -85,7 +80,8 @@ public class LiveView extends Div {
         heatService.register(heatDto -> getUI().ifPresent(ui -> ui.access(() -> {
                                  HeatModel currentHeat = new HeatModel(heatDto);
                                  binder.readBean(currentHeat);
-                                 grid.setItems(Arrays.asList(Arrays.stream(heatDto.getLanes()).map(lane -> new LaneModel(lane)).toArray(LaneModel[]::new)));
+                                 grid.setItems(Arrays.asList(Arrays.stream(heatDto.getLanes()).map(lane -> new LaneModel(lane)).sorted((l1, l2) -> l2.getNumber() - l1.getNumber()).toArray(
+                                         LaneModel[]::new)));
                              }))
         );
     }
@@ -104,9 +100,9 @@ public class LiveView extends Div {
 
     private Component createLaneView() {
         Grid.Column<LaneModel> number = grid.addColumn(LaneModel::getNumber)
-                                          .setFlexGrow(1)
-                                          .setHeader("#")
-                                          .setSortProperty("number");
+                                            .setFlexGrow(1)
+                                            .setHeader("#")
+                                            .setSortProperty("number");
         Grid.Column<LaneModel> name = grid.addColumn(LaneModel::getName)
                                           .setFlexGrow(2)
                                           .setHeader("Name");
@@ -114,8 +110,8 @@ public class LiveView extends Div {
                                           .setFlexGrow(1)
                                           .setHeader("Time");
         Grid.Column<LaneModel> status = grid.addColumn(LaneModel::getStatus)
-                                          .setFlexGrow(1)
-                                          .setHeader("Status");
+                                            .setFlexGrow(1)
+                                            .setHeader("Status");
         GridSortOrder<LaneModel> order = new GridSortOrder<>(number, SortDirection.ASCENDING);
         return grid;
     }
