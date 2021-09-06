@@ -1,5 +1,7 @@
 package org.lisasp.alphatimer.protocol.parser;
 
+import org.lisasp.alphatimer.api.protocol.Characters;
+import org.lisasp.alphatimer.api.protocol.events.BytesInputEvent;
 import org.lisasp.alphatimer.api.protocol.events.DataInputEvent;
 import org.lisasp.alphatimer.api.protocol.events.dropped.DataHandlingMessage1DroppedEvent;
 import org.lisasp.alphatimer.api.protocol.events.messages.DataHandlingMessage1;
@@ -9,7 +11,6 @@ import org.lisasp.alphatimer.api.protocol.events.messages.enums.MessageType;
 import org.lisasp.alphatimer.api.protocol.events.messages.enums.RankInfo;
 import org.lisasp.alphatimer.api.protocol.events.messages.enums.TimeType;
 import org.lisasp.alphatimer.api.protocol.events.messages.values.UsedLanes;
-import org.lisasp.alphatimer.protocol.Characters;
 import org.lisasp.alphatimer.protocol.exceptions.InvalidDataException;
 import org.lisasp.alphatimer.protocol.utils.BitUtils;
 import org.lisasp.alphatimer.protocol.utils.ByteArrayUtils;
@@ -26,24 +27,26 @@ class DataHandlingMessage1Parser implements MessageParser {
         return data.length == 20 && data[1] == Characters.STX_StartOfText && data[2] == Characters.BS_CursorHome && data[15] == Characters.SPACE && data[16] == Characters.SPACE;
     }
 
-    public Message parse(byte[] data) throws InvalidDataException {
+    public Message parse(BytesInputEvent event) throws InvalidDataException {
         return new DataHandlingMessage1(
-                new String(data),
-                getMessageType(data),
-                getKindOfTime(data),
-                getTimeType(data),
-                getUsedLanes(data),
-                getLapCount(data),
-                getEvent(data),
-                getHeat(data),
-                getRank(data),
-                getRankInfo(data)
+                event.getTimestamp(),
+                event.getCompetition(),
+                new String(event.getData()),
+                getMessageType(event.getData()),
+                getKindOfTime(event.getData()),
+                getTimeType(event.getData()),
+                getUsedLanes(event.getData()),
+                getLapCount(event.getData()),
+                getEvent(event.getData()),
+                getHeat(event.getData()),
+                getRank(event.getData()),
+                getRankInfo(event.getData())
         );
     }
 
     @Override
-    public DataInputEvent createDropMessage(byte[] data, InvalidDataException ide) {
-        return new DataHandlingMessage1DroppedEvent(ide.getMessage(), data);
+    public DataInputEvent createDropMessage(BytesInputEvent event, InvalidDataException ide) {
+        return new DataHandlingMessage1DroppedEvent(event.getTimestamp(), event.getCompetition(), ide.getMessage(), event.getData());
     }
 
     // Field A: Index 3

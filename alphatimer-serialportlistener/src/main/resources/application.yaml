@@ -1,0 +1,34 @@
+alphatimer:
+  competitionKey:
+  serialPort:
+  storagePath: data
+  serialConfiguration: ARES21
+  queues:
+    ares: ares-messages-local
+
+spring:
+  artemis:
+    mode: embedded
+    user: dev
+    password: dev
+    embedded:
+      enabled: true
+      data-directory: data/mq
+      persistent: true
+      queues: ares-messages-local
+
+    bridge:
+      remote-queue: ares-messages
+      remote-host: localhost
+      remote-port: 61616
+
+  jms:
+    template:
+      default-destination: ares-messages-local
+      delivery-mode: persistent
+      qos-enabled: true
+      time-to-live: 36000
+    pub-sub-domain: false
+    listener:
+      max-concurrency: 1
+      concurrency: 1

@@ -16,12 +16,16 @@ public class Sender {
   private final JmsTemplate jmsTemplate;
 
   public Sender(ConfigurationValues values, JmsTemplate template) {
-    this.queue = values.getQueueName();
+    this.queue = values.getRefinedQueueName();
     this.jmsTemplate = template;
   }
 
   public void send(RefinedMessage message) {
-    log.info("Sending: "+message.toString());
-    jmsTemplate.convertAndSend(queue, message);
+    try {
+      log.info("Sending: " + message.toString());
+      jmsTemplate.convertAndSend(queue, message);
+    } catch (Exception ex) {
+      log.error("Send", ex);
+    }
   }
 }

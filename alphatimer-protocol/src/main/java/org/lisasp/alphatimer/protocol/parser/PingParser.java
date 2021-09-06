@@ -1,9 +1,10 @@
 package org.lisasp.alphatimer.protocol.parser;
 
+import org.lisasp.alphatimer.api.protocol.Characters;
+import org.lisasp.alphatimer.api.protocol.events.BytesInputEvent;
 import org.lisasp.alphatimer.api.protocol.events.DataInputEvent;
 import org.lisasp.alphatimer.api.protocol.events.messages.Message;
 import org.lisasp.alphatimer.api.protocol.events.messages.Ping;
-import org.lisasp.alphatimer.protocol.Characters;
 import org.lisasp.alphatimer.protocol.exceptions.InvalidDataException;
 
 class PingParser implements MessageParser {
@@ -14,12 +15,13 @@ class PingParser implements MessageParser {
     }
 
     @Override
-    public Message parse(byte[] data) {
-        return new Ping(new byte[]{data[data.length - 3], data[data.length - 2]});
+    public Message parse(BytesInputEvent event) {
+        byte[] data = event.getData();
+        return new Ping(event.getTimestamp(), event.getCompetition(), new byte[]{data[data.length - 3], data[data.length - 2]});
     }
 
     @Override
-    public DataInputEvent createDropMessage(byte[] data, InvalidDataException ide) {
+    public DataInputEvent createDropMessage(BytesInputEvent event, InvalidDataException ide) {
         return null;
     }
 }

@@ -2,7 +2,6 @@ package org.lisasp.alphatimer.refinedmessages;
 
 import org.lisasp.alphatimer.api.protocol.DataHandlingMessageListener;
 import org.lisasp.alphatimer.api.protocol.events.messages.DataHandlingMessage;
-import org.lisasp.alphatimer.api.protocol.events.messages.enums.MessageType;
 import org.lisasp.alphatimer.api.refinedmessages.RefinedMessage;
 import org.lisasp.alphatimer.api.refinedmessages.RefinedMessageListener;
 import org.lisasp.alphatimer.api.refinedmessages.dropped.DroppedUnknownMessage;
@@ -37,11 +36,7 @@ public class DataHandlingMessageRefiner implements DataHandlingMessageListener {
         }
 
         if (collector.isEmpty()) {
-            if (message.getMessageType() == MessageType.UnknownValue7) {
-                collector.accept(new DroppedUnknownMessage(message));
-            } else {
-                collector.accept(new DroppedUnknownMessage(message));
-            }
+            collector.accept(new DroppedUnknownMessage(message));
         }
 
         return collector;

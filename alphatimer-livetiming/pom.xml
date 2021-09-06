@@ -8,7 +8,7 @@
         <version>1.0.0-SNAPSHOT</version>
     </parent>
     <artifactId>alphatimer-livetiming</artifactId>
-    <name>AlphaTimer Livetiming UI</name>
+    <name>Livetiming UI</name>
 
     <dependencies>
         <dependency>
@@ -40,8 +40,14 @@
         <dependency>
             <groupId>org.vaadin.artur.exampledata</groupId>
             <artifactId>exampledata</artifactId>
+            <scope>test</scope>
         </dependency>
 
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-artemis</artifactId>
+            <scope>runtime</scope>
+        </dependency>
         <dependency>
             <groupId>com.microsoft.sqlserver</groupId>
             <artifactId>mssql-jdbc</artifactId>
@@ -106,7 +112,6 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
-                <version>${spring-boot.version}</version>
                 <!-- Clean build and startup time for Vaadin apps sometimes may exceed
                      the default Spring Boot's 30sec timeout.  -->
                 <configuration>
@@ -207,6 +212,5 @@
                 </plugins>
             </build>
         </profile>
-
     </profiles>
 </project>

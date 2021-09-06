@@ -2,12 +2,10 @@ server:
   port: 1999
 
 alphatimer:
-  competitionKey:
-  serialPort:
   storagePath: data
-  serialConfiguration: ARES21
-  queue: ares-messages
-
+  queues:
+    refined: refined-messages
+    ares: ares-messages
 
 spring:
   datasource:
@@ -32,4 +30,8 @@ spring:
 
   jms:
     template:
-      default-destination: ares-messages
+      default-destination: refined-messages
+      delivery-mode: persistent
+      qos-enabled: true
+      time-to-live: 36000
+    pub-sub-domain: false

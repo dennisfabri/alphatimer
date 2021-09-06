@@ -7,9 +7,9 @@
         <groupId>org.lisasp.alphatimer</groupId>
         <version>1.0.0-SNAPSHOT</version>
     </parent>
-    <artifactId>alphatimer-server</artifactId>
-    <name>AlphaTimer Server</name>
     <packaging>jar</packaging>
+    <artifactId>alphatimer-server</artifactId>
+    <name>Server</name>
 
     <description>Server for AlphaTimer</description>
 
@@ -26,14 +26,6 @@
         <dependency>
             <groupId>org.lisasp.alphatimer</groupId>
             <artifactId>alphatimer-legacy</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.lisasp.alphatimer</groupId>
-            <artifactId>alphatimer-serial</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.lisasp.alphatimer</groupId>
-            <artifactId>alphatimer-serialstorage</artifactId>
         </dependency>
         <dependency>
             <groupId>org.lisasp.alphatimer</groupId>
@@ -75,6 +67,11 @@
             <groupId>com.h2database</groupId>
             <artifactId>h2</artifactId>
             <optional>true</optional>
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.mariadb.jdbc</groupId>
+            <artifactId>mariadb-java-client</artifactId>
             <scope>runtime</scope>
         </dependency>
 

@@ -13,7 +13,7 @@ import javax.jms.Message;
 import javax.jms.Session;
 import javax.jms.TextMessage;
 
-@Component
+// @Component
 @Slf4j
 public class JsonMessageConverter implements MessageConverter {
 
@@ -24,6 +24,10 @@ public class JsonMessageConverter implements MessageConverter {
     public JsonMessageConverter() {
         log.info("Initializing");
         mapper.findAndRegisterModules();
+    }
+
+    public void registerModule(com.fasterxml.jackson.databind.Module module) {
+        mapper.registerModule(module);
     }
 
     @Override

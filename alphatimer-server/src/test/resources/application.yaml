@@ -6,6 +6,9 @@ alphatimer:
   serialPort: ''
   storagePath: target/data
   serialConfiguration: Ares21
+  queues:
+    refined: refined-messages
+    ares: ares-messages
 
 spring:
   artemis:

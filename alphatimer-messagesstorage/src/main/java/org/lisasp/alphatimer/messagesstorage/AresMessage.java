@@ -1,22 +1,18 @@
 package org.lisasp.alphatimer.messagesstorage;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.lisasp.alphatimer.api.protocol.events.messages.enums.*;
-import org.lisasp.alphatimer.spring.jpa.AbstractBaseEntity;
+import org.lisasp.alphatimer.spring.jpa.VersionedBaseEntity;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity()
+@Getter
 @Table(name = "aresmessage")
-@Data
-@EqualsAndHashCode(callSuper = true)
 @NoArgsConstructor
 @AllArgsConstructor
-public class AresMessage extends AbstractBaseEntity {
+public class AresMessage extends VersionedBaseEntity {
     @Column(nullable = false)
     private String originalText1;
     @Column(nullable = false)

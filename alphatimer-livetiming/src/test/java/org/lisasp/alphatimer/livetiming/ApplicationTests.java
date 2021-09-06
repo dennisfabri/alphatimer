@@ -1,7 +1,7 @@
 package org.lisasp.alphatimer.livetiming;
 
 import org.junit.jupiter.api.Test;
-import org.lisasp.alphatimer.heats.current.service.CurrentHeatService;
+import org.lisasp.alphatimer.heats.service.HeatService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.ConfigurableApplicationContext;
@@ -19,7 +19,7 @@ class ApplicationTests {
     private ConfigurableApplicationContext context;
 
     @Autowired
-    private CurrentHeatService heatService;
+    private HeatService heatService;
 
     @Test
     void contextLoads() {

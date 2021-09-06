@@ -1,7 +1,7 @@
 package org.lisasp.alphatimer.server;
 
 import org.lisasp.alphatimer.api.protocol.events.messages.values.UsedLanes;
-import org.lisasp.alphatimer.protocol.Characters;
+import org.lisasp.alphatimer.api.protocol.Characters;
 
 class DataHandlingMessageTestData {
     static final byte A = 0x32;

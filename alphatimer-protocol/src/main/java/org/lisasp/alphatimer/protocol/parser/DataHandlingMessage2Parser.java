@@ -1,12 +1,13 @@
 package org.lisasp.alphatimer.protocol.parser;
 
+import org.lisasp.alphatimer.api.protocol.events.BytesInputEvent;
 import org.lisasp.alphatimer.api.protocol.events.DataInputEvent;
 import org.lisasp.alphatimer.api.protocol.events.dropped.DataHandlingMessage2DroppedEvent;
 import org.lisasp.alphatimer.api.protocol.events.messages.DataHandlingMessage2;
 import org.lisasp.alphatimer.api.protocol.events.messages.Message;
 import org.lisasp.alphatimer.api.protocol.events.messages.enums.TimeInfo;
 import org.lisasp.alphatimer.api.protocol.events.messages.enums.TimeMarker;
-import org.lisasp.alphatimer.protocol.Characters;
+import org.lisasp.alphatimer.api.protocol.Characters;
 import org.lisasp.alphatimer.protocol.exceptions.InvalidDataException;
 import org.lisasp.alphatimer.protocol.utils.ByteArrayUtils;
 
@@ -24,14 +25,16 @@ class DataHandlingMessage2Parser implements MessageParser {
         return data[1] == Characters.STX_StartOfText && data[2] == Characters.BS_CursorHome && data[3] == Characters.LF_LineFeed && data[7] == Characters.STX_StartOfText;
     }
 
-    public Message parse(byte[] data) throws InvalidDataException {
+    public Message parse(BytesInputEvent event) throws InvalidDataException {
         return new DataHandlingMessage2(
-                new String(data),
-                getLane(data),
-                getCurrentLap(data),
-                getTimeInMillis(data),
-                getTimeInfo(data),
-                getTimeMarker(data));
+                event.getTimestamp(),
+                event.getCompetition(),
+                new String(event.getData()),
+                getLane(event.getData()),
+                getCurrentLap(event.getData()),
+                getTimeInMillis(event.getData()),
+                getTimeInfo(event.getData()),
+                getTimeMarker(event.getData()));
     }
 
     // Field I: Index 4
@@ -92,7 +95,7 @@ class DataHandlingMessage2Parser implements MessageParser {
     }
 
     @Override
-    public DataInputEvent createDropMessage(byte[] data, InvalidDataException ide) {
-        return new DataHandlingMessage2DroppedEvent(ide.getMessage(), data);
+    public DataInputEvent createDropMessage(BytesInputEvent event, InvalidDataException ide) {
+        return new DataHandlingMessage2DroppedEvent(event.getTimestamp(), event.getCompetition(), ide.getMessage(), event.getData());
     }
 }

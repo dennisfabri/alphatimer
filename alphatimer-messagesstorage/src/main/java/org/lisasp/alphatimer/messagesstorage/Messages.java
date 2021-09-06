@@ -55,10 +55,10 @@ public class Messages implements DataHandlingMessageRepository {
     }
 
     private DataHandlingMessage mapAresMessageToDataHandlingMessage(AresMessage message) {
-        return new DataHandlingMessage(message.getOriginalText1(),
-                                       message.getOriginalText2(),
-                                       message.getTimestamp(),
+        return new DataHandlingMessage(message.getTimestamp(),
                                        message.getCompetitionKey(),
+                                       message.getOriginalText1(),
+                                       message.getOriginalText2(),
                                        message.getMessageType(),
                                        message.getKindOfTime(),
                                        message.getTimeType(),

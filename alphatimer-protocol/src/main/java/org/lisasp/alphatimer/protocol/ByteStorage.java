@@ -1,5 +1,7 @@
 package org.lisasp.alphatimer.protocol;
 
+import org.lisasp.alphatimer.api.protocol.Characters;
+
 import java.util.Arrays;
 
 class ByteStorage {

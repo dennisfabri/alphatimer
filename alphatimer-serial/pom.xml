@@ -8,10 +8,14 @@
         <version>1.0.0-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
-
     <artifactId>alphatimer-serial</artifactId>
+    <name>Serial Communication</name>
 
     <dependencies>
+        <dependency>
+            <groupId>org.lisasp.alphatimer</groupId>
+            <artifactId>alphatimer-jre</artifactId>
+        </dependency>
         <dependency>
             <groupId>org.lisasp.alphatimer</groupId>
             <artifactId>alphatimer-messaging</artifactId>
@@ -20,5 +24,6 @@
             <groupId>com.neuronrobotics</groupId>
             <artifactId>nrjavaserial</artifactId>
         </dependency>
+
     </dependencies>
 </project>

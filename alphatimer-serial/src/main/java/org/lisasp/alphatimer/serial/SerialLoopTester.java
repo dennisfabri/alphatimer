@@ -80,7 +80,7 @@ public class SerialLoopTester {
 
         public boolean assertValid() {
             if (size != 128) {
-                log.error("Did not all bytes. Received {}", size);
+                log.error("Did not get all bytes. Received {}", size);
                 return false;
             }
             for (int x = 0; x < data.length; x++) {

@@ -19,8 +19,9 @@ import com.vaadin.flow.router.Route;
 import com.vaadin.flow.server.VaadinService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.NotImplementedException;
-import org.lisasp.alphatimer.heats.current.api.LaneDto;
-import org.lisasp.alphatimer.heats.current.service.CurrentHeatService;
+import org.lisasp.alphatimer.heats.api.HeatDto;
+import org.lisasp.alphatimer.heats.api.LaneDto;
+import org.lisasp.alphatimer.heats.service.HeatService;
 import org.lisasp.alphatimer.livetiming.components.TextLabel;
 import org.lisasp.alphatimer.livetiming.model.HeatModel;
 import org.lisasp.alphatimer.livetiming.model.LaneModel;
@@ -29,6 +30,7 @@ import org.lisasp.alphatimer.livetiming.views.main.MainView;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.Locale;
 
 @Slf4j
@@ -36,16 +38,19 @@ import java.util.Locale;
 @Route(value = "", layout = MainView.class)
 public class LiveView extends Div {
 
-    private TextLabel name = new TextLabel();
+    private TextLabel event = new TextLabel();
+    private TextLabel heat = new TextLabel();
     private TextLabel started = new TextLabel();
+
+    private HeatDto currentHeatDto;
 
     private Grid<LaneModel> grid = new Grid<>(LaneModel.class, false);
 
     private Binder<HeatModel> binder = new Binder<>(HeatModel.class);
 
-    private CurrentHeatService heatService;
+    private HeatService heatService;
 
-    public LiveView(CurrentHeatService heatService) {
+    public LiveView(HeatService heatService) {
         this.heatService = heatService;
 
         addClassName("live-view");
@@ -54,7 +59,8 @@ public class LiveView extends Div {
         add(createHeatView());
         add(createLaneView());
 
-        binder.forField(name).bind(HeatModel::getName, null);
+        binder.forField(event).bind(HeatModel::getEvent, null);
+        binder.forField(heat).bind(HeatModel::getHeat, null);
         binder.forField(started).withConverter(new Converter<String, LocalDateTime>() {
             @Override
             public Result<LocalDateTime> convertToModel(String s, ValueContext valueContext) {
@@ -77,13 +83,30 @@ public class LiveView extends Div {
         }).bind(HeatModel::getStarted, null);
         binder.bindInstanceFields(this);
 
-        heatService.register(heatDto -> getUI().ifPresent(ui -> ui.access(() -> {
-                                 HeatModel currentHeat = new HeatModel(heatDto);
-                                 binder.readBean(currentHeat);
-                                 grid.setItems(Arrays.asList(Arrays.stream(heatDto.getLanes()).map(lane -> new LaneModel(lane)).sorted((l1, l2) -> l2.getNumber() - l1.getNumber()).toArray(
-                                         LaneModel[]::new)));
-                             }))
+        heatService.register(heatDto -> {
+                                 currentHeatDto = heatDto;
+                                 updateData();
+                             }
         );
+
+        addAttachListener(attachEvent -> {
+            updateData();
+        });
+    }
+
+    private void updateData() {
+        if (currentHeatDto == null) {
+            return;
+        }
+        getUI().ifPresent(ui -> ui.access(() -> {
+            HeatModel currentHeat = new HeatModel(currentHeatDto);
+            binder.readBean(currentHeat);
+            grid.setItems(Arrays.asList(Arrays.stream(currentHeatDto.getLanes()).map(lane -> new LaneModel(currentHeatDto.getEvent(),
+                                                                                                           currentHeatDto.getHeat(),
+                                                                                                           currentHeatDto.getLapCount(),
+                                                                                                           lane)).sorted(Comparator.comparingInt(LaneModel::getNumber)).toArray(
+                    LaneModel[]::new)));
+        }));
     }
 
     private Component createTitle() {
@@ -92,9 +115,14 @@ public class LiveView extends Div {
 
     private Component createHeatView() {
         FormLayout formLayout = new FormLayout();
-        formLayout.addFormItem(name, "Heat");
+        formLayout.addFormItem(event, "Event");
+        formLayout.addFormItem(heat, "Heat");
         formLayout.addFormItem(started, "Started");
-        // formLayout.add(heat);
+
+        formLayout.setResponsiveSteps(
+                new FormLayout.ResponsiveStep("1em", 1),
+                new FormLayout.ResponsiveStep("40em", 2),
+                new FormLayout.ResponsiveStep("60em", 3));
         return formLayout;
     }
 

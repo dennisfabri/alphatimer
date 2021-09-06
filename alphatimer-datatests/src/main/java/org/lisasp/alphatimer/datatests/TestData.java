@@ -1,23 +1,22 @@
 package org.lisasp.alphatimer.datatests;
 
-import org.lisasp.alphatimer.legacy.LegacyXStreamUtil;
-import org.lisasp.alphatimer.legacy.model.Heat;
+import org.lisasp.alphatimer.legacy.LegacySerialization;
+import org.lisasp.alphatimer.legacy.dto.Heat;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
 import java.nio.file.FileVisitResult;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.SimpleFileVisitor;
 import java.nio.file.attribute.BasicFileAttributes;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
 public class TestData {
 
-    private static final boolean verbose = false;
+    private static final boolean verbose = true;
 
     private static final String TEST_DATA_DIRECTORY = "target/test-data/";
 
@@ -37,9 +36,12 @@ public class TestData {
     }
 
     public void cleanup() throws IOException {
+        if (verbose) {
+            return;
+        }
         if (Files.exists(Path.of(TEST_DATA_DIRECTORY))) {
             Files.walkFileTree(Path.of(TEST_DATA_DIRECTORY),
-                               new SimpleFileVisitor<Path>() {
+                               new SimpleFileVisitor<>() {
                                    @Override
                                    public FileVisitResult postVisitDirectory(
                                            Path dir, IOException exc) throws IOException {
@@ -59,18 +61,25 @@ public class TestData {
         Files.deleteIfExists(Path.of(TEST_DATA_DIRECTORY));
     }
 
-    Heat[] readLegacyData(String filename) {
-        return (Heat[]) LegacyXStreamUtil.getXStream().fromXML(new File(TestData.TEST_DATA_DIRECTORY + filename + ".ez"));
+    private static String readFile(Path file) throws IOException {
+        try (Stream<String> lines = Files.lines(file)) {
+            return lines.collect(Collectors.joining("\n"));
+        }
     }
 
-    byte[] readSerialInput(String filename) throws IOException {
+    public String readLegacyData(String filename) throws IOException {
+        return readFile(Path.of(TestData.TEST_DATA_DIRECTORY + filename + ".ez"));
+    }
+
+    public byte[] readSerialInput(String filename) throws IOException {
         return Files.readAllBytes(Path.of(TestData.TEST_DATA_DIRECTORY + filename + ".serial"));
     }
 
-    void writeToDebug(Heat[] actual, String filename) throws IOException {
+    public void writeToDebug(Heat[] actual, String filename) throws IOException {
         if (verbose) {
-            try (var os = new FileOutputStream(TestData.TEST_DATA_DIRECTORY + filename + ".xml")) {
-                LegacyXStreamUtil.getXStream().toXML(actual, os);
+            try (var os = new FileOutputStream(TestData.TEST_DATA_DIRECTORY + filename + ".xml");
+                 PrintStream ps = new PrintStream(os)) {
+                ps.println(LegacySerialization.toXML(actual));
             }
         }
     }

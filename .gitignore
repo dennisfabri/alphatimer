@@ -64,3 +64,15 @@ HELP.md
 !**/src/test/**/target/
 
 /work/
+
+alphatimer-livetiming/types.d.ts
+
+alphatimer-livetiming/data/
+
+alphatimer-livetiming/.npmrc
+
+alphatimer-livetiming/webpack.config.js
+
+alphatimer-livetiming/tsconfig.json
+
+alphatimer-livetiming/pnpm-lock.yaml

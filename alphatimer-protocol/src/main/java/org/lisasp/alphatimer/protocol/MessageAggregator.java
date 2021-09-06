@@ -20,14 +20,7 @@ public class MessageAggregator implements DataHandlingMessageAggregator {
 
     private DataHandlingMessage1 message1 = null;
 
-    private final DateTimeFacade datetime;
-    private final String competition;
-
     private final List<DataHandlingMessageListener> listeners = new ArrayList<>();
-
-    public MessageAggregator(String competition) {
-        this(new ActualDateTime(), competition);
-    }
 
     @Override
     @Synchronized("listeners")
@@ -49,10 +42,10 @@ public class MessageAggregator implements DataHandlingMessageAggregator {
         if (event instanceof DataHandlingMessage2 && message1 != null) {
             DataHandlingMessage2 message2 = (DataHandlingMessage2) event;
             notify(new DataHandlingMessage(
+                    message2.getTimestamp(),
+                    message2.getCompetition(),
                     message1.getOriginal(),
                     message2.getOriginal(),
-                    datetime.now(),
-                    competition,
                     message1.getMessageType(),
                     message1.getKindOfTime(),
                     message1.getTimeType(),

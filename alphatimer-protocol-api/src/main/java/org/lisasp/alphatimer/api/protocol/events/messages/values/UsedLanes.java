@@ -37,9 +37,7 @@ public class UsedLanes {
     public String toString() {
         StringBuilder sb = new StringBuilder(TextLength + 1);
         sb.append(Prefix);
-        for (boolean b : data) {
-            sb.append(b ? '1' : '0');
-        }
+        sb.append(toValue());
         sb.append(Suffix);
         return sb.toString();
     }

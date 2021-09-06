@@ -16,6 +16,10 @@ public class Bytes {
         return data[x];
     }
 
+    public byte[] getDataCopy() {
+        return Arrays.copyOf(data, data.length);
+    }
+
     public String toString() {
         return "Bytes(" + Arrays.toString(this.data) + ")";
     }

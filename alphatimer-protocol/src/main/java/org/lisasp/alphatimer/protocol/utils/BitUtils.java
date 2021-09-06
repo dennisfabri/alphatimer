@@ -26,7 +26,7 @@ public class BitUtils {
         return usedLanes;
     }
 
-    boolean isBitSet(byte b, int bit) {
+    private boolean isBitSet(byte b, int bit) {
         return ((b >> bit) & 1) > 0;
     }
 }

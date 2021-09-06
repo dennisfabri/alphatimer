@@ -41,24 +41,4 @@ class ApplicationTests {
         assertNotNull(context);
         assertNotNull(messages);
     }
-
-    @Test
-    void serialFilesToDatabaseTest() throws IOException {
-        context.getBean(SerialFilesToDatabase.class).transfer("target/test-data/");
-
-        int actual = messages.findBy("DM2010", (short) 10, (byte) 1).size();
-
-        assertEquals(26, actual);
-        assertEquals(2437, messages.size());
-    }
-
-    @Test
-    void serialFilesToDatabaseTest2() throws IOException {
-        context.getBean(SerialFilesToDatabase.class).transfer("target/test-data/");
-
-        int actual = messages.findBy("DM2010", (short) 100, (byte) 1).size();
-
-        assertEquals(26, actual);
-        assertEquals(2437, messages.size());
-    }
 }

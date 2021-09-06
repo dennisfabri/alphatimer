@@ -1,7 +1,6 @@
 spring:
   artemis:
     mode: embedded
-    broker-url: tcp://localhost:57685
     embedded:
       enabled: true
       queues: converter.q
