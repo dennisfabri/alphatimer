@@ -3,8 +3,8 @@ package org.lisasp.alphatimer.test.serial;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.lisasp.alphatimer.jre.date.DateFacade;
-import org.lisasp.alphatimer.jre.io.FileFacade;
+import org.lisasp.basics.jre.date.DateFacade;
+import org.lisasp.basics.jre.io.FileFacade;
 import org.lisasp.alphatimer.serial.Storage;
 import org.mockito.Mockito;
 

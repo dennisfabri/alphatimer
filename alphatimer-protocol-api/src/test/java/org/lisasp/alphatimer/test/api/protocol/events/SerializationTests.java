@@ -6,9 +6,8 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
 import org.lisasp.alphatimer.api.protocol.events.BytesInputEvent;
 import org.lisasp.alphatimer.api.protocol.events.DataInputEvent;
-import org.lisasp.alphatimer.api.protocol.events.messages.Ping;
 import org.lisasp.alphatimer.api.protocol.json.BytesInputEventModule;
-import org.lisasp.alphatimer.spring.jms.JsonMessageConverter;
+import org.lisasp.basics.spring.jms.JsonMessageConverter;
 
 import javax.jms.JMSException;
 import javax.jms.Message;

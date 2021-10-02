@@ -11,14 +11,14 @@ public class LegacySerialization {
         StringBuilder sb = new StringBuilder();
         sb.append("<AlphaServer.Heat-array>\n");
         for (Heat heat : heats) {
-            sb.append(addPrefixToEachLine(heat.toXML(), "  "));
+            sb.append(addPrefixToEachLine(heat.toXML()));
             sb.append("\n");
         }
         sb.append("</AlphaServer.Heat-array>");
         return sb.toString();
     }
 
-    private static String addPrefixToEachLine(String text, String prefix) {
-        return prefix + String.join("\n" + prefix, text.split("\n"));
+    private static String addPrefixToEachLine(String text) {
+        return "  " + String.join("\n  ", text.split("\n"));
     }
 }

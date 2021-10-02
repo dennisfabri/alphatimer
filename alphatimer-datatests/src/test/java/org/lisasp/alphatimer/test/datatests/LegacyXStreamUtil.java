@@ -1,6 +1,7 @@
 package org.lisasp.alphatimer.test.datatests;
 
 import com.thoughtworks.xstream.XStream;
+import com.thoughtworks.xstream.io.xml.StaxDriver;
 import com.thoughtworks.xstream.security.ArrayTypePermission;
 import com.thoughtworks.xstream.security.NoTypePermission;
 import com.thoughtworks.xstream.security.NullPermission;
@@ -14,7 +15,7 @@ import java.util.Collection;
 class LegacyXStreamUtil {
 
     public static XStream getXStream() {
-        XStream xstream = new XStream();
+        XStream xstream = new XStream(new StaxDriver());
         addAliasesToStream(xstream);
         setupPermissions(xstream);
         return xstream;

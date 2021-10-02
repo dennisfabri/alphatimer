@@ -5,8 +5,8 @@ import org.lisasp.alphatimer.api.protocol.events.messages.DataHandlingMessage;
 import org.lisasp.alphatimer.api.refinedmessages.RefinedMessage;
 import org.lisasp.alphatimer.api.refinedmessages.RefinedMessageListener;
 import org.lisasp.alphatimer.api.refinedmessages.dropped.DroppedUnknownMessage;
-import org.lisasp.alphatimer.messaging.CollectingConsumer;
-import org.lisasp.alphatimer.messaging.Notifier;
+import org.lisasp.basics.notification.CollectingConsumer;
+import org.lisasp.basics.notification.Notifier;
 
 public class DataHandlingMessageRefiner implements DataHandlingMessageListener {
 

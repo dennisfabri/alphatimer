@@ -11,11 +11,8 @@ module org.lisasp.alphatimer.api.protocol {
     opens org.lisasp.alphatimer.api.protocol.events;
     opens org.lisasp.alphatimer.api.protocol.events.messages;
 
-    requires org.lisasp.alphatimer.messaging;
+    requires org.lisasp.basics.notification;
 
-    requires java.base;
-
-    requires kotlin.stdlib;
     requires com.fasterxml.jackson.core;
     requires com.fasterxml.jackson.databind;
 

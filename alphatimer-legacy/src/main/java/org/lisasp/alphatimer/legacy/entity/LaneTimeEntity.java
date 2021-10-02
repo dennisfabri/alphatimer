@@ -2,16 +2,14 @@ package org.lisasp.alphatimer.legacy.entity;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.NonNull;
 import lombok.Setter;
 import org.lisasp.alphatimer.legacy.dto.LaneStatus;
-import org.lisasp.alphatimer.spring.jpa.VersionedBaseEntity;
+import org.lisasp.basics.spring.jpa.BaseEntity;
 
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.Table;
-import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
@@ -22,7 +20,7 @@ import java.time.LocalDateTime;
 @Entity
 @Table(name = "lanetime")
 public class LaneTimeEntity
-        extends VersionedBaseEntity
+        extends BaseEntity
         implements Comparable<LaneTimeEntity> {
 
     @NotNull
@@ -57,6 +55,6 @@ public class LaneTimeEntity
             return heatNumber - o.getHeatNumber();
         }
 
-        return getLastModification().compareTo(o.getLastModification());
+        return getTimestamp().compareTo(o.getTimestamp());
     }
 }

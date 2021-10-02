@@ -1,7 +1,6 @@
 module org.lisasp.alphatimer.test.api.protocol {
     requires org.lisasp.alphatimer.api.protocol;
 
-    //opens org.lisasp.alphatimer.test.api.protocol;
     opens org.lisasp.alphatimer.test.api.protocol.data;
     opens org.lisasp.alphatimer.test.api.protocol.events;
     opens org.lisasp.alphatimer.test.api.protocol.events.dropped;
@@ -12,7 +11,7 @@ module org.lisasp.alphatimer.test.api.protocol {
     requires spring.jms;
     requires jakarta.jms.api;
 
-    requires org.lisasp.alphatimer.spring.jms;
+    requires org.lisasp.basics.spring.jms;
 
     requires transitive org.junit.jupiter.engine;
     requires transitive org.junit.jupiter.api;

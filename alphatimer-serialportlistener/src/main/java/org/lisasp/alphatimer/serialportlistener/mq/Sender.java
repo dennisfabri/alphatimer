@@ -1,6 +1,7 @@
 package org.lisasp.alphatimer.serialportlistener.mq;
 
 import lombok.extern.slf4j.Slf4j;
+import org.lisasp.alphatimer.api.protocol.events.BytesInputEvent;
 import org.lisasp.alphatimer.api.protocol.events.DataInputEvent;
 import org.lisasp.alphatimer.serialportlistener.ConfigurationValues;
 import org.springframework.jms.core.JmsTemplate;
@@ -16,7 +17,7 @@ public class Sender {
         this.jmsTemplate = template;
     }
 
-    public void send(DataInputEvent message) {
+    public void send(BytesInputEvent message) {
         try {
             log.info("Sending: " + message.toString());
             jmsTemplate.convertAndSend(message);

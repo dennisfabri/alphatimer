@@ -3,7 +3,7 @@ package org.lisasp.alphatimer.server.mq;
 import lombok.extern.slf4j.Slf4j;
 import org.lisasp.alphatimer.api.refinedmessages.RefinedMessage;
 import org.lisasp.alphatimer.server.ConfigurationValues;
-import org.lisasp.alphatimer.spring.jms.JsonMessageConverter;
+import org.lisasp.basics.spring.jms.JsonMessageConverter;
 import org.springframework.jms.core.JmsTemplate;
 import org.springframework.stereotype.Component;
 

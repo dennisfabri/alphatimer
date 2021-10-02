@@ -6,43 +6,29 @@ import org.junit.jupiter.api.Test;
 import org.lisasp.alphatimer.api.protocol.events.messages.DataHandlingMessage;
 import org.lisasp.alphatimer.api.protocol.events.messages.enums.*;
 import org.lisasp.alphatimer.api.protocol.events.messages.values.UsedLanes;
-import org.lisasp.alphatimer.legacy.LegacyRepository;
 import org.lisasp.alphatimer.legacy.LegacyService;
 import org.lisasp.alphatimer.legacy.dto.Heat;
 import org.lisasp.alphatimer.legacy.dto.LaneStatus;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.annotation.DirtiesContext;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.transaction.annotation.Propagation;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
-@SpringBootTest()
-// @AutoConfigureTestDatabase(replace= AutoConfigureTestDatabase.Replace.NONE)
-@Transactional(propagation = Propagation.REQUIRES_NEW)
-@ContextConfiguration
-@DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
 class LegacyServiceTest {
 
     public static final LocalDateTime TIMESTAMP = LocalDateTime.of(2021, 6, 1, 10, 0);
 
-    @Autowired
-    private LegacyRepository repository;
+    private LegacyService legacyService;
 
-    @Autowired
-    private LegacyService timeStorage;
+    @BeforeEach
+    void prepare() {
+        legacyService = new LegacyService(new TestLegacyRepository());
+    }
 
     @AfterEach
     void cleanUp() {
-        timeStorage = null;
+        legacyService = null;
     }
 
     private Heat getHeat(LaneStatus status) {
@@ -68,7 +54,7 @@ class LegacyServiceTest {
 
     @Test
     void HeatWithOneResult_OnLineTime() {
-        timeStorage.accept(new DataHandlingMessage(
+        legacyService.accept(new DataHandlingMessage(
                 TIMESTAMP,
                 "TestWK",
                 "1",
@@ -87,7 +73,7 @@ class LegacyServiceTest {
                 123450,
                 TimeInfo.Normal,
                 TimeMarker.Empty));
-        Heat[] actual = timeStorage.getHeats();
+        Heat[] actual = legacyService.getHeats();
 
         assertEquals(1, actual.length);
         assertEquals(getHeat(LaneStatus.RaceTimes), actual[0]);
@@ -95,7 +81,7 @@ class LegacyServiceTest {
 
     @Test
     void HeatWithOneResult_PreviousRaceResultsWithBackupTimes() {
-        timeStorage.accept(new DataHandlingMessage(
+        legacyService.accept(new DataHandlingMessage(
                 TIMESTAMP,
                 "TestWK",
                 "1",
@@ -114,7 +100,7 @@ class LegacyServiceTest {
                 123450,
                 TimeInfo.Normal,
                 TimeMarker.Empty));
-        Heat[] actual = timeStorage.getHeats();
+        Heat[] actual = legacyService.getHeats();
 
         assertEquals(1, actual.length);
         assertEquals(getHeat(LaneStatus.BackupOfThePreviousRace), actual[0]);
@@ -122,7 +108,7 @@ class LegacyServiceTest {
 
     @Test
     void HeatWithOneResult_PreviousRaceResults() {
-        timeStorage.accept(new DataHandlingMessage(
+        legacyService.accept(new DataHandlingMessage(
                 TIMESTAMP,
                 "TestWK",
                 "1",
@@ -141,7 +127,7 @@ class LegacyServiceTest {
                 123450,
                 TimeInfo.Normal,
                 TimeMarker.Empty));
-        Heat[] actual = timeStorage.getHeats();
+        Heat[] actual = legacyService.getHeats();
 
         assertEquals(1, actual.length);
         assertEquals(getHeat(LaneStatus.ResultsOfThePreviousRace), actual[0]);
@@ -149,7 +135,7 @@ class LegacyServiceTest {
 
     @Test
     void HeatWithOneResult_CurrentRaceResultsWithBackupTimes() {
-        timeStorage.accept(new DataHandlingMessage(
+        legacyService.accept(new DataHandlingMessage(
                 TIMESTAMP,
                 "TestWK",
                 "1",
@@ -168,7 +154,7 @@ class LegacyServiceTest {
                 123450,
                 TimeInfo.Normal,
                 TimeMarker.Empty));
-        Heat[] actual = timeStorage.getHeats();
+        Heat[] actual = legacyService.getHeats();
 
         assertEquals(1, actual.length);
         assertEquals(getHeat(LaneStatus.ResultsWithBackupTimes), actual[0]);
@@ -176,7 +162,7 @@ class LegacyServiceTest {
 
     @Test
     void HeatWithOneResult_CurrentRaceResults() {
-        timeStorage.accept(new DataHandlingMessage(
+        legacyService.accept(new DataHandlingMessage(
                 TIMESTAMP,
                 "TestWK",
                 "1",
@@ -195,7 +181,7 @@ class LegacyServiceTest {
                 123450,
                 TimeInfo.Normal,
                 TimeMarker.Empty));
-        Heat[] actual = timeStorage.getHeats();
+        Heat[] actual = legacyService.getHeats();
 
         assertEquals(1, actual.length);
         assertEquals(getHeat(LaneStatus.ResultsOfTheRace), actual[0]);
@@ -203,7 +189,7 @@ class LegacyServiceTest {
 
     @Test
     void HeatWithOneResult_ReadyToStart() {
-        timeStorage.accept(new DataHandlingMessage(
+        legacyService.accept(new DataHandlingMessage(
                 TIMESTAMP,
                 "TestWK",
                 "1",
@@ -222,7 +208,7 @@ class LegacyServiceTest {
                 123450,
                 TimeInfo.Normal,
                 TimeMarker.Empty));
-        Heat[] actual = timeStorage.getHeats();
+        Heat[] actual = legacyService.getHeats();
 
         assertEquals(1, actual.length);
         assertEquals(getHeat(LaneStatus.NotUsed), actual[0]);
@@ -230,7 +216,7 @@ class LegacyServiceTest {
 
     @Test
     void HeatWithOneResult_UnknownValue7() {
-        timeStorage.accept(new DataHandlingMessage(
+        legacyService.accept(new DataHandlingMessage(
                 TIMESTAMP,
                 "TestWK",
                 "1",
@@ -249,7 +235,7 @@ class LegacyServiceTest {
                 123450,
                 TimeInfo.Normal,
                 TimeMarker.Empty));
-        Heat[] actual = timeStorage.getHeats();
+        Heat[] actual = legacyService.getHeats();
 
         assertEquals(1, actual.length);
         assertEquals(getHeat(LaneStatus.NotUsed), actual[0]);
@@ -257,7 +243,7 @@ class LegacyServiceTest {
 
     @Test
     void HeatWithoutResult() {
-        timeStorage.accept(new DataHandlingMessage(
+        legacyService.accept(new DataHandlingMessage(
                 TIMESTAMP,
                 "TestWK",
                 "1",
@@ -276,14 +262,14 @@ class LegacyServiceTest {
                 123450,
                 TimeInfo.Normal,
                 TimeMarker.Empty));
-        Heat[] actual = timeStorage.getHeats();
+        Heat[] actual = legacyService.getHeats();
 
         assertEquals(0, actual.length);
     }
 
     @Test
     void HeatWithoutResult_OfficialEnd() {
-        timeStorage.accept(new DataHandlingMessage(
+        legacyService.accept(new DataHandlingMessage(
                 TIMESTAMP,
                 "TestWK",
                 "1",
@@ -302,14 +288,14 @@ class LegacyServiceTest {
                 123450,
                 TimeInfo.Normal,
                 TimeMarker.Empty));
-        Heat[] actual = timeStorage.getHeats();
+        Heat[] actual = legacyService.getHeats();
 
         assertEquals(0, actual.length);
     }
 
     @Test
     void OneHeat() {
-        timeStorage.accept(new DataHandlingMessage(
+        legacyService.accept(new DataHandlingMessage(
                 TIMESTAMP,
                 "TestWK",
                 "1",
@@ -328,7 +314,7 @@ class LegacyServiceTest {
                 123450,
                 TimeInfo.Normal,
                 TimeMarker.Empty));
-        timeStorage.accept(new DataHandlingMessage(
+        legacyService.accept(new DataHandlingMessage(
                 TIMESTAMP,
                 "TestWK",
                 "1",
@@ -347,7 +333,7 @@ class LegacyServiceTest {
                 123450,
                 TimeInfo.Normal,
                 TimeMarker.Empty));
-        Heat[] actual = timeStorage.getHeats();
+        Heat[] actual = legacyService.getHeats();
 
         assertEquals(1, actual.length);
         assertNotEquals(getHeat(LaneStatus.RaceTimes), actual[0]);
@@ -355,7 +341,7 @@ class LegacyServiceTest {
 
     @Test
     void TwoHeats() {
-        timeStorage.accept(new DataHandlingMessage(
+        legacyService.accept(new DataHandlingMessage(
                 TIMESTAMP,
                 "TestWK",
                 "1",
@@ -374,7 +360,7 @@ class LegacyServiceTest {
                 123450,
                 TimeInfo.Normal,
                 TimeMarker.Empty));
-        timeStorage.accept(new DataHandlingMessage(
+        legacyService.accept(new DataHandlingMessage(
                 TIMESTAMP,
                 "TestWK",
                 "1",
@@ -393,7 +379,7 @@ class LegacyServiceTest {
                 123450,
                 TimeInfo.Normal,
                 TimeMarker.Empty));
-        Heat[] actual = timeStorage.getHeats();
+        Heat[] actual = legacyService.getHeats();
 
         assertEquals(2, actual.length);
         assertEquals(getHeat(LaneStatus.RaceTimes), actual[0]);
@@ -402,7 +388,7 @@ class LegacyServiceTest {
 
     @Test
     void TwoEvents() {
-        timeStorage.accept(new DataHandlingMessage(
+        legacyService.accept(new DataHandlingMessage(
                 TIMESTAMP,
                 "TestWK",
                 "1",
@@ -421,7 +407,7 @@ class LegacyServiceTest {
                 123450,
                 TimeInfo.Normal,
                 TimeMarker.Empty));
-        timeStorage.accept(new DataHandlingMessage(
+        legacyService.accept(new DataHandlingMessage(
                 TIMESTAMP,
                 "TestWK",
                 "1",
@@ -440,7 +426,7 @@ class LegacyServiceTest {
                 123450,
                 TimeInfo.Normal,
                 TimeMarker.Empty));
-        Heat[] actual = timeStorage.getHeats();
+        Heat[] actual = legacyService.getHeats();
 
         assertEquals(2, actual.length);
         assertEquals(getHeat(LaneStatus.RaceTimes), actual[0]);

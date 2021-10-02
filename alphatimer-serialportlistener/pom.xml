@@ -18,16 +18,12 @@
 
     <dependencies>
         <dependency>
-            <groupId>org.lisasp.alphatimer</groupId>
-            <artifactId>alphatimer-spring-jms</artifactId>
+            <groupId>org.lisasp.basics</groupId>
+            <artifactId>basics-spring-jms</artifactId>
         </dependency>
         <dependency>
             <groupId>org.lisasp.alphatimer</groupId>
             <artifactId>alphatimer-serial</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.lisasp.alphatimer</groupId>
-            <artifactId>alphatimer-refinedmessages-api</artifactId>
         </dependency>
         <dependency>
             <groupId>org.lisasp.alphatimer</groupId>
@@ -59,6 +55,40 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <configuration>
+                    <excludes>
+                        <exclude>**/*</exclude>
+                    </excludes>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-failsafe-plugin</artifactId>
+                <configuration>
+                    <includes>
+                        <include>**/*</include>
+                    </includes>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>integration-test</id>
+                        <phase>integration-test</phase>
+                        <goals>
+                            <goal>integration-test</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>verify</id>
+                        <phase>verify</phase>
+                        <goals>
+                            <goal>verify</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>

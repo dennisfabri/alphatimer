@@ -35,9 +35,7 @@ public class ArtemisConfig implements ArtemisConfigurationCustomizer {
 
     @Override
     public void customize(org.apache.activemq.artemis.core.config.Configuration configuration) {
-        ;
         configuration.addConnectorConfiguration("remote-connector", transportConfiguration());
-
         configuration.getBridgeConfigurations().add(bridgeConfiguration());
     }
 

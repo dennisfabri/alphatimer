@@ -9,8 +9,8 @@ import org.lisasp.alphatimer.api.protocol.events.messages.DataHandlingMessage;
 import org.lisasp.alphatimer.api.protocol.events.messages.DataHandlingMessage1;
 import org.lisasp.alphatimer.api.protocol.events.messages.DataHandlingMessage2;
 import org.lisasp.alphatimer.api.protocol.events.messages.Ping;
-import org.lisasp.alphatimer.jre.date.ActualDateTime;
-import org.lisasp.alphatimer.jre.date.DateTimeFacade;
+import org.lisasp.basics.jre.date.ActualDateTime;
+import org.lisasp.basics.jre.date.DateTimeFacade;
 
 import java.util.ArrayList;
 import java.util.List;

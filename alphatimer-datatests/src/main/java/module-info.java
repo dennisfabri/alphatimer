@@ -1,10 +1,13 @@
 module org.lisasp.alphatimer.datatests {
     exports org.lisasp.alphatimer.datatests;
+    exports org.lisasp.alphatimer.datatests.resources;
 
-    requires transitive org.lisasp.alphatimer.api.protocol;
+    opens org.lisasp.alphatimer.datatests;
+    opens org.lisasp.alphatimer.datatests.resources;
+
+    requires org.slf4j;
+
     requires transitive org.lisasp.alphatimer.legacy;
-
-    requires java.base;
 
     requires static lombok;
 }

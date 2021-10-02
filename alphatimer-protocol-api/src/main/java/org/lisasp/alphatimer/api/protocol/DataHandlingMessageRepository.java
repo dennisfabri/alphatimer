@@ -8,6 +8,4 @@ public interface DataHandlingMessageRepository {
     void put(DataHandlingMessage message);
 
     List<DataHandlingMessage> findBy(String competitionKey, short event, byte heat);
-
-    int size();
 }

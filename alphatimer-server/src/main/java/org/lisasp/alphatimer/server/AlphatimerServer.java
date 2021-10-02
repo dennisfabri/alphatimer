@@ -3,15 +3,14 @@ package org.lisasp.alphatimer.server;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.lisasp.alphatimer.api.protocol.json.BytesInputEventModule;
-import org.lisasp.alphatimer.jre.date.ActualDate;
-import org.lisasp.alphatimer.jre.date.ActualDateTime;
-import org.lisasp.alphatimer.jre.date.DateFacade;
-import org.lisasp.alphatimer.jre.date.DateTimeFacade;
-import org.lisasp.alphatimer.legacy.LegacyRepository;
 import org.lisasp.alphatimer.legacy.LegacyService;
 import org.lisasp.alphatimer.protocol.MessageConverter;
 import org.lisasp.alphatimer.refinedmessages.DataHandlingMessageRefiner;
-import org.lisasp.alphatimer.spring.jms.JsonMessageConverter;
+import org.lisasp.basics.jre.date.ActualDate;
+import org.lisasp.basics.jre.date.ActualDateTime;
+import org.lisasp.basics.jre.date.DateFacade;
+import org.lisasp.basics.jre.date.DateTimeFacade;
+import org.lisasp.basics.spring.jms.JsonMessageConverter;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -40,7 +39,7 @@ public class AlphatimerServer {
 
     @Bean
     @Scope(value = ConfigurableBeanFactory.SCOPE_SINGLETON)
-    LegacyService legacyTimeStorage(LegacyRepository repository) {
+    LegacyService legacyTimeStorage(LegacyJPARepository repository) {
         return new LegacyService(repository);
     }
 

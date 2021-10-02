@@ -11,9 +11,9 @@ import org.lisasp.alphatimer.api.refinedmessages.dropped.DroppedRefinedMessage;
 import org.lisasp.alphatimer.heats.api.enums.HeatStatus;
 import org.lisasp.alphatimer.heats.api.HeatDto;
 import org.lisasp.alphatimer.heats.domain.Heat;
-import org.lisasp.alphatimer.jre.date.DateTimeFacade;
-import org.lisasp.alphatimer.messaging.ExceptionCatchingNotifier;
-import org.lisasp.alphatimer.messaging.Notifier;
+import org.lisasp.basics.jre.date.DateTimeFacade;
+import org.lisasp.basics.notification.ExceptionCatchingNotifier;
+import org.lisasp.basics.notification.Notifier;
 
 import java.util.function.Consumer;
 

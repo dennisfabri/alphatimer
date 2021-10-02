@@ -16,7 +16,7 @@ spring:
   jms:
     template:
       default-destination: unused
-      qos-enabled: true
+      qos-enabled: false
       delivery-mode: persistent
 
 logging:

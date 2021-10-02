@@ -28,11 +28,6 @@ public class Messages implements DataHandlingMessageRepository {
                          .collect(Collectors.toList());
     }
 
-    @Override
-    public int size() {
-        return (int) repository.count();
-    }
-
     private AresMessage mapDataHandlingMessageToAresMessage(DataHandlingMessage message) {
         return new AresMessage(message.getOriginalText1(),
                                message.getOriginalText2(),

@@ -4,7 +4,7 @@ module org.lisasp.alphatimer.test.serial {
     opens org.lisasp.alphatimer.test.serial;
     opens org.lisasp.alphatimer.test.serial.configuration;
 
-    requires org.lisasp.alphatimer.jre;
+    requires org.lisasp.basics.jre;
 
     requires org.mockito;
     requires net.bytebuddy;

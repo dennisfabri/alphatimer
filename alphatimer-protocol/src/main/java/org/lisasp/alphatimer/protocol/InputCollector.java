@@ -1,14 +1,15 @@
 package org.lisasp.alphatimer.protocol;
 
 import lombok.RequiredArgsConstructor;
-import org.lisasp.alphatimer.api.protocol.ByteInputConverter;
+import org.lisasp.alphatimer.api.protocol.BytesInputEventListener;
 import org.lisasp.alphatimer.api.protocol.DataInputEventListener;
 import org.lisasp.alphatimer.api.protocol.events.BytesInputEvent;
 import org.lisasp.alphatimer.api.protocol.events.DataInputEvent;
-import org.lisasp.alphatimer.jre.date.DateTimeFacade;
-import org.lisasp.alphatimer.messaging.Notifier;
+import org.lisasp.basics.jre.date.DateTimeFacade;
+import org.lisasp.basics.notification.Notifier;
 
 import java.util.Optional;
+import java.util.function.Consumer;
 
 @RequiredArgsConstructor
 public class InputCollector implements ByteInputConverter {
@@ -17,7 +18,7 @@ public class InputCollector implements ByteInputConverter {
     private final DateTimeFacade dateTime;
 
     private final ByteValidator validator = new ByteValidator();
-    private final Notifier<DataInputEvent> notifier = new Notifier<>();
+    private final Notifier<BytesInputEvent> notifier = new Notifier<>();
     private final MessageExtractor collector = new MessageExtractor();
 
     @Override
@@ -30,7 +31,7 @@ public class InputCollector implements ByteInputConverter {
     }
 
     @Override
-    public void register(DataInputEventListener listener) {
+    public void register(BytesInputEventListener listener) {
         notifier.register(listener);
     }
 

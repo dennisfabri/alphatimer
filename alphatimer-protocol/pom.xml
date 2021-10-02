@@ -11,22 +11,19 @@
     <artifactId>alphatimer-protocol</artifactId>
     <name>Protocol</name>
 
-    <properties>
-        <surefire.useModulePath>false</surefire.useModulePath>
-    </properties>
-
     <dependencies>
-        <dependency>
-            <groupId>org.lisasp.alphatimer</groupId>
-            <artifactId>alphatimer-jre</artifactId>
-        </dependency>
         <dependency>
             <groupId>org.lisasp.alphatimer</groupId>
             <artifactId>alphatimer-protocol-api</artifactId>
         </dependency>
+
         <dependency>
-            <groupId>org.lisasp.alphatimer</groupId>
-            <artifactId>alphatimer-messaging</artifactId>
+            <groupId>org.lisasp.basics</groupId>
+            <artifactId>basics-jre</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.lisasp.basics</groupId>
+            <artifactId>basics-notification</artifactId>
         </dependency>
     </dependencies>
 </project>

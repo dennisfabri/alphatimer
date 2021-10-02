@@ -38,17 +38,17 @@ import java.util.Locale;
 @Route(value = "", layout = MainView.class)
 public class LiveView extends Div {
 
-    private TextLabel event = new TextLabel();
-    private TextLabel heat = new TextLabel();
-    private TextLabel started = new TextLabel();
+    private final TextLabel event = new TextLabel();
+    private final TextLabel heat = new TextLabel();
+    private final TextLabel started = new TextLabel();
 
     private HeatDto currentHeatDto;
 
-    private Grid<LaneModel> grid = new Grid<>(LaneModel.class, false);
+    private final Grid<LaneModel> grid = new Grid<>(LaneModel.class, false);
 
-    private Binder<HeatModel> binder = new Binder<>(HeatModel.class);
+    private final Binder<HeatModel> binder = new Binder<>(HeatModel.class);
 
-    private HeatService heatService;
+    private final HeatService heatService;
 
     public LiveView(HeatService heatService) {
         this.heatService = heatService;

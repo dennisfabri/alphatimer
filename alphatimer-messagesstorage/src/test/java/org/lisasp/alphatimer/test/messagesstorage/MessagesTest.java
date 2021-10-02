@@ -8,16 +8,6 @@ import org.lisasp.alphatimer.api.protocol.events.messages.enums.*;
 import org.lisasp.alphatimer.api.protocol.events.messages.values.UsedLanes;
 import org.lisasp.alphatimer.messagesstorage.AresMessageRepository;
 import org.lisasp.alphatimer.messagesstorage.Messages;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.autoconfigure.domain.EntityScan;
-import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
-import org.springframework.test.annotation.DirtiesContext;
-import org.springframework.test.context.ContextConfiguration;
 
 import java.time.LocalDateTime;
 import java.util.Collections;
@@ -26,17 +16,14 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-
-@DataJpaTest
-@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 class MessagesTest {
 
     private static final LocalDateTime TIMESTAMP = LocalDateTime.of(2021, 6, 1, 10, 0);
 
-    @Autowired
-    AresMessageRepository repository;
+    private AresMessageRepository repository;
 
     private Messages messages;
+
     private DataHandlingMessage messageHeat1Lane1;
     private DataHandlingMessage messageHeat1Lane2;
     private DataHandlingMessage messageHeat2Lane1;
@@ -51,7 +38,9 @@ class MessagesTest {
 
     @BeforeEach
     void prepare() {
+        repository = new TestAresMessageRepository();
         messages = new Messages(repository);
+
         messageHeat1Lane1 = new DataHandlingMessage(
                 TIMESTAMP,
                 competitionKey,
@@ -150,14 +139,14 @@ class MessagesTest {
 
     @Test
     void empty() {
-        assertEquals(0, messages.size());
+        assertEquals(0, repository.count());
     }
 
     @Test
     void put1Message() {
         messages.put(messageHeat1Lane1);
 
-        assertEquals(1, messages.size());
+        assertEquals(1, repository.count());
 
         assertEquals(1, messages.findBy(competitionKey, messageHeat1Lane1.getEvent(), messageHeat1Lane1.getHeat()).size());
         assertEquals(messageHeat1Lane1String,
@@ -171,7 +160,7 @@ class MessagesTest {
         messages.put(messageHeat1Lane1);
         messages.put(messageHeat1Lane2);
 
-        assertEquals(2, messages.size());
+        assertEquals(2, repository.count());
 
         List<DataHandlingMessage> actual1 = messages.findBy(competitionKey,
                                                             messageHeat1Lane1.getEvent(),
@@ -190,7 +179,7 @@ class MessagesTest {
         messages.put(messageHeat1Lane2);
         messages.put(messageHeat2Lane1);
 
-        assertEquals(3, messages.size());
+        assertEquals(3, repository.count());
 
         List<DataHandlingMessage> actual1 = messages.findBy(competitionKey,
                                                             messageHeat1Lane1.getEvent(),
@@ -217,14 +206,14 @@ class MessagesTest {
         messages.put(messageHeat2Lane1);
         messages.put(messageHeat2Lane2);
 
-        assertEquals(4, messages.size());
+        assertEquals(4, repository.count());
 
         List<DataHandlingMessage> actual1 = messages.findBy(competitionKey,
-                                                           messageHeat1Lane1.getEvent(),
-                                                           messageHeat1Lane1.getHeat());
+                                                            messageHeat1Lane1.getEvent(),
+                                                            messageHeat1Lane1.getHeat());
         List<DataHandlingMessage> actual2 = messages.findBy(competitionKey,
-                                                           messageHeat2Lane1.getEvent(),
-                                                           messageHeat2Lane1.getHeat());
+                                                            messageHeat2Lane1.getEvent(),
+                                                            messageHeat2Lane1.getHeat());
 
         Collections.sort(actual1, Comparator.comparingInt(DataHandlingMessage::getLane));
         Collections.sort(actual2, Comparator.comparingInt(DataHandlingMessage::getLane));

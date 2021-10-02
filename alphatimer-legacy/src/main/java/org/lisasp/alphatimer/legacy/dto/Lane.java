@@ -9,7 +9,7 @@ import java.util.Arrays;
 @EqualsAndHashCode
 public class Lane {
 
-    private int laneindex;
+    private final int laneindex;
 
     private long[] times = new long[0];
 

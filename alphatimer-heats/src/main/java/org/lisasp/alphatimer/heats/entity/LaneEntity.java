@@ -7,7 +7,7 @@ import lombok.Setter;
 import org.lisasp.alphatimer.heats.api.enums.LaneStatus;
 import org.lisasp.alphatimer.heats.api.enums.Penalty;
 import org.lisasp.alphatimer.heats.api.LaneDto;
-import org.lisasp.alphatimer.spring.jpa.VersionedBaseEntity;
+import org.lisasp.basics.spring.jpa.TimestampedEntity;
 
 import javax.persistence.*;
 import javax.validation.constraints.Min;
@@ -19,7 +19,7 @@ import javax.validation.constraints.NotNull;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class LaneEntity extends VersionedBaseEntity {
+public class LaneEntity extends TimestampedEntity {
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "heatId")

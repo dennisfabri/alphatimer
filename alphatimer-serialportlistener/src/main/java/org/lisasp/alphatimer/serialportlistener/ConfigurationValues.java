@@ -2,7 +2,7 @@ package org.lisasp.alphatimer.serialportlistener;
 
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
-import org.lisasp.alphatimer.jre.date.DateFacade;
+import org.lisasp.basics.jre.date.DateFacade;
 import org.lisasp.alphatimer.serial.configuration.SerialConfiguration;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
@@ -42,10 +42,10 @@ public class ConfigurationValues {
     }
 
     String getActualCompetitionKey() {
-        String competitionKey = getCompetitionKey();
-        if (competitionKey == null || competitionKey.trim().isBlank()) {
-            competitionKey = dates.today().format(DateTimeFormatter.ISO_LOCAL_DATE);
+        String currentCompetitionKey = getCompetitionKey();
+        if (currentCompetitionKey == null || currentCompetitionKey.trim().isBlank()) {
+            currentCompetitionKey = dates.today().format(DateTimeFormatter.ISO_LOCAL_DATE);
         }
-        return competitionKey;
+        return currentCompetitionKey;
     }
 }

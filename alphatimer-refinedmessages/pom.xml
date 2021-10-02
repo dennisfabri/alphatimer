@@ -21,9 +21,5 @@
             <groupId>org.lisasp.alphatimer</groupId>
             <artifactId>alphatimer-refinedmessages-api</artifactId>
         </dependency>
-        <dependency>
-            <groupId>org.lisasp.alphatimer</groupId>
-            <artifactId>alphatimer-messaging</artifactId>
-        </dependency>
     </dependencies>
 </project>

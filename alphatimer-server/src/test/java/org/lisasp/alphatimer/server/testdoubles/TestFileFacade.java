@@ -1,6 +1,6 @@
 package org.lisasp.alphatimer.server.testdoubles;
 
-import org.lisasp.alphatimer.jre.io.FileFacade;
+import org.lisasp.basics.jre.io.FileFacade;
 
 public class TestFileFacade implements FileFacade {
     @Override

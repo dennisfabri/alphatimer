@@ -3,12 +3,10 @@ module org.lisasp.alphatimer.serial {
     exports org.lisasp.alphatimer.serial.configuration;
     exports org.lisasp.alphatimer.serial.exceptions;
 
-    requires org.lisasp.alphatimer.messaging;
-    requires org.lisasp.alphatimer.jre;
+    requires org.lisasp.basics.jre;
+    requires org.lisasp.basics.notification;
 
     requires nrjavaserial;
-    requires org.slf4j;
-    requires java.base;
 
     requires static lombok;
 }

@@ -27,7 +27,7 @@ public class Heat {
     private HeatStatus status = HeatStatus.Open;
     private LocalDateTime started;
     private int lapCount;
-    private ArrayList<Lane> lanes = new ArrayList<>();
+    private final ArrayList<Lane> lanes = new ArrayList<>();
 
     public Heat(HeatDto dto) {
         this(dto.getCompetition(), dto.getEvent(), dto.getHeat());

@@ -2,26 +2,20 @@ package org.lisasp.alphatimer.test.datatests;
 
 import com.thoughtworks.xstream.XStream;
 import lombok.Value;
-import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 import org.lisasp.alphatimer.api.protocol.DataHandlingMessageAggregator;
 import org.lisasp.alphatimer.datatests.TestData;
-import org.lisasp.alphatimer.jre.date.DateTimeFacade;
-import org.lisasp.alphatimer.legacy.LegacyRepository;
+import org.lisasp.basics.jre.date.DateTimeFacade;
 import org.lisasp.alphatimer.legacy.LegacyService;
 import org.lisasp.alphatimer.legacy.dto.Heat;
 import org.lisasp.alphatimer.protocol.InputCollector;
 import org.lisasp.alphatimer.protocol.MessageAggregator;
 import org.lisasp.alphatimer.protocol.MessageConverter;
 import org.lisasp.alphatimer.test.datatests.testdoubles.DateTimeFacadeTestDouble;
-import org.mockito.Mockito;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.lisasp.alphatimer.test.legacy.TestLegacyRepository;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
@@ -33,32 +27,18 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-@DataJpaTest
-@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 class LegacyDataTest {
-
-    @Autowired
-    private LegacyRepository repository;
 
     private static TestData testData;
     private InputCollector inputCollector;
     private LegacyService timeStorage;
     private XStream xstream;
 
-    @BeforeAll
-    static void prepareData() throws IOException {
-        testData = new TestData();
-        testData.prepare();
-    }
-
-    @AfterAll
-    static void cleanup() throws IOException {
-        testData.cleanup();
-    }
-
     @BeforeEach
     void prepare() {
-        timeStorage = new LegacyService(repository);
+        testData = new TestData();
+
+        timeStorage = new LegacyService(new TestLegacyRepository());
 
         DateTimeFacade dateTimeFacade = new DateTimeFacadeTestDouble(LocalDateTime.of(2021, 6, 1, 10, 0));
 
@@ -91,10 +71,10 @@ class LegacyDataTest {
     }
 
     @ParameterizedTest
-    @ValueSource(strings = {"DM2008Freitag", "DM2008Samstag", "DM2009", "DM2010",
-            "JRP2019Freitag", "JRP2019Samstag", "JRP2019Sonntag",
-            "DP2019Freitag", "DP2019Samstag",
-            "DMM2019Freitag", "DMM2019Samstag", "DMM2019Sonntag"})
+    @ValueSource(strings = {"DM2008-Freitag", "DM2008-Samstag", "DM2009", "DM2010",
+            "DP2019-Freitag", "DP2019-Samstag",
+            "DMM2019-Freitag", "DMM2019-Samstag", "DMM2019-Sonntag",
+            "DEM2021-Samstag", "DEM2021-Sonntag"})
     void translate(String filename) throws IOException {
         byte[] data = testData.readSerialInput(filename);
 
@@ -128,7 +108,7 @@ class LegacyDataTest {
 
     private Heat[] cleanData(Heat[] input, HashSet<EventAndHeat> duplicates) {
         Heat[] expected = Arrays.stream(input).filter(heat -> heat.getEvent() > 0 && heat.getHeat() > 0 && !duplicates.contains(new EventAndHeat(heat.getEvent(),
-                                                                                                                                                   heat.getHeat()))).sorted().toArray(
+                                                                                                                                                 heat.getHeat()))).sorted().toArray(
                 Heat[]::new);
         for (int x = 0; x < expected.length; x++) {
             expected[x].setId("" + (x + 1));

@@ -1,7 +1,6 @@
 package org.lisasp.alphatimer.artemismq;
 
 import org.apache.activemq.artemis.api.core.TransportConfiguration;
-import org.apache.activemq.artemis.core.config.BridgeConfiguration;
 import org.apache.activemq.artemis.core.remoting.impl.netty.NettyAcceptorFactory;
 import org.apache.activemq.artemis.core.remoting.impl.netty.NettyConnectorFactory;
 import org.springframework.boot.autoconfigure.jms.artemis.ArtemisConfigurationCustomizer;

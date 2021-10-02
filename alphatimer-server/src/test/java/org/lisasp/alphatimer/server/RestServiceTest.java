@@ -1,7 +1,6 @@
 package org.lisasp.alphatimer.server;
 
 import org.junit.jupiter.api.Test;
-import org.lisasp.alphatimer.legacy.LegacyRepository;
 import org.lisasp.alphatimer.legacy.LegacyService;
 import org.lisasp.alphatimer.messagesstorage.AresMessageRepository;
 import org.lisasp.alphatimer.messagesstorage.Messages;
@@ -23,7 +22,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 class RestServiceTest {
 
     @Autowired
-    private LegacyRepository repository;
+    private LegacyJPARepository repository;
 
     @Test
     void getLegacyHeatsTest() {

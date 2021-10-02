@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.lisasp.alphatimer.api.protocol.DataHandlingMessageAggregator;
 import org.lisasp.alphatimer.api.protocol.DataHandlingMessageRepository;
+import org.lisasp.alphatimer.api.protocol.events.BytesInputEvent;
 import org.lisasp.alphatimer.api.protocol.events.DataInputEvent;
 import org.lisasp.alphatimer.api.protocol.events.messages.Ping;
 import org.lisasp.alphatimer.legacy.LegacySerialization;
@@ -21,7 +22,7 @@ import java.util.function.Consumer;
 @Component
 @Slf4j
 @RequiredArgsConstructor
-public class SerialInterpreter implements Consumer<DataInputEvent> {
+public class SerialInterpreter implements Consumer<BytesInputEvent> {
 
     private final DataHandlingMessageRepository messages;
     private final ConfigurationValues config;
@@ -31,7 +32,7 @@ public class SerialInterpreter implements Consumer<DataInputEvent> {
     private final Sender sender;
 
     @Override
-    public void accept(DataInputEvent event) {
+    public void accept(BytesInputEvent event) {
         messageConverter.accept(event);
     }
 
@@ -62,10 +63,5 @@ public class SerialInterpreter implements Consumer<DataInputEvent> {
 
     public String getLegacyData() {
         return LegacySerialization.toXML(legacy.getHeats());
-    }
-
-    @PreDestroy
-    public void onDestroy() {
-
     }
 }

@@ -1,26 +1,21 @@
 package org.lisasp.alphatimer.protocol;
 
-import org.lisasp.alphatimer.api.protocol.DataInputEventListener;
+import org.lisasp.alphatimer.api.protocol.BytesInputEventListener;
 import org.lisasp.alphatimer.api.protocol.events.BytesInputEvent;
 import org.lisasp.alphatimer.api.protocol.events.DataInputEvent;
-import org.lisasp.alphatimer.messaging.Notifier;
 import org.lisasp.alphatimer.protocol.parser.Parser;
+import org.lisasp.basics.notification.Notifier;
 
 import java.util.function.Consumer;
 
-public class MessageConverter implements DataInputEventListener {
+public class MessageConverter implements BytesInputEventListener {
 
-    private Notifier<DataInputEvent> notifier = new Notifier<>();
-    private Parser parser = new Parser();
+    private final Notifier<DataInputEvent> notifier = new Notifier<>();
+    private final Parser parser = new Parser();
 
     @Override
-    public void accept(DataInputEvent dataInputEvent) {
-        if (dataInputEvent instanceof BytesInputEvent) {
-            BytesInputEvent bytesInputEvent = (BytesInputEvent) dataInputEvent;
-            notifier.accept(parser.parse(bytesInputEvent));
-        } else {
-            notifier.accept(dataInputEvent);
-        }
+    public void accept(BytesInputEvent bytesInputEvent) {
+        notifier.accept(parser.parse(bytesInputEvent));
     }
 
     public void register(Consumer<DataInputEvent> listener) {

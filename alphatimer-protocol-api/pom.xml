@@ -14,9 +14,10 @@
 
     <dependencies>
         <dependency>
-            <groupId>org.lisasp.alphatimer</groupId>
-            <artifactId>alphatimer-messaging</artifactId>
+            <groupId>org.lisasp.basics</groupId>
+            <artifactId>basics-notification</artifactId>
         </dependency>
+
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-core</artifactId>
@@ -27,8 +28,8 @@
         </dependency>
 
         <dependency>
-            <groupId>org.lisasp.alphatimer</groupId>
-            <artifactId>alphatimer-spring-jms</artifactId>
+            <groupId>org.lisasp.basics</groupId>
+            <artifactId>basics-spring-jms</artifactId>
             <scope>test</scope>
         </dependency>
         <dependency>

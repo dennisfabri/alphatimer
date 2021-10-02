@@ -46,16 +46,7 @@ public class SerialInterpreter {
     }
 
     private void initializePipeline() {
-        DataHandlingMessageAggregator aggregator = new MessageAggregator();
-        aggregator.register(message -> {
-            log.info("Received message: '{}'", message);
-            sender.send(message);
-        });
-
         inputCollector.register(event -> {
-            if (!(event instanceof Ping)) {
-                log.info("Received message: '{}'", event);
-            }
             sender.send(event);
         });
     }

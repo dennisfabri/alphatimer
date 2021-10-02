@@ -12,27 +12,20 @@ import org.lisasp.alphatimer.api.refinedmessages.accepted.enums.RefinedKindOfTim
 import org.lisasp.alphatimer.api.refinedmessages.accepted.enums.RefinedMessageType;
 import org.lisasp.alphatimer.api.refinedmessages.accepted.enums.RefinedTimeType;
 import org.lisasp.alphatimer.heats.HeatListener;
+import org.lisasp.alphatimer.heats.api.HeatDto;
+import org.lisasp.alphatimer.heats.api.LaneDto;
 import org.lisasp.alphatimer.heats.api.enums.HeatStatus;
 import org.lisasp.alphatimer.heats.api.enums.LaneStatus;
 import org.lisasp.alphatimer.heats.api.enums.Penalty;
-import org.lisasp.alphatimer.heats.api.HeatDto;
-import org.lisasp.alphatimer.heats.api.LaneDto;
+import org.lisasp.alphatimer.heats.service.DataRepository;
 import org.lisasp.alphatimer.heats.service.HeatRepository;
 import org.lisasp.alphatimer.heats.service.HeatService;
 import org.mockito.Mockito;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 
 import static org.mockito.Mockito.*;
 
-//@SpringBootTest()
-@ContextConfiguration
-@DataJpaTest
-// @DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
 class HeatServiceMessageBeforeListenerTest {
 
     private static final LocalDateTime TIMESTAMP1 = LocalDateTime.of(2021, 6, 10, 10, 1);
@@ -48,11 +41,6 @@ class HeatServiceMessageBeforeListenerTest {
     private static final String COMPETITION = "TestWK";
     private static final short EVENT = 1;
     private static final byte HEAT = 2;
-
-    @Autowired
-    private HeatService heatsService;
-    @Autowired
-    private HeatRepository heatEntities;
 
     private final StartMessage startMessage = new StartMessage(TIMESTAMP1,
                                                                COMPETITION,
@@ -214,19 +202,22 @@ class HeatServiceMessageBeforeListenerTest {
             new LaneDto(8, 111180, LaneStatus.Used, Penalty.None, 1)
     };
 
+    private HeatService heatsService;
+    private HeatRepository heatEntities;
     private HeatListener listener;
-
 
     private class TestFailedException extends RuntimeException {
     }
 
     @BeforeEach
-    void initialize() {
+    void prepare() {
+        heatEntities = new TestHeatRepository();
+        heatsService = new HeatService(new DataRepository(heatEntities), () -> TIMESTAMP1);
+
         listener = Mockito.mock(HeatListener.class);
     }
-    
+
     @Test
-    @Transactional
     void startMessage() {
         heatsService.accept(startMessage);
 
@@ -237,7 +228,6 @@ class HeatServiceMessageBeforeListenerTest {
     }
 
     @Test
-    @Transactional
     void unusedTimeLane1Message() {
         heatsService.accept(timeLane1Message);
 
@@ -248,7 +238,6 @@ class HeatServiceMessageBeforeListenerTest {
     }
 
     @Test
-    @Transactional
     void timeLane1Message() {
         heatsService.accept(usedLanesMessage);
         heatsService.accept(timeLane1Message);
@@ -260,7 +249,6 @@ class HeatServiceMessageBeforeListenerTest {
     }
 
     @Test
-    @Transactional
     void officialEndMessage() {
         heatsService.accept(officialEndMessage);
 
@@ -271,7 +259,6 @@ class HeatServiceMessageBeforeListenerTest {
     }
 
     @Test
-    @Transactional
     void emptyHeat() {
         heatsService.accept(startMessage);
         heatsService.accept(officialEndMessage);
@@ -283,7 +270,6 @@ class HeatServiceMessageBeforeListenerTest {
     }
 
     @Test
-    @Transactional
     void completeHeat() {
         heatsService.accept(startMessage);
         heatsService.accept(usedLanesMessage);

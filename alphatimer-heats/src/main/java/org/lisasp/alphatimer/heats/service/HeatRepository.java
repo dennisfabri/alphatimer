@@ -1,10 +1,14 @@
 package org.lisasp.alphatimer.heats.service;
 
 import org.lisasp.alphatimer.heats.entity.HeatEntity;
-import org.springframework.data.jpa.repository.JpaRepository;
 
+import java.util.List;
 import java.util.Optional;
 
-public interface HeatRepository extends JpaRepository<HeatEntity, String> {
+public interface HeatRepository {
     Optional<HeatEntity> findByCompetitionAndEventAndHeat(String competition, int event, int heat);
+
+    long count();
+
+    <S extends HeatEntity> S save(S s);
 }

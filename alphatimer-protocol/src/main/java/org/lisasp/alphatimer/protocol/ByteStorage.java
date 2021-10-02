@@ -6,7 +6,7 @@ import java.util.Arrays;
 
 class ByteStorage {
 
-    private final static int MaximumSize = 1024;
+    private static final int MaximumSize = 1024;
 
     private final byte[] data = new byte[MaximumSize];
 

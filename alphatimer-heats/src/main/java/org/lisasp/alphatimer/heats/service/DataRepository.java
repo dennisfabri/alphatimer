@@ -1,17 +1,16 @@
 package org.lisasp.alphatimer.heats.service;
 
 import lombok.RequiredArgsConstructor;
+import org.lisasp.alphatimer.heats.api.HeatDto;
+import org.lisasp.alphatimer.heats.api.LaneDto;
 import org.lisasp.alphatimer.heats.api.enums.HeatStatus;
 import org.lisasp.alphatimer.heats.api.enums.LaneStatus;
 import org.lisasp.alphatimer.heats.api.enums.Penalty;
-import org.lisasp.alphatimer.heats.api.HeatDto;
-import org.lisasp.alphatimer.heats.api.LaneDto;
 import org.lisasp.alphatimer.heats.entity.HeatEntity;
 import org.lisasp.alphatimer.heats.entity.LaneEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.LocalDateTime;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -37,7 +36,6 @@ public class DataRepository {
         entity.setLanes(new ArrayList<>());
         heatRepository.save(entity);
 
-        List<LaneEntity> lanes = new ArrayList<>();
         for (int x = 0; x < laneCount; x++) {
             int laneNumber = x + 1;
             LaneEntity lane = createLaneEntity(entity, laneNumber, lap);
@@ -66,7 +64,7 @@ public class DataRepository {
         List<LaneEntity> lanes = heatEntity.getLanes();
         Map<Integer, LaneEntity> usedLanes = lanes.stream().filter(l -> laneNumbers.contains(l.getNumber())).collect(Collectors.toMap(l -> l.getNumber(),
                                                                                                                                       l -> l));
-        heatEntity.getLanes().removeAll(lanes.stream().filter(l -> !laneNumbers.contains(l.getNumber())).collect(Collectors.toList()));
+        heatEntity.getLanes().removeAll(lanes.stream().filter(l -> !laneNumbers.contains(l.getNumber())).toList());
 
         for (LaneDto lane : heat.getLanes()) {
             LaneEntity laneEntity = usedLanes.get(lane.getNumber());

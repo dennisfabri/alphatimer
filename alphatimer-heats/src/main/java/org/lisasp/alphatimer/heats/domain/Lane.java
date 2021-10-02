@@ -6,9 +6,9 @@ import lombok.RequiredArgsConstructor;
 import lombok.ToString;
 import org.lisasp.alphatimer.api.refinedmessages.accepted.StartMessage;
 import org.lisasp.alphatimer.api.refinedmessages.accepted.TimeMessage;
+import org.lisasp.alphatimer.heats.api.LaneDto;
 import org.lisasp.alphatimer.heats.api.enums.LaneStatus;
 import org.lisasp.alphatimer.heats.api.enums.Penalty;
-import org.lisasp.alphatimer.heats.api.LaneDto;
 
 @RequiredArgsConstructor
 @ToString
@@ -43,15 +43,16 @@ public class Lane {
 
     public void start(StartMessage message) {
         timeInMillis = 0;
-
         lap = 0;
 
         assureTimeFitsStatus();
     }
 
     public void touch(TimeMessage message) {
+        if (message.getTimeInMillis() <= 0) {
+            return;
+        }
         timeInMillis = message.getTimeInMillis();
-
         lap = message.getCurrentLap();
 
         assureTimeFitsStatus();
@@ -69,6 +70,10 @@ public class Lane {
 
     private void assureTimeFitsStatus() {
         if (!status.mayHaveTime()) {
+            timeInMillis = 0;
+            lap = 0;
+        }
+        if (timeInMillis <= 0) {
             timeInMillis = 0;
             lap = 0;
         }

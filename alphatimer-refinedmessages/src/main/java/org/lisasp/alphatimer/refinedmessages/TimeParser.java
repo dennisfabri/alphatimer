@@ -10,7 +10,7 @@ import java.util.function.Consumer;
 
 public class TimeParser implements Parser {
 
-    private EnumUtils utils = new EnumUtils();
+    private final EnumUtils utils = new EnumUtils();
 
     @Override
     public void accept(DataHandlingMessage message, Consumer<RefinedMessage> resultCollector) {

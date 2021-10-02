@@ -26,8 +26,6 @@ spring:
     template:
       default-destination: ares-messages-local
       delivery-mode: persistent
-      qos-enabled: true
-      time-to-live: 36000
     pub-sub-domain: false
     listener:
       max-concurrency: 1

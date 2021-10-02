@@ -2,8 +2,8 @@ package org.lisasp.alphatimer.serial;
 
 import gnu.io.*;
 import lombok.extern.slf4j.Slf4j;
-import org.lisasp.alphatimer.messaging.ByteListener;
-import org.lisasp.alphatimer.messaging.ByteNotifier;
+import org.lisasp.basics.notification.primitive.ByteListener;
+import org.lisasp.basics.notification.primitive.ByteNotifier;
 import org.lisasp.alphatimer.serial.configuration.SerialConfiguration;
 
 import java.io.IOException;
@@ -14,7 +14,7 @@ class SerialReader implements SerialPortReader {
 
     private final SerialPort port;
 
-    private ByteNotifier notifier = new ByteNotifier();
+    private final ByteNotifier notifier = new ByteNotifier();
 
     public SerialReader(String port, SerialConfiguration config)
             throws NoSuchPortException, PortInUseException,

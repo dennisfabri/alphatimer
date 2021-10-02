@@ -9,7 +9,7 @@ import org.lisasp.alphatimer.api.protocol.events.messages.DataHandlingMessage1;
 import org.lisasp.alphatimer.api.protocol.events.messages.DataHandlingMessage2;
 import org.lisasp.alphatimer.api.protocol.events.messages.Ping;
 import org.lisasp.alphatimer.api.protocol.events.messages.enums.*;
-import org.lisasp.alphatimer.jre.date.DateTimeFacade;
+import org.lisasp.basics.jre.date.DateTimeFacade;
 import org.lisasp.alphatimer.protocol.InputCollector;
 import org.lisasp.alphatimer.protocol.MessageConverter;
 import org.mockito.Mockito;

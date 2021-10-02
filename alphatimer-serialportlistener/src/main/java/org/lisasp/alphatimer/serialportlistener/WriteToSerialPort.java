@@ -4,7 +4,7 @@ import gnu.io.NoSuchPortException;
 import gnu.io.PortInUseException;
 import gnu.io.UnsupportedCommOperationException;
 import lombok.extern.slf4j.Slf4j;
-import org.lisasp.alphatimer.jre.date.ActualDate;
+import org.lisasp.basics.jre.date.ActualDate;
 import org.lisasp.alphatimer.serial.SerialConnectionBuilder;
 import org.lisasp.alphatimer.serial.SerialPortWriter;
 import org.lisasp.alphatimer.serial.configuration.SerialConfiguration;

@@ -34,6 +34,11 @@ class ByteArrayUtilsTest {
     }
 
     @Test
+    void toByteValueInvalid3Test() {
+        assertThrows(InvalidDataException.class, () -> byteArrayUtils.toByteValue((byte) 0x31, (byte) 0x40));
+    }
+
+    @Test
     void toShortValueInvalidTest() {
         assertThrows(InvalidDataException.class,
                      () -> byteArrayUtils.toShortValue((byte) 0x2B, (byte) 0x31, (byte) 0x32));
@@ -276,5 +281,13 @@ class ByteArrayUtilsTest {
                      () -> byteArrayUtils.extractTimeInMillis(new byte[]{0x33, 0x31, 0x3A, 0x32, 0x30, 0x3A, 0x35, 0x33, 0x2E, 0x39, 0x44, 0x20},
                                                               0,
                                                               11));
+    }
+
+    @Test()
+    void extractTimeInMillisInvalidFormatDotBeforeColon() {
+        assertThrows(NumberFormatException.class,
+                     () -> byteArrayUtils.extractTimeInMillis(new byte[]{0x44, 0x33, 0x31, 0x3A, 0x32, 0x30, 0x2E, 0x35, 0x33, 0x3A, 0x39, 0x33, 0x20},
+                                                              1,
+                                                              12));
     }
 }

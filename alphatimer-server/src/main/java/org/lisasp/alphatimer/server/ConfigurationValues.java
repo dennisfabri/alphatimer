@@ -2,11 +2,9 @@ package org.lisasp.alphatimer.server;
 
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
-import org.lisasp.alphatimer.jre.date.DateFacade;
+import org.lisasp.basics.jre.date.DateFacade;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
-
-import java.time.format.DateTimeFormatter;
 
 @Component
 @Data
@@ -14,9 +12,6 @@ import java.time.format.DateTimeFormatter;
 public class ConfigurationValues {
 
     private final DateFacade dates;
-
-    // @Value("${alphatimer.storagePath:data}")
-    // private String storagePath;
 
     @Value("${alphatimer.queues.ares:ares-messages}")
     private String aresQueueName;

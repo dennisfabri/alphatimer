@@ -1,7 +1,7 @@
 package org.lisasp.alphatimer.test.datatests.testdoubles;
 
 import lombok.RequiredArgsConstructor;
-import org.lisasp.alphatimer.jre.date.DateTimeFacade;
+import org.lisasp.basics.jre.date.DateTimeFacade;
 
 import java.time.LocalDateTime;
 

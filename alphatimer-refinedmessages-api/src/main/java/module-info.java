@@ -6,7 +6,5 @@ module org.lisasp.alphatimer.api.refinedmessages {
 
     requires org.lisasp.alphatimer.api.protocol;
 
-    requires java.base;
-
     requires static lombok;
 }

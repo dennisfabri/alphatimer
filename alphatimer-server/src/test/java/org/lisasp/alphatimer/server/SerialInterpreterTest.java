@@ -3,8 +3,7 @@ package org.lisasp.alphatimer.server;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.lisasp.alphatimer.api.protocol.DataHandlingMessageRepository;
-import org.lisasp.alphatimer.jre.date.DateTimeFacade;
-import org.lisasp.alphatimer.legacy.LegacyRepository;
+import org.lisasp.basics.jre.date.DateTimeFacade;
 import org.lisasp.alphatimer.legacy.LegacyService;
 import org.lisasp.alphatimer.protocol.InputCollector;
 import org.lisasp.alphatimer.protocol.MessageConverter;
@@ -29,7 +28,7 @@ import static org.mockito.Mockito.*;
 class SerialInterpreterTest {
 
     @Autowired
-    private LegacyRepository repository;
+    private LegacyJPARepository repository;
 
     private MessageConverter messageConverter;
     private InputCollector inputCollector;
@@ -100,7 +99,6 @@ class SerialInterpreterTest {
     @Test
     void onDestroy() {
         serialInterpreter.start();
-        serialInterpreter.onDestroy();
 
         Mockito.verify(messages, times(0)).put(any());
     }

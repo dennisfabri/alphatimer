@@ -8,7 +8,7 @@ import org.junit.jupiter.params.provider.ValueSource;
 import org.lisasp.alphatimer.api.protocol.DataInputEventListener;
 import org.lisasp.alphatimer.api.protocol.events.dropped.DataHandlingMessage1DroppedEvent;
 import org.lisasp.alphatimer.api.protocol.events.dropped.UnknownMessageDroppedEvent;
-import org.lisasp.alphatimer.jre.date.DateTimeFacade;
+import org.lisasp.basics.jre.date.DateTimeFacade;
 import org.lisasp.alphatimer.protocol.InputCollector;
 import org.lisasp.alphatimer.protocol.MessageConverter;
 import org.mockito.Mockito;

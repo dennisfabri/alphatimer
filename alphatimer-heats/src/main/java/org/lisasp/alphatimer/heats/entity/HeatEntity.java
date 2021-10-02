@@ -4,15 +4,13 @@ import lombok.*;
 import org.lisasp.alphatimer.heats.api.enums.HeatStatus;
 import org.lisasp.alphatimer.heats.api.HeatDto;
 import org.lisasp.alphatimer.heats.api.LaneDto;
-import org.lisasp.alphatimer.spring.jpa.VersionedBaseEntity;
+import org.lisasp.basics.spring.jpa.TimestampedEntity;
 
 import javax.persistence.*;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
-import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Entity(name = "Heat")
 @Table(name = "heat")
@@ -21,7 +19,7 @@ import java.util.stream.Collectors;
 @NoArgsConstructor
 @AllArgsConstructor
 @RequiredArgsConstructor
-public class HeatEntity extends VersionedBaseEntity {
+public class HeatEntity extends TimestampedEntity {
 
     @NonNull
     @NotNull

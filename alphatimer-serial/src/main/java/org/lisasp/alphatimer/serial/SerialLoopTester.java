@@ -5,7 +5,7 @@ import gnu.io.PortInUseException;
 import gnu.io.UnsupportedCommOperationException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.lisasp.alphatimer.messaging.ByteListener;
+import org.lisasp.basics.notification.primitive.ByteListener;
 import org.lisasp.alphatimer.serial.configuration.SerialConfiguration;
 import org.lisasp.alphatimer.serial.exceptions.NotEnoughSerialPortsException;
 
@@ -37,15 +37,11 @@ public class SerialLoopTester {
         if (!testSerialConnection(port1, port2, config)) {
             return false;
         }
-        if (!testSerialConnection(port2, port1, config)) {
-            return false;
-        }
-        return true;
+        return testSerialConnection(port2, port1, config);
     }
 
     private boolean testSerialConnection(String readerPort, String writerPort, SerialConfiguration config)
             throws
-            TooManyListenersException,
             UnsupportedCommOperationException,
             NoSuchPortException,
             PortInUseException, IOException, InterruptedException {

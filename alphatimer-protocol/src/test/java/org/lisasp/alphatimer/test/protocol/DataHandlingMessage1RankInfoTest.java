@@ -9,7 +9,7 @@ import org.lisasp.alphatimer.api.protocol.events.messages.enums.KindOfTime;
 import org.lisasp.alphatimer.api.protocol.events.messages.enums.MessageType;
 import org.lisasp.alphatimer.api.protocol.events.messages.enums.RankInfo;
 import org.lisasp.alphatimer.api.protocol.events.messages.enums.TimeType;
-import org.lisasp.alphatimer.jre.date.DateTimeFacade;
+import org.lisasp.basics.jre.date.DateTimeFacade;
 import org.lisasp.alphatimer.protocol.InputCollector;
 import org.lisasp.alphatimer.protocol.MessageConverter;
 import org.mockito.Mockito;

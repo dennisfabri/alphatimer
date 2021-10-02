@@ -1,1 +1,24 @@
 spring:
+  artemis:
+    mode: embedded
+    user: dev
+    password: dev
+    embedded:
+      enabled: true
+      data-directory: data/mq
+      persistent: true
+      queues: ares-messages-local
+
+    bridge:
+      remote-queue: ares-messages
+      remote-host: localhost
+      remote-port: 61616
+
+  jms:
+    template:
+      default-destination: ares-messages-local
+      delivery-mode: non_persistent
+    pub-sub-domain: false
+    listener:
+      max-concurrency: 1
+      concurrency: 1
