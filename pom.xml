@@ -577,7 +577,7 @@
         </repository>
 
         <repository>
-            <id>Java-Basics</id>
+            <id>github</id>
             <name>Java-Basics GitHub Packages</name>
             <url>https://maven.pkg.github.com/LISASP-org/java-basics</url>
         </repository>
