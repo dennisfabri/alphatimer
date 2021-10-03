@@ -45,7 +45,7 @@
     "@vaadin/vaadin-upload": "21.0.0",
     "@vaadin/vaadin-virtual-list": "21.0.0",
     "construct-style-sheets-polyfill": "2.4.16",
-    "lit": "2.0.0-rc.3",
+    "lit": "2.0.0-rc.4",
     "lumo-css-framework": "^4.0.10"
   },
   "devDependencies": {
@@ -120,7 +120,7 @@
       "@vaadin/vaadin-upload": "21.0.0",
       "@vaadin/vaadin-virtual-list": "21.0.0",
       "construct-style-sheets-polyfill": "2.4.16",
-      "lit": "2.0.0-rc.3"
+      "lit": "2.0.0-rc.4"
     },
     "devDependencies": {
       "@types/validator": "13.1.0",

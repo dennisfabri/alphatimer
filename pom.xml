@@ -49,25 +49,38 @@
         <lombok.version>1.18.20</lombok.version>
         <nrjavaserial.version>5.2.1</nrjavaserial.version>
         <xstream.version>1.4.18</xstream.version>
-        <vaadin.version>21.0.0</vaadin.version>
+        <vaadin.version>21.0.2</vaadin.version>
         <vaadin.helper.version>1.7.2</vaadin.helper.version>
         <vaadin.exampledata.version>3.4.0</vaadin.exampledata.version>
-        <jetbrains.annotations.version>16.0.2</jetbrains.annotations.version>
+        <jetbrains.annotations.version>22.0.0</jetbrains.annotations.version>
 
-        <junit-jupiter.version>5.7.2</junit-jupiter.version>
+        <junit-jupiter.version>5.8.1</junit-jupiter.version>
         <junit.version>4.13.2</junit.version>
         <testcontainers.version>1.16.0</testcontainers.version>
         <mockito.version>3.12.4</mockito.version>
         <mockrunner.version>2.0.6</mockrunner.version>
-        <webdrivermanager.version>5.0.1</webdrivermanager.version>
+        <webdrivermanager.version>5.0.3</webdrivermanager.version>
         <cloning.version>1.10.3</cloning.version>
 
         <h2.version>1.4.200</h2.version>
-        <mssql-jdbc.version>9.4.0.jre11</mssql-jdbc.version>
+        <mssql-jdbc.version>9.4.0.jre16</mssql-jdbc.version>
         <mariadb.version>2.7.4</mariadb.version>
 
         <maven-failsave-plugin.version>3.0.0-M5</maven-failsave-plugin.version>
     </properties>
+
+    <distributionManagement>
+        <repository>
+            <id>github</id>
+            <name>GitHub Packages</name>
+            <url>https://maven.pkg.github.com/LISASP-org/alphatimer</url>
+        </repository>
+    </distributionManagement>
+
+    <scm>
+        <connection>https://github.com/LISASP-org/alphatimer.git</connection>
+        <url>https://github.com/LISASP-org/alphatimer</url>
+    </scm>
 
     <dependencyManagement>
         <dependencies>
