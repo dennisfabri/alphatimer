@@ -575,6 +575,12 @@
                 <enabled>false</enabled>
             </snapshots>
         </repository>
+
+        <repository>
+            <id>github</id>
+            <name>GitHub Packages</name>
+            <url>https://maven.pkg.github.com/LISASP-org</url>
+        </repository>
     </repositories>
 
     <pluginRepositories>
