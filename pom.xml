@@ -579,7 +579,7 @@
         <repository>
             <id>github</id>
             <name>GitHub Packages</name>
-            <url>https://maven.pkg.github.com/LISASP-org</url>
+            <url>https://maven.pkg.github.com/LISASP-org/java-basics</url>
         </repository>
     </repositories>
 
