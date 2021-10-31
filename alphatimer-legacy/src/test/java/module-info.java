@@ -5,7 +5,7 @@ module org.lisasp.alphatimer.test.legacy {
     opens org.lisasp.alphatimer.test.legacy.model;
     exports org.lisasp.alphatimer.test.legacy;
 
-    requires org.lisasp.alphatimer.api.protocol;
+    requires org.lisasp.alphatimer.api.ares.serial;
 
     requires cloning;
 

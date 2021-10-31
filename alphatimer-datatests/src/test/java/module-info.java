@@ -6,7 +6,7 @@ module org.lisasp.alphatimer.test.datatests {
     requires transitive org.lisasp.alphatimer.legacy;
 
     requires org.lisasp.basics.jre;
-    requires org.lisasp.alphatimer.protocol;
+    requires org.lisasp.alphatimer.ares.serial;
     requires org.lisasp.alphatimer.refinedmessages;
     requires org.lisasp.alphatimer.test.legacy;
 

@@ -14,7 +14,7 @@
     <dependencies>
         <dependency>
             <groupId>org.lisasp.alphatimer</groupId>
-            <artifactId>alphatimer-protocol-api</artifactId>
+            <artifactId>alphatimer-ares-serial-api</artifactId>
         </dependency>
     </dependencies>
 </project>

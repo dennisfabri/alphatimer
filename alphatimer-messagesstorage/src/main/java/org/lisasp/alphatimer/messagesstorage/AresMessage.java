@@ -3,7 +3,7 @@ package org.lisasp.alphatimer.messagesstorage;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.lisasp.alphatimer.api.protocol.events.messages.enums.*;
+import org.lisasp.alphatimer.api.ares.serial.events.messages.enums.*;
 import org.lisasp.basics.spring.jpa.BaseEntity;
 
 import javax.persistence.*;

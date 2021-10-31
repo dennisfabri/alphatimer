@@ -2,21 +2,19 @@ package org.lisasp.alphatimer.server;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.lisasp.alphatimer.api.protocol.DataHandlingMessageAggregator;
-import org.lisasp.alphatimer.api.protocol.DataHandlingMessageRepository;
-import org.lisasp.alphatimer.api.protocol.events.BytesInputEvent;
-import org.lisasp.alphatimer.api.protocol.events.DataInputEvent;
-import org.lisasp.alphatimer.api.protocol.events.messages.Ping;
+import org.lisasp.alphatimer.api.ares.serial.DataHandlingMessageAggregator;
+import org.lisasp.alphatimer.api.ares.serial.DataHandlingMessageRepository;
+import org.lisasp.alphatimer.api.ares.serial.events.BytesInputEvent;
+import org.lisasp.alphatimer.api.ares.serial.events.messages.Ping;
 import org.lisasp.alphatimer.legacy.LegacySerialization;
 import org.lisasp.alphatimer.legacy.LegacyService;
-import org.lisasp.alphatimer.protocol.MessageAggregator;
-import org.lisasp.alphatimer.protocol.MessageConverter;
+import org.lisasp.alphatimer.ares.serial.MessageAggregator;
+import org.lisasp.alphatimer.ares.serial.MessageConverter;
 import org.lisasp.alphatimer.refinedmessages.DataHandlingMessageRefiner;
 import org.lisasp.alphatimer.server.mq.Sender;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
-import javax.annotation.PreDestroy;
 import java.util.function.Consumer;
 
 @Component

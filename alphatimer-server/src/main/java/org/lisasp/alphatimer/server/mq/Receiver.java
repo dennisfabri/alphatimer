@@ -2,11 +2,9 @@ package org.lisasp.alphatimer.server.mq;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.lisasp.alphatimer.api.protocol.events.BytesInputEvent;
-import org.lisasp.alphatimer.api.protocol.events.DataInputEvent;
+import org.lisasp.alphatimer.api.ares.serial.events.BytesInputEvent;
 import org.lisasp.alphatimer.server.SerialInterpreter;
 import org.lisasp.basics.spring.jms.JsonMessageConverter;
-import org.springframework.jms.JmsException;
 import org.springframework.jms.annotation.JmsListener;
 import org.springframework.jms.support.JmsHeaders;
 import org.springframework.messaging.handler.annotation.Header;

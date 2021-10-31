@@ -3,7 +3,7 @@ module org.lisasp.alphatimer.test.serialportlistener {
 
     opens org.lisasp.alphatimer.test.serialportlistener;
 
-    requires org.lisasp.alphatimer.api.protocol;
+    requires org.lisasp.alphatimer.api.ares.serial;
 
     requires org.lisasp.basics.jre;
 

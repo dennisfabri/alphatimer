@@ -6,14 +6,14 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
-import org.lisasp.alphatimer.api.protocol.DataHandlingMessageAggregator;
+import org.lisasp.alphatimer.api.ares.serial.DataHandlingMessageAggregator;
 import org.lisasp.alphatimer.datatests.TestData;
 import org.lisasp.basics.jre.date.DateTimeFacade;
 import org.lisasp.alphatimer.legacy.LegacyService;
 import org.lisasp.alphatimer.legacy.dto.Heat;
-import org.lisasp.alphatimer.protocol.InputCollector;
-import org.lisasp.alphatimer.protocol.MessageAggregator;
-import org.lisasp.alphatimer.protocol.MessageConverter;
+import org.lisasp.alphatimer.ares.serial.InputCollector;
+import org.lisasp.alphatimer.ares.serial.MessageAggregator;
+import org.lisasp.alphatimer.ares.serial.MessageConverter;
 import org.lisasp.alphatimer.test.datatests.testdoubles.DateTimeFacadeTestDouble;
 import org.lisasp.alphatimer.test.legacy.TestLegacyRepository;
 

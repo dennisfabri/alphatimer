@@ -19,7 +19,7 @@
     <dependencies>
         <dependency>
             <groupId>org.lisasp.alphatimer</groupId>
-            <artifactId>alphatimer-protocol</artifactId>
+            <artifactId>alphatimer-ares-serial</artifactId>
         </dependency>
         <dependency>
             <groupId>org.lisasp.alphatimer</groupId>

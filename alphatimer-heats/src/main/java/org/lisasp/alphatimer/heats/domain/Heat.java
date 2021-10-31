@@ -2,7 +2,7 @@ package org.lisasp.alphatimer.heats.domain;
 
 import lombok.RequiredArgsConstructor;
 import lombok.ToString;
-import org.lisasp.alphatimer.api.protocol.events.messages.values.UsedLanes;
+import org.lisasp.alphatimer.api.ares.serial.events.messages.values.UsedLanes;
 import org.lisasp.alphatimer.api.refinedmessages.RefinedMessage;
 import org.lisasp.alphatimer.api.refinedmessages.accepted.OfficialEndMessage;
 import org.lisasp.alphatimer.api.refinedmessages.accepted.StartMessage;

@@ -1,8 +1,7 @@
 package org.lisasp.alphatimer.serialportlistener.mq;
 
 import lombok.extern.slf4j.Slf4j;
-import org.lisasp.alphatimer.api.protocol.events.BytesInputEvent;
-import org.lisasp.alphatimer.api.protocol.events.DataInputEvent;
+import org.lisasp.alphatimer.api.ares.serial.events.BytesInputEvent;
 import org.lisasp.alphatimer.serialportlistener.ConfigurationValues;
 import org.springframework.jms.core.JmsTemplate;
 import org.springframework.stereotype.Component;

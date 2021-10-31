@@ -3,8 +3,8 @@ module org.lisasp.alphatimer.serialportlistener {
     exports org.lisasp.alphatimer.serialportlistener.mq;
 
     requires org.lisasp.alphatimer.serial;
-    requires org.lisasp.alphatimer.api.protocol;
-    requires org.lisasp.alphatimer.protocol;
+    requires org.lisasp.alphatimer.api.ares.serial;
+    requires org.lisasp.alphatimer.ares.serial;
 
     requires org.lisasp.basics.jre;
     requires org.lisasp.basics.notification;

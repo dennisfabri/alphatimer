@@ -1,9 +1,9 @@
 package org.lisasp.alphatimer.messagesstorage;
 
 import lombok.RequiredArgsConstructor;
-import org.lisasp.alphatimer.api.protocol.DataHandlingMessageRepository;
-import org.lisasp.alphatimer.api.protocol.events.messages.DataHandlingMessage;
-import org.lisasp.alphatimer.api.protocol.events.messages.values.UsedLanes;
+import org.lisasp.alphatimer.api.ares.serial.DataHandlingMessageRepository;
+import org.lisasp.alphatimer.api.ares.serial.events.messages.DataHandlingMessage;
+import org.lisasp.alphatimer.api.ares.serial.events.messages.values.UsedLanes;
 import org.springframework.stereotype.Component;
 
 import java.util.List;

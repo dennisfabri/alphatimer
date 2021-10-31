@@ -4,7 +4,7 @@ module org.lisasp.alphatimer.test.heats {
     opens org.lisasp.alphatimer.test.heats;
     opens org.lisasp.alphatimer.test.heats.domain;
 
-    requires org.lisasp.alphatimer.api.protocol;
+    requires org.lisasp.alphatimer.api.ares.serial;
     requires org.lisasp.alphatimer.api.refinedmessages;
 
     requires org.lisasp.basics.spring.jpa;

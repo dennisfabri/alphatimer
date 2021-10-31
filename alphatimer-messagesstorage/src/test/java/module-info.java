@@ -4,7 +4,7 @@ module org.lisasp.alphatimer.test.messagesstorage {
     opens org.lisasp.alphatimer.test.messagesstorage;
     exports org.lisasp.alphatimer.test.messagesstorage;
 
-    requires org.lisasp.alphatimer.api.protocol;
+    requires org.lisasp.alphatimer.api.ares.serial;
 
     requires cloning;
 

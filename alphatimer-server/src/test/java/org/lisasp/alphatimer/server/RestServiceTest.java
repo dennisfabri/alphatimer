@@ -4,7 +4,7 @@ import org.junit.jupiter.api.Test;
 import org.lisasp.alphatimer.legacy.LegacyService;
 import org.lisasp.alphatimer.messagesstorage.AresMessageRepository;
 import org.lisasp.alphatimer.messagesstorage.Messages;
-import org.lisasp.alphatimer.protocol.MessageConverter;
+import org.lisasp.alphatimer.ares.serial.MessageConverter;
 import org.lisasp.alphatimer.refinedmessages.DataHandlingMessageRefiner;
 import org.lisasp.alphatimer.server.mq.Sender;
 import org.lisasp.alphatimer.server.testdoubles.TestDateFacade;

@@ -1,7 +1,7 @@
 package org.lisasp.alphatimer.refinedmessages;
 
-import org.lisasp.alphatimer.api.protocol.DataHandlingMessageListener;
-import org.lisasp.alphatimer.api.protocol.events.messages.DataHandlingMessage;
+import org.lisasp.alphatimer.api.ares.serial.DataHandlingMessageListener;
+import org.lisasp.alphatimer.api.ares.serial.events.messages.DataHandlingMessage;
 import org.lisasp.alphatimer.api.refinedmessages.RefinedMessage;
 import org.lisasp.alphatimer.api.refinedmessages.RefinedMessageListener;
 import org.lisasp.alphatimer.api.refinedmessages.dropped.DroppedUnknownMessage;

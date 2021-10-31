@@ -1,10 +1,10 @@
 package org.lisasp.alphatimer.legacy;
 
 import lombok.extern.slf4j.Slf4j;
-import org.lisasp.alphatimer.api.protocol.DataHandlingMessageListener;
-import org.lisasp.alphatimer.api.protocol.events.messages.DataHandlingMessage;
-import org.lisasp.alphatimer.api.protocol.events.messages.enums.KindOfTime;
-import org.lisasp.alphatimer.api.protocol.events.messages.enums.MessageType;
+import org.lisasp.alphatimer.api.ares.serial.DataHandlingMessageListener;
+import org.lisasp.alphatimer.api.ares.serial.events.messages.DataHandlingMessage;
+import org.lisasp.alphatimer.api.ares.serial.events.messages.enums.KindOfTime;
+import org.lisasp.alphatimer.api.ares.serial.events.messages.enums.MessageType;
 import org.lisasp.alphatimer.legacy.dto.Heat;
 import org.lisasp.alphatimer.legacy.dto.LaneStatus;
 import org.lisasp.alphatimer.legacy.entity.LaneTimeEntity;

@@ -6,7 +6,7 @@ import com.vaadin.flow.server.PWA;
 import com.vaadin.flow.theme.Theme;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.lisasp.alphatimer.api.protocol.json.BytesInputEventModule;
+import org.lisasp.alphatimer.api.ares.serial.json.BytesInputEventModule;
 import org.lisasp.alphatimer.heats.service.DataRepository;
 import org.lisasp.alphatimer.heats.service.HeatService;
 import org.lisasp.basics.jre.date.ActualDateTime;

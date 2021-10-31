@@ -10,9 +10,9 @@ import org.lisasp.alphatimer.api.refinedmessages.accepted.*;
 import org.lisasp.alphatimer.api.refinedmessages.dropped.*;
 import org.lisasp.alphatimer.datatests.TestData;
 import org.lisasp.basics.jre.date.DateTimeFacade;
-import org.lisasp.alphatimer.protocol.InputCollector;
-import org.lisasp.alphatimer.protocol.MessageAggregator;
-import org.lisasp.alphatimer.protocol.MessageConverter;
+import org.lisasp.alphatimer.ares.serial.InputCollector;
+import org.lisasp.alphatimer.ares.serial.MessageAggregator;
+import org.lisasp.alphatimer.ares.serial.MessageConverter;
 import org.lisasp.alphatimer.refinedmessages.DataHandlingMessageRefiner;
 import org.lisasp.alphatimer.test.datatests.testdoubles.DateTimeFacadeTestDouble;
 

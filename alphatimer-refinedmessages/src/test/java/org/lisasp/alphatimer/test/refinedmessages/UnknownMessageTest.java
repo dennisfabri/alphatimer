@@ -2,13 +2,10 @@ package org.lisasp.alphatimer.test.refinedmessages;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.lisasp.alphatimer.api.protocol.events.messages.DataHandlingMessage;
-import org.lisasp.alphatimer.api.protocol.events.messages.enums.*;
-import org.lisasp.alphatimer.api.protocol.events.messages.values.UsedLanes;
+import org.lisasp.alphatimer.api.ares.serial.events.messages.DataHandlingMessage;
+import org.lisasp.alphatimer.api.ares.serial.events.messages.enums.*;
+import org.lisasp.alphatimer.api.ares.serial.events.messages.values.UsedLanes;
 import org.lisasp.alphatimer.api.refinedmessages.RefinedMessageListener;
-import org.lisasp.alphatimer.api.refinedmessages.accepted.ReadyToStartMessage;
-import org.lisasp.alphatimer.api.refinedmessages.accepted.UsedLanesMessage;
-import org.lisasp.alphatimer.api.refinedmessages.dropped.DroppedReadyToStartMessage;
 import org.lisasp.alphatimer.api.refinedmessages.dropped.DroppedUnknownMessage;
 import org.lisasp.alphatimer.refinedmessages.DataHandlingMessageRefiner;
 import org.mockito.Mockito;

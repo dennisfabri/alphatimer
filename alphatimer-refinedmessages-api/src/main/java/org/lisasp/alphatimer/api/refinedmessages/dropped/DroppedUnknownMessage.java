@@ -2,8 +2,8 @@ package org.lisasp.alphatimer.api.refinedmessages.dropped;
 
 import lombok.RequiredArgsConstructor;
 import lombok.Value;
-import org.lisasp.alphatimer.api.protocol.events.messages.DataHandlingMessage;
-import org.lisasp.alphatimer.api.protocol.events.messages.enums.*;
+import org.lisasp.alphatimer.api.ares.serial.events.messages.DataHandlingMessage;
+import org.lisasp.alphatimer.api.ares.serial.events.messages.enums.*;
 
 import java.time.LocalDateTime;
 

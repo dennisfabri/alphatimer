@@ -1,8 +1,8 @@
 package org.lisasp.alphatimer.refinedmessages;
 
-import org.lisasp.alphatimer.api.protocol.events.messages.enums.KindOfTime;
-import org.lisasp.alphatimer.api.protocol.events.messages.enums.MessageType;
-import org.lisasp.alphatimer.api.protocol.events.messages.enums.TimeType;
+import org.lisasp.alphatimer.api.ares.serial.events.messages.enums.KindOfTime;
+import org.lisasp.alphatimer.api.ares.serial.events.messages.enums.MessageType;
+import org.lisasp.alphatimer.api.ares.serial.events.messages.enums.TimeType;
 import org.lisasp.alphatimer.api.refinedmessages.accepted.enums.RefinedKindOfTime;
 import org.lisasp.alphatimer.api.refinedmessages.accepted.enums.RefinedMessageType;
 import org.lisasp.alphatimer.api.refinedmessages.accepted.enums.RefinedTimeType;

@@ -1,7 +1,7 @@
 package org.lisasp.alphatimer.refinedmessages;
 
-import org.lisasp.alphatimer.api.protocol.events.messages.DataHandlingMessage;
-import org.lisasp.alphatimer.api.protocol.events.messages.enums.*;
+import org.lisasp.alphatimer.api.ares.serial.events.messages.DataHandlingMessage;
+import org.lisasp.alphatimer.api.ares.serial.events.messages.enums.*;
 import org.lisasp.alphatimer.api.refinedmessages.RefinedMessage;
 import org.lisasp.alphatimer.api.refinedmessages.accepted.OfficialEndMessage;
 import org.lisasp.alphatimer.api.refinedmessages.dropped.DroppedOfficialEndMessage;

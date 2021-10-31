@@ -2,11 +2,11 @@ package org.lisasp.alphatimer.server;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.lisasp.alphatimer.api.protocol.DataHandlingMessageRepository;
+import org.lisasp.alphatimer.api.ares.serial.DataHandlingMessageRepository;
 import org.lisasp.basics.jre.date.DateTimeFacade;
 import org.lisasp.alphatimer.legacy.LegacyService;
-import org.lisasp.alphatimer.protocol.InputCollector;
-import org.lisasp.alphatimer.protocol.MessageConverter;
+import org.lisasp.alphatimer.ares.serial.InputCollector;
+import org.lisasp.alphatimer.ares.serial.MessageConverter;
 import org.lisasp.alphatimer.refinedmessages.DataHandlingMessageRefiner;
 import org.lisasp.alphatimer.server.mq.Sender;
 import org.lisasp.alphatimer.server.testdoubles.TestDateFacade;

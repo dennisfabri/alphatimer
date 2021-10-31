@@ -2,9 +2,9 @@ package org.lisasp.alphatimer.server;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.lisasp.alphatimer.api.protocol.json.BytesInputEventModule;
+import org.lisasp.alphatimer.api.ares.serial.json.BytesInputEventModule;
 import org.lisasp.alphatimer.legacy.LegacyService;
-import org.lisasp.alphatimer.protocol.MessageConverter;
+import org.lisasp.alphatimer.ares.serial.MessageConverter;
 import org.lisasp.alphatimer.refinedmessages.DataHandlingMessageRefiner;
 import org.lisasp.basics.jre.date.ActualDate;
 import org.lisasp.basics.jre.date.ActualDateTime;

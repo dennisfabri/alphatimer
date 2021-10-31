@@ -1,7 +1,6 @@
 package org.lisasp.alphatimer.api.refinedmessages.accepted;
 
 import lombok.Value;
-import org.lisasp.alphatimer.api.protocol.events.messages.values.UsedLanes;
 import org.lisasp.alphatimer.api.refinedmessages.RefinedMessage;
 
 import java.time.LocalDateTime;

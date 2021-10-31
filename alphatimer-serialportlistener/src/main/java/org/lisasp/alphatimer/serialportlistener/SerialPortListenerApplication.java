@@ -2,13 +2,13 @@ package org.lisasp.alphatimer.serialportlistener;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.lisasp.alphatimer.api.protocol.json.BytesInputEventModule;
+import org.lisasp.alphatimer.api.ares.serial.json.BytesInputEventModule;
 import org.lisasp.basics.jre.date.ActualDate;
 import org.lisasp.basics.jre.date.ActualDateTime;
 import org.lisasp.basics.jre.date.DateFacade;
 import org.lisasp.basics.jre.date.DateTimeFacade;
 import org.lisasp.basics.jre.io.ActualFile;
-import org.lisasp.alphatimer.protocol.InputCollector;
+import org.lisasp.alphatimer.ares.serial.InputCollector;
 import org.lisasp.alphatimer.serial.DefaultSerialConnectionBuilder;
 import org.lisasp.alphatimer.serial.SerialConnectionBuilder;
 import org.lisasp.alphatimer.serial.Storage;

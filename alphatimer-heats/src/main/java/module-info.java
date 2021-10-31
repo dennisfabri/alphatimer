@@ -10,7 +10,7 @@ module org.lisasp.alphatimer.heats {
     opens org.lisasp.alphatimer.heats.api.enums;
     opens org.lisasp.alphatimer.heats.entity;
 
-    requires org.lisasp.alphatimer.api.protocol;
+    requires org.lisasp.alphatimer.api.ares.serial;
     requires org.lisasp.alphatimer.api.refinedmessages;
 
     requires org.lisasp.basics.jre;

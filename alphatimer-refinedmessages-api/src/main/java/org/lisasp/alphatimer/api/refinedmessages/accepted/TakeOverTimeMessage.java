@@ -1,8 +1,8 @@
 package org.lisasp.alphatimer.api.refinedmessages.accepted;
 
 import lombok.Value;
-import org.lisasp.alphatimer.api.protocol.events.messages.enums.TimeMarker;
-import org.lisasp.alphatimer.api.protocol.events.messages.enums.TimeType;
+import org.lisasp.alphatimer.api.ares.serial.events.messages.enums.TimeMarker;
+import org.lisasp.alphatimer.api.ares.serial.events.messages.enums.TimeType;
 import org.lisasp.alphatimer.api.refinedmessages.RefinedMessage;
 import org.lisasp.alphatimer.api.refinedmessages.accepted.enums.RefinedMessageType;
 
