@@ -1,6 +1,0 @@
-# Base Alpine Linux based image with OpenJDK JRE only
-FROM adoptopenjdk/openjdk17:ubuntu-jre
-# copy application WAR (with libraries inside)
-COPY target/alphatimer-artemismq-*.jar /alphatimer-artemismq.jar
-# specify default command
-CMD ["/usr/bin/java", "-jar", "/alphatimer-artemismq.jar"]
