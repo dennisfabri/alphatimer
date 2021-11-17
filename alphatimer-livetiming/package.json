@@ -44,7 +44,7 @@
     "@vaadin/vaadin-time-picker": "21.0.0",
     "@vaadin/vaadin-upload": "21.0.0",
     "@vaadin/vaadin-virtual-list": "21.0.0",
-    "construct-style-sheets-polyfill": "2.4.16",
+    "construct-style-sheets-polyfill": "3.0.4",
     "lit": "2.0.0",
     "lumo-css-framework": "^4.0.10"
   },
@@ -119,7 +119,7 @@
       "@vaadin/vaadin-time-picker": "21.0.0",
       "@vaadin/vaadin-upload": "21.0.0",
       "@vaadin/vaadin-virtual-list": "21.0.0",
-      "construct-style-sheets-polyfill": "2.4.16",
+      "construct-style-sheets-polyfill": "3.0.4",
       "lit": "2.0.0"
     },
     "devDependencies": {

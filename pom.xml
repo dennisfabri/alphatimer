@@ -51,10 +51,10 @@
         <lombok.version>1.18.22</lombok.version>
         <nrjavaserial.version>5.2.1</nrjavaserial.version>
         <xstream.version>1.4.18</xstream.version>
-        <vaadin.version>21.0.3</vaadin.version>
+        <vaadin.version>21.0.6</vaadin.version>
         <vaadin.helper.version>1.7.2</vaadin.helper.version>
         <vaadin.exampledata.version>3.4.0</vaadin.exampledata.version>
-        <jetbrains.annotations.version>22.0.0</jetbrains.annotations.version>
+        <jetbrains.annotations.version>23.0.0</jetbrains.annotations.version>
 
         <junit-jupiter.version>5.8.1</junit-jupiter.version>
         <junit.version>4.13.2</junit.version>
