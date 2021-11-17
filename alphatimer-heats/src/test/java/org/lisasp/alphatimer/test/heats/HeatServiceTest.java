@@ -247,10 +247,6 @@ class HeatServiceTest {
 
     private HeatListener listener;
 
-
-    private class TestFailedException extends RuntimeException {
-    }
-
     @BeforeEach
     void prepare() {
         heatEntities = new TestHeatRepository();
