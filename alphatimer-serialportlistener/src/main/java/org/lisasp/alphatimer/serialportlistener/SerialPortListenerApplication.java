@@ -97,16 +97,4 @@ public class SerialPortListenerApplication implements ApplicationRunner {
         messageConverter.registerModule(new BytesInputEventModule());
         return messageConverter;
     }
-
-    /*
-    @Bean
-    JmsTemplate jmsTemplate(CachingConnectionFactory connectionFactory, JsonMessageConverter jsonMessageConverter) {
-        connectionFactory.setExceptionListener(e -> log.error("JMS-Exception", e));
-
-        JmsTemplate template = new JmsTemplate(connectionFactory);
-        template.setMessageConverter(jsonMessageConverter);
-        template.setDefaultDestinationName("ares-messages-local");
-        return template;
-    }
-    */
 }
