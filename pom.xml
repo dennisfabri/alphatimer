@@ -47,26 +47,26 @@
 
         <basics.version>1.0.0-SNAPSHOT</basics.version>
 
-        <slf4j.version>1.7.32</slf4j.version>
+        <slf4j.version>1.7.36</slf4j.version>
         <lombok.version>1.18.22</lombok.version>
         <nrjavaserial.version>5.2.1</nrjavaserial.version>
-        <xstream.version>1.4.18</xstream.version>
-        <vaadin.version>22.0.2</vaadin.version>
-        <vaadin.helper.version>1.8.0</vaadin.helper.version>
+        <xstream.version>1.4.19</xstream.version>
+        <vaadin.version>22.0.5</vaadin.version>
+        <vaadin.helper.version>1.9.0</vaadin.helper.version>
         <vaadin.exampledata.version>3.4.0</vaadin.exampledata.version>
         <jetbrains.annotations.version>23.0.0</jetbrains.annotations.version>
 
         <junit-jupiter.version>5.8.2</junit-jupiter.version>
         <junit.version>4.13.2</junit.version>
-        <testcontainers.version>1.16.2</testcontainers.version>
-        <mockito.version>4.2.0</mockito.version>
+        <testcontainers.version>1.16.3</testcontainers.version>
+        <mockito.version>4.3.1</mockito.version>
         <mockrunner.version>2.0.6</mockrunner.version>
         <webdrivermanager.version>5.0.3</webdrivermanager.version>
         <cloning.version>1.10.3</cloning.version>
 
         <h2.version>2.1.210</h2.version>
-        <mssql-jdbc.version>9.4.0.jre16</mssql-jdbc.version>
-        <mariadb.version>2.7.4</mariadb.version>
+        <mssql-jdbc.version>10.2.0.jre17</mssql-jdbc.version>
+        <mariadb.version>3.0.3</mariadb.version>
 
         <maven-failsave-plugin.version>3.0.0-M5</maven-failsave-plugin.version>
     </properties>
