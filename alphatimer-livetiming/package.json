@@ -15,7 +15,7 @@
     "@vaadin/vaadin-checkbox": "21.0.0",
     "@vaadin/vaadin-combo-box": "21.0.0",
     "@vaadin/vaadin-context-menu": "21.0.0",
-    "@vaadin/vaadin-core-shrinkwrap": "21.0.0",
+    "@vaadin/vaadin-core-shrinkwrap": "21.0.9",
     "@vaadin/vaadin-custom-field": "21.0.0",
     "@vaadin/vaadin-date-picker": "21.0.0",
     "@vaadin/vaadin-date-time-picker": "21.0.0",
