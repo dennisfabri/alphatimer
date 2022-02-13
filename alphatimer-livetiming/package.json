@@ -8,7 +8,7 @@
     "@vaadin/flow-frontend": "./target/flow-frontend",
     "@vaadin/form": "./target/flow-frontend/form",
     "@vaadin/router": "1.7.4",
-    "@vaadin/vaadin-accordion": "21.0.0",
+    "@vaadin/vaadin-accordion": "21.0.5",
     "@vaadin/vaadin-app-layout": "21.0.0",
     "@vaadin/vaadin-avatar": "21.0.0",
     "@vaadin/vaadin-button": "21.0.0",
