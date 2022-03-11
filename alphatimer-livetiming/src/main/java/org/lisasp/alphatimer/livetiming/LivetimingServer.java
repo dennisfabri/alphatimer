@@ -57,6 +57,8 @@ public class LivetimingServer extends SpringBootServletInitializer implements Ap
     }
 
     @Bean
+
+
     @Scope(value = ConfigurableBeanFactory.SCOPE_SINGLETON)
     HeatService currentHeatService(DataRepository repository, DateTimeFacade dateTimeFacade) {
         return new HeatService(repository, dateTimeFacade);

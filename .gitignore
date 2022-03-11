@@ -74,3 +74,7 @@ alphatimer-livetiming/webpack.config.js
 alphatimer-livetiming/tsconfig.json
 alphatimer-livetiming/pnpm-lock.yaml
 alphatimer-livetiming/frontend/generated/
+
+alphatimer-livetiming/package-lock.json
+
+alphatimer-livetiming/package.json

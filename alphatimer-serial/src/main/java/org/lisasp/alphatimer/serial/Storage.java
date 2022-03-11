@@ -6,6 +6,7 @@ import org.lisasp.basics.jre.date.DateFacade;
 import org.lisasp.basics.jre.io.FileFacade;
 
 import java.io.IOException;
+import java.nio.file.Path;
 import java.time.format.DateTimeFormatter;
 
 @RequiredArgsConstructor
@@ -18,21 +19,14 @@ public class Storage {
     private final DateFacade dateTimeFacade;
 
     public byte[] read() throws IOException {
-        return fileFacade.read(getFilename());
+        return fileFacade.get(getFilename());
     }
 
     public void write(byte b) throws IOException {
-        fileFacade.write(getFilename(), b);
+        fileFacade.append(getFilename(), b);
     }
 
-    private String getFilename() {
-        StringBuilder sb = new StringBuilder();
-        sb.append(baseDir);
-        if (!baseDir.endsWith(fileFacade.getSeparator())) {
-            sb.append(fileFacade.getSeparator());
-        }
-        sb.append(dateTimeFacade.today().format(DateTimeFormatter.ISO_LOCAL_DATE));
-        sb.append(".serial");
-        return sb.toString();
+    private Path getFilename() {
+        return Path.of(baseDir, String.format("%s.serial", dateTimeFacade.today().format(DateTimeFormatter.ISO_LOCAL_DATE)));
     }
 }

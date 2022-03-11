@@ -48,6 +48,8 @@ public class DefaultSerialConnectionBuilder implements SerialConnectionBuilder {
             CommPortIdentifier portId = (CommPortIdentifier) portList.nextElement();
             if (portId.getPortType() == CommPortIdentifier.PORT_SERIAL) {
                 ports.add(portId.getName());
+            } else {
+                log.info("Other port found: {}", portId.getName());
             }
         }
 

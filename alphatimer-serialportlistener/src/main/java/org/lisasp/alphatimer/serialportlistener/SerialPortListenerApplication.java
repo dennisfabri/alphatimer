@@ -1,17 +1,19 @@
 package org.lisasp.alphatimer.serialportlistener;
 
+import gnu.io.NoSuchPortException;
+import gnu.io.PortInUseException;
+import gnu.io.UnsupportedCommOperationException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.lisasp.alphatimer.api.ares.serial.json.BytesInputEventModule;
+import org.lisasp.alphatimer.serial.*;
+import org.lisasp.alphatimer.serial.exceptions.NoPortsFoundException;
 import org.lisasp.basics.jre.date.ActualDate;
 import org.lisasp.basics.jre.date.ActualDateTime;
 import org.lisasp.basics.jre.date.DateFacade;
 import org.lisasp.basics.jre.date.DateTimeFacade;
 import org.lisasp.basics.jre.io.ActualFile;
 import org.lisasp.alphatimer.ares.serial.InputCollector;
-import org.lisasp.alphatimer.serial.DefaultSerialConnectionBuilder;
-import org.lisasp.alphatimer.serial.SerialConnectionBuilder;
-import org.lisasp.alphatimer.serial.Storage;
 import org.lisasp.basics.spring.jms.JsonMessageConverter;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.boot.ApplicationArguments;
@@ -27,6 +29,7 @@ import org.springframework.jms.core.JmsTemplate;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.Serial;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -60,38 +63,72 @@ public class SerialPortListenerApplication implements ApplicationRunner {
     }
 
     @Bean
-    @Scope(value = ConfigurableBeanFactory.SCOPE_SINGLETON)
     SerialConnectionBuilder serialConnectionBuilder() {
         return new DefaultSerialConnectionBuilder();
     }
 
     @Bean
-    @Scope(value = ConfigurableBeanFactory.SCOPE_SINGLETON)
+    SerialPortReader serialPortReader(SerialConnectionBuilder serialConnectionBuilder, ConfigurationValues config) throws IOException {
+        switch (config.getMode()) {
+            case Serial:
+                return createHardwarePortReader(serialConnectionBuilder, config);
+            case Tcp:
+                return createNetworkPortReader(config);
+        }
+        throw new IllegalStateException("This code must not be reached.");
+    }
+
+    private SerialPortReader createNetworkPortReader(ConfigurationValues config) throws IOException {
+        return new TcpReader(config.getTcpServer(), config.getTcpPort());
+    }
+
+    private SerialPortReader createHardwarePortReader(SerialConnectionBuilder serialConnectionBuilder, ConfigurationValues config) throws IOException {
+        try {
+            String port = config.getSerialPort();
+            if (hasNoValue(port)) {
+                port = serialConnectionBuilder.autoconfigurePort();
+            }
+
+            log.info("Connecting to port: {}", port);
+            return serialConnectionBuilder.configure(port, config.getSerialConfigurationObject()).buildReader();
+        } catch (NoPortsFoundException | NoSuchPortException nsp) {
+            log.error("No port with specified name present.");
+            throw new IOException("No port with specified name present.", nsp);
+        } catch (PortInUseException nsp) {
+            log.error("Specified port is already in use.");
+            throw new IOException("Specified port is already in use.", nsp);
+        } catch (UnsupportedCommOperationException uco) {
+            log.error("Unknown communication error occurred.", uco);
+            throw new IOException("Unknown communication error occurred.", uco);
+        }
+    }
+
+    private boolean hasNoValue(String port) {
+        return port == null || port.trim().equals("");
+    }
+
+    @Bean
     Storage storage(ConfigurationValues config) throws IOException {
         log.info("Using data path   : {}", new File(config.getStoragePath()).getCanonicalPath());
         return new Storage(config.getStoragePath(), new ActualFile(), new ActualDate());
     }
 
     @Bean
-    @Scope(value = ConfigurableBeanFactory.SCOPE_SINGLETON)
     InputCollector inputCollector(ConfigurationValues config, DateTimeFacade dateTimeFacade) {
         return new InputCollector(config.getCompetitionKey(), dateTimeFacade);
     }
 
     @Bean
-    @Scope(value = ConfigurableBeanFactory.SCOPE_SINGLETON)
     DateFacade dateFacade() {
         return new ActualDate();
     }
 
     @Bean
-    @Scope(value = ConfigurableBeanFactory.SCOPE_SINGLETON)
     DateTimeFacade dateTimeFacade() {
         return new ActualDateTime();
     }
 
     @Bean
-    @Scope(value = ConfigurableBeanFactory.SCOPE_SINGLETON)
     JsonMessageConverter jsonMessageConverter(CachingConnectionFactory connectionFactory) {
         JsonMessageConverter messageConverter = new JsonMessageConverter();
         messageConverter.registerModule(new BytesInputEventModule());

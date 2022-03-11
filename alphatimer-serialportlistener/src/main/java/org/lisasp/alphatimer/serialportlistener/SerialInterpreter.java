@@ -21,25 +21,17 @@ import java.io.IOException;
 @RequiredArgsConstructor
 public class SerialInterpreter {
 
-    private final SerialConnectionBuilder serialConnectionBuilder;
+    // private final SerialConnectionBuilder serialConnectionBuilder;
     private final ConfigurationValues config;
     private final Storage storage;
     private final InputCollector inputCollector;
     private final Sender sender;
 
-    private SerialPortReader reader;
+    private final SerialPortReader reader;
 
     public void start() {
-        try {
             initializePipeline();
             initializeSerialReader();
-        } catch (NoPortsFoundException | NoSuchPortException nsp) {
-            log.error("No port with specified name present.");
-        } catch (PortInUseException nsp) {
-            log.error("Specified port is already in use.");
-        } catch (UnsupportedCommOperationException uco) {
-            log.error("Unknown communication error occurred.", uco);
-        }
     }
 
     private void initializePipeline() {
@@ -48,28 +40,14 @@ public class SerialInterpreter {
         });
     }
 
-    private void initializeSerialReader() throws
-                                          NoSuchPortException,
-                                          PortInUseException,
-                                          NoPortsFoundException,
-                                          UnsupportedCommOperationException {
-        String port = config.getSerialPort();
-        if (hasNoValue(port)) {
-            port = serialConnectionBuilder.autoconfigurePort();
-        }
-
-        log.info("Connecting to port: {}", port);
-        reader = serialConnectionBuilder.configure(port, config.getSerialConfigurationObject()).buildReader().register(e -> {
+    private void initializeSerialReader() {
+        reader.register(e -> {
             try {
                 storage.write(e);
             } catch (IOException ex) {
                 log.warn("Could not save data.", ex);
             }
         }).register(inputCollector);
-    }
-
-    private boolean hasNoValue(String port) {
-        return port == null || port.trim().equals("");
     }
 
     @PreDestroy
