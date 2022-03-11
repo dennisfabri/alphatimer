@@ -1,6 +1,12 @@
 alphatimer:
   competitionKey:
-  serialPort:
+  connection:
+    mode: serial
+#    tcp:
+#      server:
+#      port:
+#    serial:
+#      port:
   storagePath: data
   serialConfiguration: ARES21
   queues:

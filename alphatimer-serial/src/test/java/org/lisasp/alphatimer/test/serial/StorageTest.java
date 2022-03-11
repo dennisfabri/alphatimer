@@ -3,16 +3,16 @@ package org.lisasp.alphatimer.test.serial;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.lisasp.alphatimer.serial.Storage;
 import org.lisasp.basics.jre.date.DateFacade;
 import org.lisasp.basics.jre.io.FileFacade;
-import org.lisasp.alphatimer.serial.Storage;
 import org.mockito.Mockito;
 
 import java.io.IOException;
+import java.nio.file.Path;
 import java.time.LocalDate;
 
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
-import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.*;
 
 class StorageTest {
@@ -23,15 +23,16 @@ class StorageTest {
 
     private static final String baseDir = "target/test-storage";
 
+    private static final Path serialFile = Path.of("target","test-storage", "2021-04-17.serial");
+
 
     @BeforeEach
     void prepare() throws IOException {
         dateTimeFacade = Mockito.mock(DateFacade.class);
         Mockito.when(dateTimeFacade.today()).thenReturn(LocalDate.of(2021, 4, 17));
         fileFacade = Mockito.mock(FileFacade.class);
-        Mockito.when(fileFacade.read("target/test-storage/2021-04-17.serial")).thenReturn(new byte[]{0x01, 0x02, 0x03, 0x04});
-        Mockito.when(fileFacade.read(anyString())).thenReturn(new byte[]{0x01, 0x02, 0x03, 0x04});
-        Mockito.when(fileFacade.getSeparator()).thenReturn("/");
+        Mockito.when(fileFacade.get(any())).thenReturn(new byte[]{0x05, 0x06, 0x07, 0x08, 0x09});
+        Mockito.when(fileFacade.get(serialFile)).thenReturn(new byte[]{0x01, 0x02, 0x03, 0x04});
         storage = new Storage(baseDir, fileFacade, dateTimeFacade);
     }
 
@@ -49,8 +50,7 @@ class StorageTest {
         assertArrayEquals(new byte[]{0x01, 0x02, 0x03, 0x04}, data);
 
         verify(dateTimeFacade, times(1)).today();
-        verify(fileFacade, times(1)).read("target/test-storage/2021-04-17.serial");
-        verify(fileFacade, atLeastOnce()).getSeparator();
+        verify(fileFacade, times(1)).get(serialFile);
 
         verifyNoMoreInteractions(dateTimeFacade);
         verifyNoMoreInteractions(fileFacade);
@@ -64,11 +64,10 @@ class StorageTest {
         storage.write((byte) 0x04);
 
         verify(dateTimeFacade, times(4)).today();
-        verify(fileFacade, times(1)).write("target/test-storage/2021-04-17.serial", (byte) 0x01);
-        verify(fileFacade, times(1)).write("target/test-storage/2021-04-17.serial", (byte) 0x02);
-        verify(fileFacade, times(1)).write("target/test-storage/2021-04-17.serial", (byte) 0x03);
-        verify(fileFacade, times(1)).write("target/test-storage/2021-04-17.serial", (byte) 0x04);
-        verify(fileFacade, atLeastOnce()).getSeparator();
+        verify(fileFacade, times(1)).append(serialFile, (byte) 0x01);
+        verify(fileFacade, times(1)).append(serialFile, (byte) 0x02);
+        verify(fileFacade, times(1)).append(serialFile, (byte) 0x03);
+        verify(fileFacade, times(1)).append(serialFile, (byte) 0x04);
 
         verifyNoMoreInteractions(dateTimeFacade);
         verifyNoMoreInteractions(fileFacade);

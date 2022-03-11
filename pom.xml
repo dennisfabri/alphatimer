@@ -6,7 +6,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>[2.5.5, 2.999)</version>
+        <version>[2.6.4, 2.6.999)</version>
     </parent>
 
     <groupId>org.lisasp.alphatimer</groupId>
@@ -51,7 +51,7 @@
         <lombok.version>1.18.22</lombok.version>
         <nrjavaserial.version>5.2.1</nrjavaserial.version>
         <xstream.version>1.4.19</xstream.version>
-        <vaadin.version>22.0.5</vaadin.version>
+        <vaadin.version>23.0.1</vaadin.version>
         <vaadin.helper.version>1.9.0</vaadin.helper.version>
         <vaadin.exampledata.version>3.4.0</vaadin.exampledata.version>
         <jetbrains.annotations.version>23.0.0</jetbrains.annotations.version>
@@ -59,9 +59,9 @@
         <junit-jupiter.version>5.8.2</junit-jupiter.version>
         <junit.version>4.13.2</junit.version>
         <testcontainers.version>1.16.3</testcontainers.version>
-        <mockito.version>4.3.1</mockito.version>
+        <mockito.version>4.4.0</mockito.version>
         <mockrunner.version>2.0.6</mockrunner.version>
-        <webdrivermanager.version>5.0.3</webdrivermanager.version>
+        <webdrivermanager.version>5.1.0</webdrivermanager.version>
         <cloning.version>1.10.3</cloning.version>
 
         <h2.version>2.1.210</h2.version>
@@ -191,7 +191,7 @@
             <dependency>
                 <groupId>org.apache.activemq</groupId>
                 <artifactId>artemis-jms-server</artifactId>
-                <version>[2.19.1, 2.19.999)</version>
+                <version>2.20.0</version>
             </dependency>
             <dependency>
                 <groupId>org.apache.activemq</groupId>
