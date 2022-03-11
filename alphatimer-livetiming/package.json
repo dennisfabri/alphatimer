@@ -11,7 +11,7 @@
     "@vaadin/vaadin-accordion": "21.0.0",
     "@vaadin/vaadin-app-layout": "21.0.0",
     "@vaadin/vaadin-avatar": "21.0.0",
-    "@vaadin/vaadin-button": "21.0.0",
+    "@vaadin/vaadin-button": "21.0.5",
     "@vaadin/vaadin-checkbox": "21.0.0",
     "@vaadin/vaadin-combo-box": "21.0.0",
     "@vaadin/vaadin-context-menu": "21.0.0",
