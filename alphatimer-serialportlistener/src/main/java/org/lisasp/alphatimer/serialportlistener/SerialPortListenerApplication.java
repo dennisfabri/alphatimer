@@ -1,21 +1,21 @@
 package org.lisasp.alphatimer.serialportlistener;
 
-import gnu.io.NoSuchPortException;
-import gnu.io.PortInUseException;
-import gnu.io.UnsupportedCommOperationException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.lisasp.alphatimer.api.ares.serial.json.BytesInputEventModule;
-import org.lisasp.alphatimer.serial.*;
-import org.lisasp.alphatimer.serial.exceptions.NoPortsFoundException;
+import org.lisasp.alphatimer.api.serial.SerialConnectionBuilder;
+import org.lisasp.alphatimer.api.serial.SerialPortReader;
+import org.lisasp.alphatimer.api.serial.exceptions.NoPortsFoundException;
+import org.lisasp.alphatimer.ares.serial.InputCollector;
+import org.lisasp.alphatimer.serial.com.DefaultSerialConnectionBuilder;
+import org.lisasp.alphatimer.api.serial.Storage;
+import org.lisasp.alphatimer.serial.tcp.TcpReader;
 import org.lisasp.basics.jre.date.ActualDate;
 import org.lisasp.basics.jre.date.ActualDateTime;
 import org.lisasp.basics.jre.date.DateFacade;
 import org.lisasp.basics.jre.date.DateTimeFacade;
 import org.lisasp.basics.jre.io.ActualFile;
-import org.lisasp.alphatimer.ares.serial.InputCollector;
 import org.lisasp.basics.spring.jms.JsonMessageConverter;
-import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.SpringApplication;
@@ -23,13 +23,11 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.Scope;
 import org.springframework.jms.connection.CachingConnectionFactory;
 import org.springframework.jms.core.JmsTemplate;
 
 import java.io.File;
 import java.io.IOException;
-import java.io.Serial;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -91,15 +89,9 @@ public class SerialPortListenerApplication implements ApplicationRunner {
 
             log.info("Connecting to port: {}", port);
             return serialConnectionBuilder.configure(port, config.getSerialConfigurationObject()).buildReader();
-        } catch (NoPortsFoundException | NoSuchPortException nsp) {
-            log.error("No port with specified name present.");
-            throw new IOException("No port with specified name present.", nsp);
-        } catch (PortInUseException nsp) {
-            log.error("Specified port is already in use.");
-            throw new IOException("Specified port is already in use.", nsp);
-        } catch (UnsupportedCommOperationException uco) {
-            log.error("Unknown communication error occurred.", uco);
-            throw new IOException("Unknown communication error occurred.", uco);
+        } catch (NoPortsFoundException uco) {
+            log.error("No ports found.", uco);
+            throw new IOException("No ports found.", uco);
         }
     }
 

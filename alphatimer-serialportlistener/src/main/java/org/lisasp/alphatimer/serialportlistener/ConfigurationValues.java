@@ -4,7 +4,7 @@ import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import org.apache.logging.log4j.util.Strings;
 import org.lisasp.basics.jre.date.DateFacade;
-import org.lisasp.alphatimer.serial.configuration.SerialConfiguration;
+import org.lisasp.alphatimer.api.serial.configuration.SerialConfiguration;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 

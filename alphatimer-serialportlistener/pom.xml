@@ -23,7 +23,11 @@
         </dependency>
         <dependency>
             <groupId>org.lisasp.alphatimer</groupId>
-            <artifactId>alphatimer-serial</artifactId>
+            <artifactId>alphatimer-serial-com</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.lisasp.alphatimer</groupId>
+            <artifactId>alphatimer-serial-tcp</artifactId>
         </dependency>
         <dependency>
             <groupId>org.lisasp.alphatimer</groupId>

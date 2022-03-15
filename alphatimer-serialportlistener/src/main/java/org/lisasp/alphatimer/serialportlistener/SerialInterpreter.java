@@ -1,15 +1,10 @@
 package org.lisasp.alphatimer.serialportlistener;
 
-import gnu.io.NoSuchPortException;
-import gnu.io.PortInUseException;
-import gnu.io.UnsupportedCommOperationException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.lisasp.alphatimer.ares.serial.InputCollector;
-import org.lisasp.alphatimer.serial.SerialConnectionBuilder;
-import org.lisasp.alphatimer.serial.SerialPortReader;
-import org.lisasp.alphatimer.serial.Storage;
-import org.lisasp.alphatimer.serial.exceptions.NoPortsFoundException;
+import org.lisasp.alphatimer.api.serial.SerialPortReader;
+import org.lisasp.alphatimer.api.serial.Storage;
 import org.lisasp.alphatimer.serialportlistener.mq.Sender;
 import org.springframework.stereotype.Component;
 

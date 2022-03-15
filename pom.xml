@@ -23,7 +23,9 @@
         <module>alphatimer-refinedmessages</module>
         <module>alphatimer-legacy</module>
         <module>alphatimer-datatests</module>
-        <module>alphatimer-serial</module>
+        <module>alphatimer-serial-api</module>
+        <module>alphatimer-serial-tcp</module>
+        <module>alphatimer-serial-com</module>
         <module>alphatimer-messagesstorage</module>
         <module>alphatimer-heats</module>
 
@@ -149,7 +151,17 @@
             </dependency>
             <dependency>
                 <groupId>org.lisasp.alphatimer</groupId>
-                <artifactId>alphatimer-serial</artifactId>
+                <artifactId>alphatimer-serial-api</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.lisasp.alphatimer</groupId>
+                <artifactId>alphatimer-serial-tcp</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.lisasp.alphatimer</groupId>
+                <artifactId>alphatimer-serial-com</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
@@ -527,6 +539,11 @@
                     <groupId>org.codehaus.mojo</groupId>
                     <artifactId>build-helper-maven-plugin</artifactId>
                     <version>3.2.0</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.codehaus.mojo</groupId>
+                    <artifactId>exec-maven-plugin</artifactId>
+                    <version>3.0.0</version>
                 </plugin>
             </plugins>
         </pluginManagement>

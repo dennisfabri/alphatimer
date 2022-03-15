@@ -5,10 +5,10 @@ import gnu.io.PortInUseException;
 import gnu.io.UnsupportedCommOperationException;
 import lombok.extern.slf4j.Slf4j;
 import org.lisasp.basics.jre.date.ActualDate;
-import org.lisasp.alphatimer.serial.SerialConnectionBuilder;
-import org.lisasp.alphatimer.serial.SerialPortWriter;
-import org.lisasp.alphatimer.serial.configuration.SerialConfiguration;
-import org.lisasp.alphatimer.serial.exceptions.NoPortsFoundException;
+import org.lisasp.alphatimer.api.serial.SerialConnectionBuilder;
+import org.lisasp.alphatimer.api.serial.SerialPortWriter;
+import org.lisasp.alphatimer.api.serial.configuration.SerialConfiguration;
+import org.lisasp.alphatimer.api.serial.exceptions.NoPortsFoundException;
 
 import java.io.IOException;
 import java.nio.file.Files;
