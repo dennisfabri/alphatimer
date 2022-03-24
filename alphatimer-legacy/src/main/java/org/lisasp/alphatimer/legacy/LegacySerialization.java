@@ -11,6 +11,7 @@ public class LegacySerialization {
         StringBuilder sb = new StringBuilder();
         sb.append("<AlphaServer.Heat-array>\n");
         for (Heat heat : heats) {
+            sb.append("  ");
             sb.append(addPrefixToEachLine(heat.toXML()));
             sb.append("\n");
         }
@@ -19,6 +20,6 @@ public class LegacySerialization {
     }
 
     private static String addPrefixToEachLine(String text) {
-        return "  " + String.join("\n  ", text.split("\n"));
+        return String.join("\n  ", text.split("\n"));
     }
 }

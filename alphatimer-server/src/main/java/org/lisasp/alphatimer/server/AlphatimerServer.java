@@ -3,15 +3,24 @@ package org.lisasp.alphatimer.server;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.lisasp.alphatimer.api.ares.serial.json.BytesInputEventModule;
+import org.lisasp.alphatimer.api.serial.SerialConnectionBuilder;
+import org.lisasp.alphatimer.api.serial.SerialPortReader;
+import org.lisasp.alphatimer.api.serial.Storage;
+import org.lisasp.alphatimer.ares.serial.InputCollector;
 import org.lisasp.alphatimer.legacy.LegacyService;
 import org.lisasp.alphatimer.ares.serial.MessageConverter;
 import org.lisasp.alphatimer.refinedmessages.DataHandlingMessageRefiner;
+import org.lisasp.alphatimer.serial.tcp.TcpReader;
 import org.lisasp.basics.jre.date.ActualDate;
 import org.lisasp.basics.jre.date.ActualDateTime;
 import org.lisasp.basics.jre.date.DateFacade;
 import org.lisasp.basics.jre.date.DateTimeFacade;
+import org.lisasp.basics.jre.io.ActualFile;
+import org.lisasp.basics.jre.io.FileFacade;
 import org.lisasp.basics.spring.jms.JsonMessageConverter;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
+import org.springframework.boot.ApplicationArguments;
+import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
@@ -22,6 +31,9 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.jms.connection.CachingConnectionFactory;
 import org.springframework.jms.core.JmsTemplate;
+
+import java.io.File;
+import java.io.IOException;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -76,9 +88,35 @@ public class AlphatimerServer {
     }
 
     @Bean
+    @Scope(value = ConfigurableBeanFactory.SCOPE_SINGLETON)
     JmsTemplate jmsTemplate(CachingConnectionFactory connectionFactory, JsonMessageConverter jsonMessageConverter) {
         JmsTemplate template = new JmsTemplate(connectionFactory);
         template.setMessageConverter(jsonMessageConverter);
         return template;
+    }
+
+    @Bean
+    @Scope(value = ConfigurableBeanFactory.SCOPE_SINGLETON)
+    SerialPortReader serialPortReader(ConfigurationValues config) {
+        return new TcpReader(config.getTcpServer(), config.getTcpPort());
+    }
+
+    @Bean
+    @Scope(value = ConfigurableBeanFactory.SCOPE_SINGLETON)
+    Storage storage(ConfigurationValues config, FileFacade fileFacade, DateFacade dateFacade) throws IOException {
+        log.info("Using data path: {}", new File(config.getStoragePath()).getCanonicalPath());
+        return new Storage(config.getStoragePath(), fileFacade, dateFacade);
+    }
+
+    @Bean
+    @Scope(value = ConfigurableBeanFactory.SCOPE_SINGLETON)
+    InputCollector inputCollector(ConfigurationValues config, DateTimeFacade dateTimeFacade) {
+        return new InputCollector(config.getCompetitionKey(), dateTimeFacade);
+    }
+
+    @Bean
+    @Scope(value = ConfigurableBeanFactory.SCOPE_SINGLETON)
+    FileFacade fileFacade() {
+        return new ActualFile();
     }
 }

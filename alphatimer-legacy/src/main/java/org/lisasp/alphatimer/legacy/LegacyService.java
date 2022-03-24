@@ -9,6 +9,7 @@ import org.lisasp.alphatimer.legacy.dto.Heat;
 import org.lisasp.alphatimer.legacy.dto.LaneStatus;
 import org.lisasp.alphatimer.legacy.entity.LaneTimeEntity;
 
+import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.List;
 import java.util.Optional;
@@ -84,7 +85,7 @@ public class LegacyService implements DataHandlingMessageListener {
     }
 
     public Heat[] getHeats() {
-        Hashtable<String, Heat> heats = new Hashtable<>();
+        HashMap<String, Heat> heats = new HashMap<>();
 
         List<LaneTimeEntity> laneTimes = repository.findAllByCompetition(currentCompetition).stream().sorted().collect(Collectors.toList());
         for (LaneTimeEntity laneTime : laneTimes) {

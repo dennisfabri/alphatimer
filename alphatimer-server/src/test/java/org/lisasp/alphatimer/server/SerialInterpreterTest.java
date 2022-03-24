@@ -3,13 +3,16 @@ package org.lisasp.alphatimer.server;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.lisasp.alphatimer.api.ares.serial.DataHandlingMessageRepository;
-import org.lisasp.basics.jre.date.DateTimeFacade;
-import org.lisasp.alphatimer.legacy.LegacyService;
+import org.lisasp.alphatimer.api.serial.SerialPortReader;
+import org.lisasp.alphatimer.api.serial.Storage;
 import org.lisasp.alphatimer.ares.serial.InputCollector;
 import org.lisasp.alphatimer.ares.serial.MessageConverter;
+import org.lisasp.alphatimer.legacy.LegacyService;
 import org.lisasp.alphatimer.refinedmessages.DataHandlingMessageRefiner;
 import org.lisasp.alphatimer.server.mq.Sender;
 import org.lisasp.alphatimer.server.testdoubles.TestDateFacade;
+import org.lisasp.basics.jre.date.DateTimeFacade;
+import org.lisasp.basics.notification.primitive.ByteListener;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -43,9 +46,6 @@ class SerialInterpreterTest {
         DateTimeFacade dateTimeFacade = mock(DateTimeFacade.class);
         when(dateTimeFacade.now()).thenReturn(LocalDateTime.of(2021, 6, 21, 14, 53));
 
-        config = new ConfigurationValues(new TestDateFacade());
-        // config.setStoragePath("target/test-SerialInterpreterTest");
-
         messages = Mockito.mock(DataHandlingMessageRepository.class);
 
         messageConverter = new MessageConverter();
@@ -53,8 +53,22 @@ class SerialInterpreterTest {
         inputCollector = new InputCollector("TestWK", dateTimeFacade);
         inputCollector.register(messageConverter);
 
-        serialInterpreter = new SerialInterpreter(messages,
-                                                  config,
+        SerialPortReader reader = new SerialPortReader() {
+            @Override
+            public SerialPortReader register(ByteListener listener) {
+                return this;
+            }
+
+            @Override
+            public void close() {
+
+            }
+        };
+
+        serialInterpreter = new SerialInterpreter(reader,
+                                                  mock(Storage.class),
+                                                  mock(InputCollector.class),
+                                                  messages,
                                                   new LegacyService(repository),
                                                   messageConverter,
                                                   new DataHandlingMessageRefiner(),

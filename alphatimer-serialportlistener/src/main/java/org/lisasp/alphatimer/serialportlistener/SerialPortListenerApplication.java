@@ -2,20 +2,17 @@ package org.lisasp.alphatimer.serialportlistener;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.lisasp.alphatimer.api.ares.serial.json.BytesInputEventModule;
 import org.lisasp.alphatimer.api.serial.SerialConnectionBuilder;
 import org.lisasp.alphatimer.api.serial.SerialPortReader;
 import org.lisasp.alphatimer.api.serial.exceptions.NoPortsFoundException;
 import org.lisasp.alphatimer.ares.serial.InputCollector;
 import org.lisasp.alphatimer.serial.com.DefaultSerialConnectionBuilder;
 import org.lisasp.alphatimer.api.serial.Storage;
-import org.lisasp.alphatimer.serial.tcp.TcpReader;
 import org.lisasp.basics.jre.date.ActualDate;
 import org.lisasp.basics.jre.date.ActualDateTime;
 import org.lisasp.basics.jre.date.DateFacade;
 import org.lisasp.basics.jre.date.DateTimeFacade;
 import org.lisasp.basics.jre.io.ActualFile;
-import org.lisasp.basics.spring.jms.JsonMessageConverter;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.SpringApplication;
@@ -23,8 +20,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
-import org.springframework.jms.connection.CachingConnectionFactory;
-import org.springframework.jms.core.JmsTemplate;
 
 import java.io.File;
 import java.io.IOException;
@@ -47,17 +42,11 @@ public class SerialPortListenerApplication implements ApplicationRunner {
 
     @Override
     public void run(ApplicationArguments args) {
-        configureJmsMessageConverter();
         startSerialPortListener();
     }
 
     private void startSerialPortListener() {
         context.getBean(SerialInterpreter.class).start();
-    }
-
-    private void configureJmsMessageConverter() {
-        JmsTemplate jmsTemplate = context.getBean(JmsTemplate.class);
-        jmsTemplate.setMessageConverter(context.getBean(JsonMessageConverter.class));
     }
 
     @Bean
@@ -67,20 +56,6 @@ public class SerialPortListenerApplication implements ApplicationRunner {
 
     @Bean
     SerialPortReader serialPortReader(SerialConnectionBuilder serialConnectionBuilder, ConfigurationValues config) throws IOException {
-        switch (config.getMode()) {
-            case Serial:
-                return createHardwarePortReader(serialConnectionBuilder, config);
-            case Tcp:
-                return createNetworkPortReader(config);
-        }
-        throw new IllegalStateException("This code must not be reached.");
-    }
-
-    private SerialPortReader createNetworkPortReader(ConfigurationValues config) throws IOException {
-        return new TcpReader(config.getTcpServer(), config.getTcpPort());
-    }
-
-    private SerialPortReader createHardwarePortReader(SerialConnectionBuilder serialConnectionBuilder, ConfigurationValues config) throws IOException {
         try {
             String port = config.getSerialPort();
             if (hasNoValue(port)) {
@@ -101,7 +76,7 @@ public class SerialPortListenerApplication implements ApplicationRunner {
 
     @Bean
     Storage storage(ConfigurationValues config) throws IOException {
-        log.info("Using data path   : {}", new File(config.getStoragePath()).getCanonicalPath());
+        log.info("Using data path: {}", new File(config.getStoragePath()).getCanonicalPath());
         return new Storage(config.getStoragePath(), new ActualFile(), new ActualDate());
     }
 
@@ -118,12 +93,5 @@ public class SerialPortListenerApplication implements ApplicationRunner {
     @Bean
     DateTimeFacade dateTimeFacade() {
         return new ActualDateTime();
-    }
-
-    @Bean
-    JsonMessageConverter jsonMessageConverter(CachingConnectionFactory connectionFactory) {
-        JsonMessageConverter messageConverter = new JsonMessageConverter();
-        messageConverter.registerModule(new BytesInputEventModule());
-        return messageConverter;
     }
 }

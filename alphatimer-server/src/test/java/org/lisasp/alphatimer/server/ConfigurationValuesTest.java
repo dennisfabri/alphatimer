@@ -21,7 +21,6 @@ class ConfigurationValuesTest {
     }
 
     void test() {
-        assertEquals("", config.getAresQueueName());
+        assertEquals("", config.getRefinedQueueName());
     }
-
 }

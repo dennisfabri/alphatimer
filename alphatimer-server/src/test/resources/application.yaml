@@ -8,7 +8,9 @@ alphatimer:
   serialConfiguration: Ares21
   queues:
     refined: refined-messages
-    ares: ares-messages
+  serial:
+    tcp:
+      server: localhost
 
 spring:
   artemis:

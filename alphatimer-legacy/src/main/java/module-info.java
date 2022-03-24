@@ -11,6 +11,7 @@ module org.lisasp.alphatimer.legacy {
     requires transitive org.lisasp.basics.spring.jpa;
 
     requires java.validation;
+    requires java.persistence;
 
     requires static lombok;
 }

@@ -13,8 +13,16 @@ public class ConfigurationValues {
 
     private final DateFacade dates;
 
-    @Value("${alphatimer.queues.ares:ares-messages}")
-    private String aresQueueName;
+    @Value("${alphatimer.serial.tcp.server}")
+    private String tcpServer;
+    @Value("${alphatimer.serial.tcp.port:8585}")
+    private int tcpPort;
+
+    @Value("${alphatimer.storagePath:data}")
+    private String storagePath;
+    @Value("${alphatimer.competitionKey:}")
+    private String competitionKey;
+
     @Value("${alphatimer.queues.refined:refined-messages}")
     private String refinedQueueName;
 }

@@ -18,8 +18,7 @@ import java.nio.file.Path;
 public class WriteToSerialPort {
 
     void run(String filename, String port, String config, SerialConnectionBuilder serialConnectionBuilder)
-            throws UnsupportedCommOperationException, NoSuchPortException, PortInUseException,
-                   NoPortsFoundException, IOException {
+            throws NoPortsFoundException, IOException {
         if (isEmpty(filename)) {
             log.error("Filename not specified.");
             return;

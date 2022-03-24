@@ -3,6 +3,7 @@ package org.lisasp.alphatimer.serialportlistener;
 import gnu.io.NoSuchPortException;
 import gnu.io.PortInUseException;
 import gnu.io.UnsupportedCommOperationException;
+import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.lisasp.alphatimer.api.serial.SerialConnectionBuilder;
 import org.lisasp.alphatimer.serial.com.SerialLoopTester;
@@ -15,6 +16,7 @@ import java.util.TooManyListenersException;
 @Slf4j
 public class SerialLoopTest {
 
+    @SneakyThrows
     void run(SerialConnectionBuilder serialConnectionBuilder) {
         try {
             new SerialLoopTester(serialConnectionBuilder).testSerialConnection(SerialConfiguration.ARES21);
@@ -26,6 +28,7 @@ public class SerialLoopTest {
             log.error("Problem communicating with serial port", e);
         } catch (InterruptedException e) {
             log.error("Problem during execution", e);
+            throw e;
         }
     }
 }
