@@ -50,7 +50,7 @@
         <basics.version>1.0.0-SNAPSHOT</basics.version>
 
         <slf4j.version>1.7.36</slf4j.version>
-        <lombok.version>1.18.22</lombok.version>
+        <lombok.version>1.18.24</lombok.version>
         <nrjavaserial.version>5.2.1</nrjavaserial.version>
         <xstream.version>1.4.19</xstream.version>
         <vaadin.version>23.0.1</vaadin.version>
