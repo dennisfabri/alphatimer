@@ -19,22 +19,13 @@ public class SerialConfiguration {
     public static final int BAUD_256000 = 256000;
     public static final int BAUD_512000 = 512000;
 
-    public static final SerialConfiguration ARES21 = new SerialConfiguration(BAUD_9600,
-                                                                             DataBits.Seven,
-                                                                             StopBits.One,
-                                                                             Parity.Even);
-    public static final SerialConfiguration Quantum = new SerialConfiguration(BAUD_9600,
-                                                                              DataBits.Eight,
-                                                                              StopBits.One,
-                                                                              Parity.None);
-    public static final SerialConfiguration TEST = new SerialConfiguration(BAUD_512000,
-                                                                           DataBits.Seven,
-                                                                           StopBits.One,
-                                                                           Parity.Even);
+    public static final SerialConfiguration ARES21 = new SerialConfiguration(BAUD_9600, DataBits.Seven, Parity.Even, StopBits.One);
+    public static final SerialConfiguration Quantum = new SerialConfiguration(BAUD_9600, DataBits.Eight, Parity.None, StopBits.One);
+    public static final SerialConfiguration TEST = new SerialConfiguration(BAUD_512000, DataBits.Seven, Parity.Even, StopBits.One);
 
     private final int baud;
     private final DataBits databits;
-    private final StopBits stopbits;
     private final Parity parity;
+    private final StopBits stopbits;
 
 }

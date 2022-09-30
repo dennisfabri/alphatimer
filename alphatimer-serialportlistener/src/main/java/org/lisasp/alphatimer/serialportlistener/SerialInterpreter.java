@@ -5,7 +5,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.lisasp.alphatimer.api.serial.SerialPortReader;
 import org.lisasp.alphatimer.api.serial.Storage;
 import org.lisasp.alphatimer.serialportlistener.tcp.TcpServer;
-import org.springframework.integration.ip.tcp.TcpInboundGateway;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PreDestroy;
