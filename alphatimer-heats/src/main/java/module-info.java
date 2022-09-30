@@ -24,5 +24,7 @@ module org.lisasp.alphatimer.heats {
     requires java.persistence;
     requires java.validation;
 
+    requires org.slf4j;
+
     requires static lombok;
 }

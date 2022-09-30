@@ -74,3 +74,5 @@ HELP.md
 
 /*/data/
 
+vite.config.ts
+vite.generated.ts

@@ -13,5 +13,7 @@ module org.lisasp.alphatimer.legacy {
     requires java.validation;
     requires java.persistence;
 
+    requires org.slf4j;
+
     requires static lombok;
 }
