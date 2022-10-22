@@ -16,7 +16,7 @@ import org.lisasp.alphatimer.refinedmessages.DataHandlingMessageRefiner;
 import org.lisasp.alphatimer.server.mq.Sender;
 import org.springframework.stereotype.Component;
 
-import javax.annotation.PostConstruct;
+import jakarta.annotation.PostConstruct;
 import java.io.IOException;
 
 @Component

@@ -10,8 +10,8 @@ module org.lisasp.alphatimer.legacy {
 
     requires transitive org.lisasp.basics.spring.jpa;
 
-    requires java.validation;
-    requires java.persistence;
+    requires jakarta.validation;
+    requires jakarta.persistence;
 
     requires org.slf4j;
 

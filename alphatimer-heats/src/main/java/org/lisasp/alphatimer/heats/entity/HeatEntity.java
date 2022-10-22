@@ -6,9 +6,9 @@ import org.lisasp.alphatimer.heats.api.HeatDto;
 import org.lisasp.alphatimer.heats.api.LaneDto;
 import org.lisasp.basics.spring.jpa.TimestampedEntity;
 
-import javax.persistence.*;
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotNull;
+import jakarta.persistence.*;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 import java.util.List;
 

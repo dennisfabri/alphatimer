@@ -9,10 +9,10 @@ import org.lisasp.alphatimer.api.ares.serial.events.DataInputEvent;
 import org.lisasp.alphatimer.api.ares.serial.json.BytesInputEventModule;
 import org.lisasp.basics.spring.jms.JsonMessageConverter;
 
-import javax.jms.JMSException;
-import javax.jms.Message;
-import javax.jms.Session;
-import javax.jms.TextMessage;
+import jakarta.jms.JMSException;
+import jakarta.jms.Message;
+import jakarta.jms.Session;
+import jakarta.jms.TextMessage;
 import java.time.LocalDateTime;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;

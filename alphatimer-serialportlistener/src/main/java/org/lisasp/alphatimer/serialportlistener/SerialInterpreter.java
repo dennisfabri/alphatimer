@@ -7,7 +7,7 @@ import org.lisasp.alphatimer.api.serial.Storage;
 import org.lisasp.alphatimer.serialportlistener.tcp.TcpServer;
 import org.springframework.stereotype.Component;
 
-import javax.annotation.PreDestroy;
+import jakarta.annotation.PreDestroy;
 import java.io.IOException;
 
 @Component

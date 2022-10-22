@@ -6,8 +6,8 @@ import lombok.NoArgsConstructor;
 import org.lisasp.alphatimer.api.ares.serial.events.messages.enums.*;
 import org.lisasp.basics.spring.jpa.BaseEntity;
 
-import javax.persistence.*;
-import javax.validation.constraints.Min;
+import jakarta.persistence.*;
+import jakarta.validation.constraints.Min;
 import java.time.LocalDateTime;
 
 @Entity()
