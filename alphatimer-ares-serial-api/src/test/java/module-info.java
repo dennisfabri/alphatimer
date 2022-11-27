@@ -9,7 +9,7 @@ module org.lisasp.alphatimer.test.api.ares.serial {
     opens org.lisasp.alphatimer.test.api.ares.serial.events.messages.values;
 
     requires spring.jms;
-    requires jakarta.jms.api;
+    requires jakarta.messaging;
 
     requires org.lisasp.basics.spring.jms;
 
