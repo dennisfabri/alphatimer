@@ -117,7 +117,7 @@
     "@webcomponents/shadycss": "1.9.6",
     "construct-style-sheets-polyfill": "3.1.0",
     "date-fns": "2.23.0",
-    "lit": "2.3.0",
+    "lit": "2.3.1",
     "lumo-css-framework": "^4.0.10"
   },
   "devDependencies": {
@@ -149,7 +149,8 @@
     "rollup-plugin-brotli": "3.1.0",
     "@rollup/pluginutils": "4.1.0",
     "vite-plugin-checker": "0.4.9",
-    "transform-ast": "2.4.4"
+    "transform-ast": "2.4.4",
+    "strip-css-comments": "5.0.0"
   },
   "vaadin": {
     "dependencies": {
@@ -267,7 +268,7 @@
       "@webcomponents/shadycss": "1.9.6",
       "construct-style-sheets-polyfill": "3.1.0",
       "date-fns": "2.23.0",
-      "lit": "2.3.0"
+      "lit": "2.3.1"
     },
     "devDependencies": {
       "chokidar": "^3.5.0",
@@ -298,7 +299,8 @@
       "rollup-plugin-brotli": "3.1.0",
       "@rollup/pluginutils": "4.1.0",
       "vite-plugin-checker": "0.4.9",
-      "transform-ast": "2.4.4"
+      "transform-ast": "2.4.4",
+      "strip-css-comments": "5.0.0"
     },
     "hash": "cddeebfc581bbdff8ab041bb65a01d8183f92dd1b7402f3e6bba6aa3005113e7"
   },
