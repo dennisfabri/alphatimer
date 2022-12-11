@@ -49,26 +49,26 @@
 
         <basics.version>1.0.0-SNAPSHOT</basics.version>
 
-        <slf4j.version>2.0.3</slf4j.version>
+        <slf4j.version>2.0.5</slf4j.version>
         <lombok.version>1.18.24</lombok.version>
         <nrjavaserial.version>5.2.1</nrjavaserial.version>
         <xstream.version>1.4.19</xstream.version>
-        <vaadin.version>23.2.2</vaadin.version>
+        <vaadin.version>23.2.11</vaadin.version>
         <vaadin.helper.version>1.9.0</vaadin.helper.version>
         <vaadin.exampledata.version>3.4.0</vaadin.exampledata.version>
-        <jetbrains.annotations.version>23.0.0</jetbrains.annotations.version>
+        <jetbrains.annotations.version>23.1.0</jetbrains.annotations.version>
 
         <junit-jupiter.version>5.9.1</junit-jupiter.version>
         <junit.version>4.13.2</junit.version>
-        <testcontainers.version>1.17.4</testcontainers.version>
-        <mockito.version>4.8.0</mockito.version>
+        <testcontainers.version>1.17.6</testcontainers.version>
+        <mockito.version>4.9.0</mockito.version>
         <mockrunner.version>2.0.6</mockrunner.version>
-        <webdrivermanager.version>5.3.0</webdrivermanager.version>
+        <webdrivermanager.version>5.3.1</webdrivermanager.version>
         <cloning.version>1.10.3</cloning.version>
 
         <h2.version>2.1.214</h2.version>
         <mssql-jdbc.version>11.2.1.jre17</mssql-jdbc.version>
-        <mariadb.version>3.0.8</mariadb.version>
+        <mariadb.version>3.1.0</mariadb.version>
 
         <maven-failsave-plugin.version>3.0.0-M7</maven-failsave-plugin.version>
     </properties>
@@ -423,7 +423,7 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-site-plugin</artifactId>
-                    <version>3.9.1</version>
+                    <version>3.12.0</version>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
@@ -464,6 +464,11 @@
                     <groupId>org.codehaus.mojo</groupId>
                     <artifactId>exec-maven-plugin</artifactId>
                     <version>3.1.0</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.codehaus.mojo</groupId>
+                    <artifactId>versions-maven-plugin</artifactId>
+                    <version>2.11.0</version>
                 </plugin>
             </plugins>
         </pluginManagement>
@@ -592,6 +597,14 @@
                         </configuration>
                     </execution>
                 </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>versions-maven-plugin</artifactId>
+                <version>2.11.0</version>
+                <configuration>
+                    <rulesUri>file:./version-rules.xml</rulesUri>
+                </configuration>
             </plugin>
         </plugins>
     </build>
