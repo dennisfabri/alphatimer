@@ -15,7 +15,7 @@
     "@vaadin/board": "23.0.1",
     "@vaadin/bundles": "23.0.1",
     "@vaadin/button": "23.0.1",
-    "@vaadin/charts": "23.0.1",
+    "@vaadin/charts": "23.2.10",
     "@vaadin/checkbox": "23.0.1",
     "@vaadin/checkbox-group": "23.0.1",
     "@vaadin/combo-box": "23.0.1",
