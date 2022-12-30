@@ -34,12 +34,12 @@ import java.io.IOException;
 @EntityScan(basePackages = {"org.lisasp.alphatimer"})
 @EnableJpaRepositories("org.lisasp.alphatimer")
 @SpringBootApplication(scanBasePackages = {"org.lisasp.alphatimer"})
-public class AlphatimerServer {
+public class Alphatimer {
 
     private final ConfigurableApplicationContext context;
 
     public static void main(String[] args) {
-        SpringApplication.run(AlphatimerServer.class, args);
+        SpringApplication.run(Alphatimer.class, args);
     }
 
     @Bean
