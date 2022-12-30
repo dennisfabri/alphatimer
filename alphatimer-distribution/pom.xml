@@ -15,7 +15,7 @@
     <dependencies>
         <dependency>
             <groupId>org.lisasp.alphatimer</groupId>
-            <artifactId>alphatimer-server</artifactId>
+            <artifactId>alphatimer</artifactId>
         </dependency>
     </dependencies>
 

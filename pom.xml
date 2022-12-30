@@ -28,7 +28,7 @@
         <module>alphatimer-messagesstorage</module>
         <module>alphatimer-heats</module>
 
-        <module>alphatimer-server</module>
+        <module>alphatimer</module>
 
         <module>alphatimer-distribution</module>
     </modules>
@@ -147,12 +147,7 @@
             </dependency>
             <dependency>
                 <groupId>org.lisasp.alphatimer</groupId>
-                <artifactId>alphatimer-server</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.lisasp.alphatimer</groupId>
-                <artifactId>alphatimer-spring-jpa</artifactId>
+                <artifactId>alphatimer</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
