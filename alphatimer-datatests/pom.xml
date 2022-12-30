@@ -19,28 +19,32 @@
     <dependencies>
         <dependency>
             <groupId>org.lisasp.alphatimer</groupId>
+            <artifactId>alphatimer-legacy</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.lisasp.alphatimer</groupId>
             <artifactId>alphatimer-ares-serial</artifactId>
+            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.lisasp.alphatimer</groupId>
             <artifactId>alphatimer-refinedmessages</artifactId>
+            <scope>test</scope>
         </dependency>
-        <dependency>
-            <groupId>org.lisasp.alphatimer</groupId>
-            <artifactId>alphatimer-legacy</artifactId>
-        </dependency>
-
         <dependency>
             <groupId>org.lisasp.alphatimer</groupId>
             <artifactId>alphatimer-legacy</artifactId>
             <type>test-jar</type>
             <scope>test</scope>
         </dependency>
+
         <dependency>
             <groupId>io.github.kostaskougios</groupId>
             <artifactId>cloning</artifactId>
             <scope>test</scope>
         </dependency>
+
         <dependency>
             <groupId>com.thoughtworks.xstream</groupId>
             <artifactId>xstream</artifactId>

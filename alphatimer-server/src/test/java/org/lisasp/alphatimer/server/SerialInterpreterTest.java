@@ -9,8 +9,6 @@ import org.lisasp.alphatimer.ares.serial.InputCollector;
 import org.lisasp.alphatimer.ares.serial.MessageConverter;
 import org.lisasp.alphatimer.legacy.LegacyService;
 import org.lisasp.alphatimer.refinedmessages.DataHandlingMessageRefiner;
-import org.lisasp.alphatimer.server.mq.Sender;
-import org.lisasp.alphatimer.server.testdoubles.TestDateFacade;
 import org.lisasp.basics.jre.date.DateTimeFacade;
 import org.lisasp.basics.notification.primitive.ByteListener;
 import org.mockito.Mockito;
@@ -71,8 +69,7 @@ class SerialInterpreterTest {
                                                   messages,
                                                   new LegacyService(repository),
                                                   messageConverter,
-                                                  new DataHandlingMessageRefiner(),
-                                                  Mockito.mock(Sender.class)
+                                                  new DataHandlingMessageRefiner()
         );
     }
 

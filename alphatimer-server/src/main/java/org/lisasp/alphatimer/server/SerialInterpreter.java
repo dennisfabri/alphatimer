@@ -13,7 +13,6 @@ import org.lisasp.alphatimer.ares.serial.MessageConverter;
 import org.lisasp.alphatimer.legacy.LegacySerialization;
 import org.lisasp.alphatimer.legacy.LegacyService;
 import org.lisasp.alphatimer.refinedmessages.DataHandlingMessageRefiner;
-import org.lisasp.alphatimer.server.mq.Sender;
 import org.springframework.stereotype.Component;
 
 import jakarta.annotation.PostConstruct;
@@ -32,7 +31,6 @@ public class SerialInterpreter {
     private final LegacyService legacy;
     private final MessageConverter messageConverter;
     private final DataHandlingMessageRefiner messageRefiner;
-    private final Sender sender;
 
     @PostConstruct
     public void start() {
@@ -41,8 +39,6 @@ public class SerialInterpreter {
     }
 
     private void initializePipeline() {
-        messageRefiner.register(m -> sender.send(m));
-
         DataHandlingMessageAggregator aggregator = new MessageAggregator();
         aggregator.register(legacy);
         aggregator.register(e -> messages.put(e));

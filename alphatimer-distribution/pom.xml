@@ -15,15 +15,7 @@
     <dependencies>
         <dependency>
             <groupId>org.lisasp.alphatimer</groupId>
-            <artifactId>alphatimer-artemismq</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.lisasp.alphatimer</groupId>
             <artifactId>alphatimer-server</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.lisasp.alphatimer</groupId>
-            <artifactId>alphatimer-serialportlistener</artifactId>
         </dependency>
     </dependencies>
 

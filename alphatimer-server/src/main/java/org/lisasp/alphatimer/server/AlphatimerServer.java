@@ -2,8 +2,6 @@ package org.lisasp.alphatimer.server;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.lisasp.alphatimer.api.ares.serial.json.BytesInputEventModule;
-import org.lisasp.alphatimer.api.serial.SerialConnectionBuilder;
 import org.lisasp.alphatimer.api.serial.SerialPortReader;
 import org.lisasp.alphatimer.api.serial.Storage;
 import org.lisasp.alphatimer.ares.serial.InputCollector;
@@ -17,10 +15,7 @@ import org.lisasp.basics.jre.date.DateFacade;
 import org.lisasp.basics.jre.date.DateTimeFacade;
 import org.lisasp.basics.jre.io.ActualFile;
 import org.lisasp.basics.jre.io.FileFacade;
-import org.lisasp.basics.spring.jms.JsonMessageConverter;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
-import org.springframework.boot.ApplicationArguments;
-import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
@@ -29,8 +24,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Scope;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
-import org.springframework.jms.connection.CachingConnectionFactory;
-import org.springframework.jms.core.JmsTemplate;
 
 import java.io.File;
 import java.io.IOException;
@@ -77,22 +70,6 @@ public class AlphatimerServer {
     @Scope(value = ConfigurableBeanFactory.SCOPE_SINGLETON)
     DateTimeFacade dateTimeFacade() {
         return new ActualDateTime();
-    }
-
-    @Bean
-    @Scope(value = ConfigurableBeanFactory.SCOPE_SINGLETON)
-    JsonMessageConverter jsonMessageConverter(CachingConnectionFactory connectionFactory) {
-        JsonMessageConverter messageConverter = new JsonMessageConverter();
-        messageConverter.registerModule(new BytesInputEventModule());
-        return messageConverter;
-    }
-
-    @Bean
-    @Scope(value = ConfigurableBeanFactory.SCOPE_SINGLETON)
-    JmsTemplate jmsTemplate(CachingConnectionFactory connectionFactory, JsonMessageConverter jsonMessageConverter) {
-        JmsTemplate template = new JmsTemplate(connectionFactory);
-        template.setMessageConverter(jsonMessageConverter);
-        return template;
     }
 
     @Bean

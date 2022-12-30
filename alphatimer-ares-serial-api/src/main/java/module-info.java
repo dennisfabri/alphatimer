@@ -11,8 +11,6 @@ module org.lisasp.alphatimer.api.ares.serial {
     opens org.lisasp.alphatimer.api.ares.serial.events;
     opens org.lisasp.alphatimer.api.ares.serial.events.messages;
 
-    requires org.lisasp.basics.notification;
-
     requires com.fasterxml.jackson.core;
     requires com.fasterxml.jackson.databind;
 

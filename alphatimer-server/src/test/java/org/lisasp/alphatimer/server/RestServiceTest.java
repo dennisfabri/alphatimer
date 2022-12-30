@@ -9,10 +9,9 @@ import org.lisasp.alphatimer.messagesstorage.AresMessageRepository;
 import org.lisasp.alphatimer.messagesstorage.Messages;
 import org.lisasp.alphatimer.ares.serial.MessageConverter;
 import org.lisasp.alphatimer.refinedmessages.DataHandlingMessageRefiner;
-import org.lisasp.alphatimer.server.mq.Sender;
-import org.lisasp.alphatimer.server.testdoubles.TestDateFacade;
-import org.mockito.Mockito;
+
 import static org.mockito.Mockito.*;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.DirtiesContext;
@@ -38,8 +37,7 @@ class RestServiceTest {
                         new Messages(mock(AresMessageRepository.class)),
                         new LegacyService(repository),
                         new MessageConverter(),
-                        new DataHandlingMessageRefiner(),
-                        mock(Sender.class)
+                        new DataHandlingMessageRefiner()
                 )
         );
 

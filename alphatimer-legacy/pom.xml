@@ -22,7 +22,7 @@
             <groupId>org.lisasp.basics</groupId>
             <artifactId>basics-spring-jpa</artifactId>
         </dependency>
-        
+
         <dependency>
             <groupId>jakarta.validation</groupId>
             <artifactId>jakarta.validation-api</artifactId>

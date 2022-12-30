@@ -1,6 +1,0 @@
-alphatimer:
-  #competitionKey:
-  #connection.serial.port:
-  #storagePath: data
-  #serialConfiguration: ARES21
-  #tcp.server.port: 8585

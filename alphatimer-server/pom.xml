@@ -15,11 +15,6 @@
 
     <dependencies>
         <dependency>
-            <groupId>org.lisasp.basics</groupId>
-            <artifactId>basics-spring-jms</artifactId>
-        </dependency>
-
-        <dependency>
             <groupId>org.lisasp.alphatimer</groupId>
             <artifactId>alphatimer-ares-serial</artifactId>
         </dependency>
@@ -43,10 +38,6 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-artemis</artifactId>
         </dependency>
 
         <dependency>
@@ -75,18 +66,8 @@
         </dependency>
 
         <dependency>
-            <groupId>org.lisasp.alphatimer</groupId>
-            <artifactId>alphatimer-datatests</artifactId>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.activemq</groupId>
-            <artifactId>artemis-jms-server</artifactId>
             <scope>test</scope>
         </dependency>
     </dependencies>
