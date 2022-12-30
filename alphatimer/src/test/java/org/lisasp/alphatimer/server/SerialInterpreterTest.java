@@ -75,7 +75,7 @@ class SerialInterpreterTest {
 
     @Test
     void getLegacyData() {
-        String result = serialInterpreter.getLegacyData();
+        String result = serialInterpreter.getLegacyDataXML();
         assertEquals("<AlphaServer.Heat-array/>", result);
     }
 

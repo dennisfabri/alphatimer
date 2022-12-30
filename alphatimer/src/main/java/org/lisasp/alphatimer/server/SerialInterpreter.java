@@ -1,5 +1,6 @@
 package org.lisasp.alphatimer.server;
 
+import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.lisasp.alphatimer.api.ares.serial.DataHandlingMessageAggregator;
@@ -12,10 +13,10 @@ import org.lisasp.alphatimer.ares.serial.MessageAggregator;
 import org.lisasp.alphatimer.ares.serial.MessageConverter;
 import org.lisasp.alphatimer.legacy.LegacySerialization;
 import org.lisasp.alphatimer.legacy.LegacyService;
+import org.lisasp.alphatimer.legacy.dto.Heat;
 import org.lisasp.alphatimer.refinedmessages.DataHandlingMessageRefiner;
 import org.springframework.stereotype.Component;
 
-import jakarta.annotation.PostConstruct;
 import java.io.IOException;
 
 @Component
@@ -67,7 +68,11 @@ public class SerialInterpreter {
     }
 
 
-    public String getLegacyData() {
+    public String getLegacyDataXML() {
         return LegacySerialization.toXML(legacy.getHeats());
+    }
+
+    public Heat[] getLegacyData() {
+        return legacy.getHeats();
     }
 }
