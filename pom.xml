@@ -59,7 +59,7 @@
 
         <h2.version>2.1.214</h2.version>
         <mssql-jdbc.version>11.2.2.jre17</mssql-jdbc.version>
-        <mariadb.version>3.1.0</mariadb.version>
+        <mariadb.version>3.1.2</mariadb.version>
 
         <maven-failsave-plugin.version>3.0.0-M7</maven-failsave-plugin.version>
     </properties>
