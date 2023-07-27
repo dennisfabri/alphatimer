@@ -57,7 +57,7 @@
         <webdrivermanager.version>5.3.1</webdrivermanager.version>
         <cloning.version>1.10.3</cloning.version>
 
-        <h2.version>2.1.214</h2.version>
+        <h2.version>2.2.220</h2.version>
         <mssql-jdbc.version>11.2.2.jre17</mssql-jdbc.version>
         <mariadb.version>3.1.0</mariadb.version>
 
