@@ -8,6 +8,7 @@ module org.lisasp.alphatimer.messagesstorage {
 
     requires spring.context;
     requires spring.data.jpa;
+
     requires jakarta.validation;
     requires jakarta.persistence;
 

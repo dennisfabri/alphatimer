@@ -18,8 +18,8 @@ module org.lisasp.alphatimer.heats {
     requires org.lisasp.basics.spring.jpa;
 
     requires spring.context;
-    requires spring.tx;
     requires spring.data.commons;
+    requires spring.tx;
 
     requires jakarta.persistence;
     requires jakarta.validation;

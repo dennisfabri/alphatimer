@@ -10,7 +10,7 @@ import org.lisasp.alphatimer.ares.serial.MessageConverter;
 import org.lisasp.alphatimer.legacy.LegacyService;
 import org.lisasp.alphatimer.refinedmessages.DataHandlingMessageRefiner;
 import org.lisasp.basics.jre.date.DateTimeFacade;
-import org.lisasp.basics.notification.primitive.ByteListener;
+import org.lisasp.basics.notification.primitive.ByteConsumer;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -53,7 +53,7 @@ class SerialInterpreterTest {
 
         SerialPortReader reader = new SerialPortReader() {
             @Override
-            public SerialPortReader register(ByteListener listener) {
+            public SerialPortReader register(ByteConsumer listener) {
                 return this;
             }
 

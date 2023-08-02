@@ -3,7 +3,7 @@ package org.lisasp.alphatimer.serial.tcp;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.lisasp.alphatimer.api.serial.SerialPortReader;
-import org.lisasp.basics.notification.primitive.ByteListener;
+import org.lisasp.basics.notification.primitive.ByteConsumer;
 import org.lisasp.basics.notification.primitive.ByteNotifier;
 
 import java.io.IOException;
@@ -102,7 +102,7 @@ public class TcpReader implements SerialPortReader {
         }
     }
 
-    public SerialPortReader register(ByteListener listener) {
+    public SerialPortReader register(ByteConsumer listener) {
         notifier.register(listener);
         return this;
     }

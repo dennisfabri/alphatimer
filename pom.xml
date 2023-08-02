@@ -43,25 +43,25 @@
         <maven.compiler.source>${java.version}</maven.compiler.source>
         <maven.compiler.target>${java.version}</maven.compiler.target>
 
-        <basics.version>1.0.0-SNAPSHOT</basics.version>
+        <basics.version>1.0.2</basics.version>
 
-        <slf4j.version>2.0.6</slf4j.version>
-        <lombok.version>1.18.24</lombok.version>
+        <slf4j.version>2.0.7</slf4j.version>
+        <lombok.version>1.18.26</lombok.version>
         <xstream.version>1.4.20</xstream.version>
-        <jetbrains.annotations.version>23.1.0</jetbrains.annotations.version>
+        <jetbrains.annotations.version>24.0.1</jetbrains.annotations.version>
 
-        <junit-jupiter.version>5.9.1</junit-jupiter.version>
-        <testcontainers.version>1.17.6</testcontainers.version>
-        <mockito.version>4.10.0</mockito.version>
+        <junit-jupiter.version>5.9.3</junit-jupiter.version>
+        <testcontainers.version>1.18.0</testcontainers.version>
+        <mockito.version>5.3.1</mockito.version>
         <mockrunner.version>2.0.6</mockrunner.version>
-        <webdrivermanager.version>5.3.1</webdrivermanager.version>
+        <webdrivermanager.version>5.3.2</webdrivermanager.version>
         <cloning.version>1.10.3</cloning.version>
 
         <h2.version>2.1.214</h2.version>
-        <mssql-jdbc.version>11.2.2.jre17</mssql-jdbc.version>
-        <mariadb.version>3.1.0</mariadb.version>
+        <mssql-jdbc.version>12.2.0.jre11</mssql-jdbc.version>
+        <mariadb.version>3.1.4</mariadb.version>
 
-        <maven-failsave-plugin.version>3.0.0-M7</maven-failsave-plugin.version>
+        <maven-failsave-plugin.version>3.0.0</maven-failsave-plugin.version>
     </properties>
 
     <distributionManagement>
@@ -157,17 +157,17 @@
             </dependency>
 
             <dependency>
-                <groupId>org.lisasp.basics</groupId>
+                <groupId>org.lisasp</groupId>
                 <artifactId>basics-jre</artifactId>
                 <version>${basics.version}</version>
             </dependency>
             <dependency>
-                <groupId>org.lisasp.basics</groupId>
+                <groupId>org.lisasp</groupId>
                 <artifactId>basics-spring-jpa</artifactId>
                 <version>${basics.version}</version>
             </dependency>
             <dependency>
-                <groupId>org.lisasp.basics</groupId>
+                <groupId>org.lisasp</groupId>
                 <artifactId>basics-notification</artifactId>
                 <version>${basics.version}</version>
             </dependency>
@@ -320,28 +320,33 @@
             <plugins>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-dependency-plugin</artifactId>
-                    <version>3.4.0</version>
-                </plugin>
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-compiler-plugin</artifactId>
-                    <version>3.10.1</version>
-                </plugin>
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-clean-plugin</artifactId>
                     <version>3.2.0</version>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-compiler-plugin</artifactId>
+                    <version>3.11.0</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-dependency-plugin</artifactId>
+                    <version>3.5.0</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-deploy-plugin</artifactId>
-                    <version>3.0.0</version>
+                    <version>3.1.1</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-enforcer-plugin</artifactId>
+                    <version>3.3.0</version>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-install-plugin</artifactId>
-                    <version>3.1.0</version>
+                    <version>3.1.1</version>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
@@ -356,12 +361,12 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-resources-plugin</artifactId>
-                    <version>3.3.0</version>
+                    <version>3.3.1</version>
                 </plugin>
                 <plugin>
                     <groupId>org.pitest</groupId>
                     <artifactId>pitest-maven</artifactId>
-                    <version>1.10.3</version>
+                    <version>1.13.1</version>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
@@ -391,7 +396,7 @@
                 <plugin>
                     <groupId>org.codehaus.mojo</groupId>
                     <artifactId>versions-maven-plugin</artifactId>
-                    <version>2.14.2</version>
+                    <version>2.15.0</version>
                 </plugin>
             </plugins>
         </pluginManagement>
@@ -486,7 +491,6 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-enforcer-plugin</artifactId>
-                <version>3.1.0</version>
                 <executions>
                     <execution>
                         <id>enforce-maven</id>

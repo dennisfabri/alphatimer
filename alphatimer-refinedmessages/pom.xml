@@ -22,7 +22,7 @@
             <artifactId>alphatimer-refinedmessages-api</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.lisasp.basics</groupId>
+            <groupId>org.lisasp</groupId>
             <artifactId>basics-notification</artifactId>
         </dependency>
     </dependencies>
