@@ -46,13 +46,13 @@
         <basics.version>1.0.3</basics.version>
 
         <slf4j.version>2.0.12</slf4j.version>
-        <lombok.version>1.18.30</lombok.version>
+        <lombok.version>1.18.32</lombok.version>
         <xstream.version>1.4.20</xstream.version>
         <jetbrains.annotations.version>24.1.0</jetbrains.annotations.version>
 
         <junit-jupiter.version>5.10.2</junit-jupiter.version>
-        <testcontainers.version>1.19.6</testcontainers.version>
-        <mockito.version>5.10.0</mockito.version>
+        <testcontainers.version>1.19.7</testcontainers.version>
+        <mockito.version>5.11.0</mockito.version>
         <mockrunner.version>2.0.7</mockrunner.version>
         <webdrivermanager.version>5.7.0</webdrivermanager.version>
         <cloning.version>1.10.3</cloning.version>
@@ -326,7 +326,7 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-compiler-plugin</artifactId>
-                    <version>3.12.1</version>
+                    <version>3.13.0</version>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
