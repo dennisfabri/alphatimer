@@ -45,7 +45,7 @@
 
         <basics.version>1.0.3</basics.version>
 
-        <slf4j.version>2.0.12</slf4j.version>
+        <slf4j.version>2.0.13</slf4j.version>
         <lombok.version>1.18.32</lombok.version>
         <xstream.version>1.4.20</xstream.version>
         <jetbrains.annotations.version>24.1.0</jetbrains.annotations.version>
@@ -54,12 +54,10 @@
         <testcontainers.version>1.19.7</testcontainers.version>
         <mockito.version>5.11.0</mockito.version>
         <mockrunner.version>2.0.7</mockrunner.version>
-        <webdrivermanager.version>5.7.0</webdrivermanager.version>
+        <webdrivermanager.version>5.8.0</webdrivermanager.version>
         <cloning.version>1.10.3</cloning.version>
 
         <h2.version>2.2.224</h2.version>
-        <mssql-jdbc.version>12.6.1.jre11</mssql-jdbc.version>
-        <mariadb.version>3.3.3</mariadb.version>
 
         <maven-failsave-plugin.version>3.2.5</maven-failsave-plugin.version>
     </properties>
@@ -243,16 +241,6 @@
                 <artifactId>h2</artifactId>
                 <version>${h2.version}</version>
             </dependency>
-            <dependency>
-                <groupId>com.microsoft.sqlserver</groupId>
-                <artifactId>mssql-jdbc</artifactId>
-                <version>${mssql-jdbc.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.mariadb.jdbc</groupId>
-                <artifactId>mariadb-java-client</artifactId>
-                <version>${mariadb.version}</version>
-            </dependency>
 
             <dependency>
                 <groupId>io.github.bonigarcia</groupId>
@@ -356,7 +344,7 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-jar-plugin</artifactId>
-                    <version>3.3.0</version>
+                    <version>3.4.0</version>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
@@ -366,7 +354,7 @@
                 <plugin>
                     <groupId>org.pitest</groupId>
                     <artifactId>pitest-maven</artifactId>
-                    <version>1.15.8</version>
+                    <version>1.16.0</version>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
