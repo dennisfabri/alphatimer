@@ -8,11 +8,15 @@ import org.lisasp.basics.notification.primitive.ByteNotifier;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.InetSocketAddress;
 import java.net.Socket;
+import java.net.SocketAddress;
 import java.net.SocketException;
 
 @Slf4j
 public class TcpReader implements SerialPortReader {
+
+    private static final int TIMEOUT_60s = 60000;
 
     private final ByteNotifier notifier = new ByteNotifier();
 
@@ -56,7 +60,7 @@ public class TcpReader implements SerialPortReader {
     private void closeConnection() {
         try {
             socket.close();
-        } catch (IOException e) {
+        } catch (IOException ignored) {
         }
     }
 
@@ -65,7 +69,7 @@ public class TcpReader implements SerialPortReader {
             if (input != null) {
                 try {
                     input.close();
-                } catch (IOException e) {
+                } catch (IOException ignored) {
                 }
             }
             input = null;
@@ -79,13 +83,15 @@ public class TcpReader implements SerialPortReader {
 
     @SneakyThrows
     private void sleep(int seconds) {
-        Thread.sleep(seconds * 1000);
+        Thread.sleep(seconds * 1000L);
     }
 
     private void manageConnection() {
         try {
             if (socket == null) {
-                socket = new Socket(server, port);
+                socket = new Socket();
+                socket.setSoTimeout(TIMEOUT_60s);
+                socket.connect(new InetSocketAddress(server, port), TIMEOUT_60s);
                 input = socket.getInputStream();
             }
         } catch (IOException ex) {
