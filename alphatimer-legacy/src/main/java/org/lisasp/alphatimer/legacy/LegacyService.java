@@ -10,9 +10,7 @@ import org.lisasp.alphatimer.legacy.dto.LaneStatus;
 import org.lisasp.alphatimer.legacy.entity.LaneTimeEntity;
 
 import java.util.HashMap;
-import java.util.Hashtable;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Slf4j
@@ -22,14 +20,11 @@ public class LegacyService implements DataHandlingMessageListener {
 
     private String currentCompetition = "";
 
-    public LegacyService(LegacyRepository repository) {
+    public LegacyService(LegacyRepository repository, String competitionKey) {
         this.repository = repository;
+        this.currentCompetition = competitionKey;
 
-        Optional<LaneTimeEntity> entity = repository.findTop1ByOrderByTimestampDesc();
-        entity.ifPresent(e -> {
-            currentCompetition = e.getCompetition();
-            log.info("Selected competition: ", currentCompetition);
-        });
+        log.info("Selected competition: {}", currentCompetition);
     }
 
     @Override

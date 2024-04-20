@@ -35,7 +35,7 @@ class RestServiceTest {
                         mock(Storage.class),
                         mock(InputCollector.class),
                         new Messages(mock(AresMessageRepository.class)),
-                        new LegacyService(repository),
+                        new LegacyService(repository, "TestWK"),
                         new MessageConverter(),
                         new DataHandlingMessageRefiner()
                 )

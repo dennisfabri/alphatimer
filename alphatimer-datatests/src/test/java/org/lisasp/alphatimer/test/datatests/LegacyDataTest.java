@@ -38,7 +38,7 @@ class LegacyDataTest {
     void prepare() {
         testData = new TestData();
 
-        timeStorage = new LegacyService(new TestLegacyRepository());
+        timeStorage = new LegacyService(new TestLegacyRepository(),"TestWK");
 
         DateTimeFacade dateTimeFacade = new DateTimeFacadeTestDouble(LocalDateTime.of(2021, 6, 1, 10, 0));
 

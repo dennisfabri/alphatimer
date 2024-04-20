@@ -67,7 +67,7 @@ class SerialInterpreterTest {
                                                   mock(Storage.class),
                                                   mock(InputCollector.class),
                                                   messages,
-                                                  new LegacyService(repository),
+                                                  new LegacyService(repository, config.getCompetitionKey()),
                                                   messageConverter,
                                                   new DataHandlingMessageRefiner()
         );

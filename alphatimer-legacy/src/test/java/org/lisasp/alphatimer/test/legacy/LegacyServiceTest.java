@@ -23,7 +23,7 @@ class LegacyServiceTest {
 
     @BeforeEach
     void prepare() {
-        legacyService = new LegacyService(new TestLegacyRepository());
+        legacyService = new LegacyService(new TestLegacyRepository(), "TestWK");
     }
 
     @AfterEach

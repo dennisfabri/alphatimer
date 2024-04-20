@@ -76,3 +76,4 @@ HELP.md
 
 vite.config.ts
 vite.generated.ts
+/data/

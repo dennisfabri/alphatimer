@@ -44,8 +44,8 @@ public class Alphatimer {
 
     @Bean
     @Scope(value = ConfigurableBeanFactory.SCOPE_SINGLETON)
-    LegacyService legacyTimeStorage(LegacyJPARepository repository) {
-        return new LegacyService(repository);
+    LegacyService legacyTimeStorage(LegacyJPARepository repository, ConfigurationValues config) {
+        return new LegacyService(repository, config.getCompetitionKey());
     }
 
     @Bean

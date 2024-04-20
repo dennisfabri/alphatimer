@@ -20,7 +20,7 @@ public class ConfigurationValues {
 
     @Value("${alphatimer.storagePath:data}")
     private String storagePath;
-    @Value("${alphatimer.competitionKey:}")
+    @Value("${alphatimer.competitionKey}")
     private String competitionKey;
 
     @Value("${alphatimer.queues.refined:refined-messages}")
